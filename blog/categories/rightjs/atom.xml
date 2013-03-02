@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rightjs | Fabio Kreusch]]></title>
+  <link href="http://fabiokr.github.com/blog/categories/rightjs/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-02T18:57:38-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
+  <author>
+    <name><![CDATA[Fabio Kreusch]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[RightJS Growl notification Widget]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget/"/>
+    <updated>2010-10-09T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget</id>
+    <content type="html"><![CDATA[<p>Hi there!</p>
+
+<p>I'm experimenting with
+<a href="http://rightjs.org/">RightJS</a> on some personal projects, and I'm starting to like it!</p>
+
+<p>I have also developed my first Widget, a Growl like notification. It is based on
+<a href="http://code.google.com/p/jquery-purr/">Jquery-purr</a> plugin, and I have ported it to RightJS. It's freely available on
+<a href="http://github.com/fabiokr/rightjs-growl">Github</a>.</p>
+
+<p>I must do some tests on IE, but for now it's functional on Firefox and Chrome (the ones I have tested).</p>
+
+<p>Until next time!</p>
+]]></content>
+  </entry>
+  
+</feed>

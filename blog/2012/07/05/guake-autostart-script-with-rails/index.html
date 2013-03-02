@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Fabio Kreusch</title>
+  <title>Guake autostart script with Rails - Fabio Kreusch</title>
   <meta name="author" content="Fabio Kreusch">
 
   
-  <meta name="description" content="Hi, I am a software engineer! Thank you for visiting my website. My name is Fabio Kreusch, and I am a software engineer experienced with web and &hellip;">
+  <meta name="description" content="I use
+Guake terminal in my development
+Ubuntu machine, and most of the time I find myself repeating a ton of commands to start my Rails devlopment &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://fabiokr.github.com/">
+  <link rel="canonical" href="http://fabiokr.github.com/blog/2012/07/05/guake-autostart-script-with-rails/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,29 +77,107 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
-  <article>
-    <h1>Hi, I am a software engineer!</h1>
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Guake Autostart Script With Rails</h1>
+    
+    
+      <p class="meta">
+        
 
-    <img class="left" src="/assets/avatar-summer.jpg" />
 
-    <p>Thank you for visiting my website.</p>
 
-    <p>My name is <strong>Fabio Kreusch</strong>, and I am a software engineer experienced with web and systems development. My development utility belt includes Ruby, PHP, Java, HTML, Javascript and databases (MySQL, Oracle, Postgres) and it keeps expanding. I like to keep up with what is new in the software development world.</p>
 
-    <p>I&#8217;m currently a <a href="http://www.eng5.com">software engineer</a> at <a href="http://www.site5.com">Site5</a>.</p>
 
-    <p>Here is a list of resources where you can find more information about my experiences and what I have been doing:</p>
 
-    <ul>
-      <li><a href="https://github.com/fabiokr">Github</a> account with open source projects</li>
-      <li>Online resume at <a href="http://www.linkedin.com/in/fabiokreusch">LinkedIn</a></li>
-      <li>Online resume at <a href="http://careers.stackoverflow.com/fabiokr">Stack Overflow Careers</a></li>
-    </ul>
 
-    <p>You can contact me through <a href="mailto:fabiokr@gmail.com">my email</a>.</p>
-  </article>
+
+  
+
+
+<time datetime="2012-07-05T17:23:00-03:00" pubdate data-updated="true">Jul 5<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I use
+<a href="http://guake.org/">Guake</a> terminal in my development
+<a href="http://www.ubuntu.com">Ubuntu</a> machine, and most of the time I find myself repeating a ton of commands to start my Rails devlopment environment, each process under its own tab. So today I finally took some time to setup a simple script that sets up Guake the way I want it. By adding something like the following to your .bashrc file, you&#8217;ll be able to start it by running the &#8220;guake-my-project&#8221; command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>guake-my-project() {  
+</span><span class='line'>    guake --rename-tab=Specs" --execute-command="cd ~/path/to/project && bundle exec guard" &&  
+</span><span class='line'>    guake --new-tab=2 --rename-tab="Server" --execute-command="cd ~/path/to/project && rails s" &&  
+</span><span class='line'>    guake --new-tab=3 --rename-tab="MyProject" --execute-command="cd ~/path/to/project";
+</span><span class='line'>  }</span></code></pre></td></tr></table></div></figure>
+
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Fabio Kreusch</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-05T17:23:00-03:00" pubdate data-updated="true">Jul 5<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux-ubuntu-rails/'>Linux Ubuntu Rails</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://fabiokr.github.com/blog/2012/07/05/guake-autostart-script-with-rails/" data-via="fabiokr" data-counturl="http://fabiokr.github.com/blog/2012/07/05/guake-autostart-script-with-rails/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/01/13/notifying-delayed-job-failures-by-default/" title="Previous Post: Notifying delayed_job failures by default">&laquo; Notifying delayed_job failures by default</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/" title="Next Post: Jquery silently fails on ajax errors">Jquery silently fails on ajax errors &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -130,7 +210,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/fabiokr">@fabiokr</a> on GitHub
@@ -160,7 +240,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -176,6 +256,7 @@
 
   
 </aside>
+
 
     </div>
   </div>

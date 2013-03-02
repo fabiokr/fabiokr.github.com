@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Cakephp | Fabio Kreusch]]></title>
+  <link href="http://fabiokr.github.com/blog/categories/cakephp/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-02T18:57:38-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
+  <author>
+    <name><![CDATA[Fabio Kreusch]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Segmentation fault no apache ao fazer Code Coverage com Cakephp]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp/"/>
+    <updated>2010-03-23T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp</id>
+    <content type="html"><![CDATA[<p> Tive problemas ao tentar usar o Xdebug com os testes no CakePHP. Meu ambiente é um Ubuntu 9.10, Apache 2, PHP 5 com XDebug instalado via apt-get. Ao tentar executar os testes no Cake com code coverage report, o processo morria, e o seguinte erro aparecia no log do Apache:</p>
+
+<blockquote><p>[Tue Mar 23 09:58:38 2010] [notice] child pid 16792 exit signal Segmentation fault (11)</p></blockquote>
+
+<p>Encontrei
+<a href="%22\" title="http://mark-story.com/posts/view/code-coverage-in-cakephp-1-2-test-suite\&quot;\">nesta</a> página uma solução que resolveu meu problema:</p>
+
+<p>Altere a linha 115 do arquivo cake/tests/lib/code_coverage_manager.php para:</p>
+
+<blockquote><p>xdebug_start_code_coverage(XDEBUG_CC_UNUSED);</p></blockquote>
+
+<p>Pronto! </p>
+]]></content>
+  </entry>
+  
+</feed>

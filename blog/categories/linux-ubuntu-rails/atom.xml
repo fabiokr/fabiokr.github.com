@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Linux Ubuntu Rails | Fabio Kreusch]]></title>
+  <link href="http://fabiokr.github.com/blog/categories/linux-ubuntu-rails/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-02T18:57:38-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
+  <author>
+    <name><![CDATA[Fabio Kreusch]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Guake autostart script with Rails]]></title>
+    <link href="http://fabiokr.github.com/blog/2012/07/05/guake-autostart-script-with-rails/"/>
+    <updated>2012-07-05T17:23:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2012/07/05/guake-autostart-script-with-rails</id>
+    <content type="html"><![CDATA[<p>I use
+<a href="http://guake.org/">Guake</a> terminal in my development
+<a href="http://www.ubuntu.com">Ubuntu</a> machine, and most of the time I find myself repeating a ton of commands to start my Rails devlopment environment, each process under its own tab. So today I finally took some time to setup a simple script that sets up Guake the way I want it. By adding something like the following to your .bashrc file, you'll be able to start it by running the "guake-my-project" command:</p>
+
+<p>```
+guake-my-project() {  </p>
+
+<pre><code>  guake --rename-tab=Specs" --execute-command="cd ~/path/to/project &amp;&amp; bundle exec guard" &amp;&amp;  
+  guake --new-tab=2 --rename-tab="Server" --execute-command="cd ~/path/to/project &amp;&amp; rails s" &amp;&amp;  
+  guake --new-tab=3 --rename-tab="MyProject" --execute-command="cd ~/path/to/project";
+}
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>

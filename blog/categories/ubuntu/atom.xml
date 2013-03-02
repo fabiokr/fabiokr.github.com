@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ubuntu | Fabio Kreusch]]></title>
+  <link href="http://fabiokr.github.com/blog/categories/ubuntu/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-02T18:57:38-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
+  <author>
+    <name><![CDATA[Fabio Kreusch]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Record a screen cast to a gif file]]></title>
+    <link href="http://fabiokr.github.com/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/"/>
+    <updated>2012-09-19T15:08:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2012/09/19/record-a-screen-cast-to-a-gif-file</id>
+    <content type="html"><![CDATA[<p>Here is a simple shell script that converts a recorded ogv file to an animated gif, pretty useful for demonstrating small interactions. For recording an ogv, I've been using Record my Desktop on Ubuntu. You'll also need mplayer, and imagemagick. Under Ubuntu/Debian, you can install those with this:</p>
+
+<p><code>
+apt-get install imagemagick mplayer gtk-recordmydesktop
+</code></p>
+
+<p>And here is the shell script:</p>
+
+<p>``` sh
+ogv_to_gif() {
+  # Export into images
+  mplayer -ao null $1 -vo jpeg:outdir=/tmp/ogv_to_gif</p>
+
+<p>  # Convert images to animated gif
+  echo "Converting images folder to gif..."
+  convert /tmp/ogv_to_gif/* /tmp/ogv_to_gif.gif</p>
+
+<p>  # Final filename
+  original_filename=$1
+  filename=${original_filename//ogv/gif}</p>
+
+<p>  # Optimize gif
+  echo "Optimizing generated gif..."
+  convert /tmp/ogv_to_gif.gif -fuzz 10% -layers Optimize "$filename"</p>
+
+<p>  # Cleans up tmp folders
+  rm -rf /tmp/ogv_to_gif.gif /tmp/ogv_to_gif
+}
+```</p>
+
+<p> </p>
+]]></content>
+  </entry>
+  
+</feed>

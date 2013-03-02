@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rails | Fabio Kreusch]]></title>
+  <link href="http://fabiokr.github.com/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-02T18:57:38-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
+  <author>
+    <name><![CDATA[Fabio Kreusch]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Notifying delayed_job failures by default]]></title>
+    <link href="http://fabiokr.github.com/blog/2012/01/13/notifying-delayed-job-failures-by-default/"/>
+    <updated>2012-01-13T12:35:00-02:00</updated>
+    <id>http://fabiokr.github.com/blog/2012/01/13/notifying-delayed-job-failures-by-default</id>
+    <content type="html"><![CDATA[<p>Here is a helpful code snippet to notify delayed_job errors by default in a Rails application. In a config/initializers file, add the following:</p>
+
+<p>``` ruby</p>
+
+<h1>Optional but recommended for less future surprises.</h1>
+
+<h1>Fail at startup if method does not exist instead of in background job </h1>
+
+<p>[[Airbrake, :notify]].each do |object, method_name|
+  raise NoMethodError, "undefined method `#{method_name}' for #{object.inspect}" unless object.respond_to?(method_name, true)
+end</p>
+
+<h1>Chain delayed job's handle_failed_job method to do exception notification</h1>
+
+<p>Delayed::Worker.class_eval do 
+  def handle_failed_job_with_notification(job, error)
+    handle_failed_job_without_notification(job, error)</p>
+
+<p>    # only actually send mail in production
+    if Rails.env.production?
+      # rescue if ExceptionNotifier fails for some reason
+      begin
+        Airbrake.notify(error)
+      rescue Exception => e
+        Rails.logger.error "Airbrake failed: #{e.class.name}: #{e.message}"</p>
+
+<p>        e.backtrace.each do |f|
+          Rails.logger.error "  #{f}"
+        end</p>
+
+<p>        Rails.logger.flush
+      end
+    end
+  end </p>
+
+<p>  alias_method_chain :handle_failed_job, :notification 
+end
+```</p>
+
+<p>In this example, Airbrake is being used for error notification, but this can be easily changed to the desired notification method.</p>
+
+<p>Credits to this thread: 
+<a href="http://stackoverflow.com/questions/5972903/how-to-make-exceptionnotifier-work-with-delayed-job-in-rails-3">http://stackoverflow.com/questions/5972903/how-to-make-exceptionnotifier-work-with-delayed-job-in-rails-3</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Manageable Content - Rails 3.1 Content Management Engine]]></title>
+    <link href="http://fabiokr.github.com/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/"/>
+    <updated>2011-08-23T23:37:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine</id>
+    <content type="html"><![CDATA[<p>Hi there!</p>
+
+<p>This is a tutorial post about a gem I have just released:
+<a href="https://github.com/fabiokr/manageable_content">manageable_content</a>. It is a content management framework for Rails 3.1. It provides a basic mapping between controllers to manageable contents. More detailed info can be found on the
+<a href="https://github.com/fabiokr/manageable_content/blob/master/README.rdoc">README</a> file.</p>
+
+<p>In this post, I'll show how to create a new Rails project using the engine. The full example is available in
+<a href="https://github.com/fabiokr/manageable_content_example_app">Github</a>. So, let the fun begin!</p>
+
+<p>The first step is to create a new Rails app. Right now the engine requires Rails 3.1, so be sure to have it installed:</p>
+
+<p><code>
+rails new manageable_content_example_app
+</code></p>
+
+<p>So, the ideia of the website is to allow each page to have its own title in a manageable way. We will also have two controllers, Home and Contact. Home controller will have a body content, and Contact will have a body and a side content. Also, we need a content for the footer that will be shared across all pages. </p>
+
+<p>Let's generate our controllers first:</p>
+
+<p><code>
+rails g controller home index --no-helper
+rails g controller contact index --no-helper
+</code></p>
+
+<p>In
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/c90fae643a6dc778d6b744487b6f9abe81f8c7c9">this commit</a> I have added sample contents so that you can see which contents we want to be manageable.</p>
+
+<p>Ok, now we need to add manageable_content to our Gemfile. This line needs to be added:</p>
+
+<p><code>ruby
+gem 'manageable_content'
+</code></p>
+
+<p>Then, run the 'bundle' command to install it. After that, we need to import and run the engine migrations:</p>
+
+<p><code>
+bundle exec rake manageable_content_engine:install:migrations
+bundle exec rake db:migrate
+</code></p>
+
+<p>The next step is to make the engine Dsl available for our controllers. We need to add this to our application_controller:</p>
+
+<p><code>ruby
+include ManageableContent::Controllers::Dsl
+</code></p>
+
+<p>We will start with our title content. Let's make the title content manageable for all controllers in our website by adding this to our application_controller:</p>
+
+<p><code>ruby
+manageable_content_for :title
+</code>
+ 
+Now run:</p>
+
+<p><code>
+bundle exec rake manageable_content:generate
+</code></p>
+
+<p>This command will generate our contents in the database based on our controllers configurations. We should than use the engine helper to print the manageable content in our views. You can see how I have done that in
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/340b254aa6f2cd4e41b022f398f01f6f8e783609">this commit</a>. Now, we need a place in which we can edit our manageable contents. In
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/702b4cd266e33d24ff5d25ca13a7c5b075ecf206">this commit</a> and in
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/4c6f599b9c9ec8b973e57cfd13638d8915f703d4">this one</a> I created a basic administration page to manage the pages. An important thing to remeber is that the admin controller should inherit from a controller different that the application_controller, otherwise your admin controller will have manageable contents too!</p>
+
+<p>Now, by accessing the admin page and saving some title contents, if we access our website pages their titles should be using the manageable contents. In our pages admin, you can notice that there was a page for our home controller, contact controller and for the application controller. To use the application controller title in our views, we have to use the manageable_layout_content_for helper. Check
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/f1043c56d2923b0c4eb07e24f7c0b7fdfc0816a7">this commit</a>.</p>
+
+<p>We can also have content that will be shared by all pages. In our website, the 'footer' content has to be like that. On our application_controller, we add this:</p>
+
+<p><code>ruby
+manageable_layout_content_for :footer
+</code></p>
+
+<p>Than, after generating our contents with 'bundle exec rake manageable_content:generate', the footer content should be list under the 'application' page on our admin. To use it in our views, just add this:</p>
+
+<p><code>ruby
+manageable_layout_content_for :footer
+</code></p>
+
+<p>The commit for this step is
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/5352ca2cb8d4483243c78d2abec0586a4e6adfd8">this one</a>.</p>
+
+<p>To finish this example, we will add contents that will be specific to our home and contact controller. Home controller will have a body content, and contact will have a body and a side content. Add this to the controllers:</p>
+
+<p>home_controller:</p>
+
+<p><code>ruby
+manageable_content_for :body
+</code></p>
+
+<p>contact_controller:</p>
+
+<p><code>ruby
+manageable_content_for :body, :side
+</code></p>
+
+<p>After generating the contents, we can manage them thought the admin interface, and use them in our views with the helper, as you can
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/633022f5d4d45d3e3735556caae80045b65098bd">see here.</a></p>
+
+<p>So basically, that's it!</p>
+
+<pre><code>The ideia was to create a simple to use and generic content manager for Rails. The source code is available in
+</code></pre>
+
+<p><a href="https://github.com/fabiokr/manageable_content">GIthub</a> and it is open for collaboration.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Testing Rails router paths on Rails console]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/07/28/testing-rails-router-paths-on-rails-console/"/>
+    <updated>2010-07-28T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/07/28/testing-rails-router-paths-on-rails-console</id>
+    <content type="html"><![CDATA[<p>The Rails console is a pragmatic way to test and experiment code inside a Rails environment.</p>
+
+<p>Sometimes it can be helpful to have access to the Rails router url paths helpers, e.g. products_path, new_product_path, etc. To be able to use these helpers on Rails 3, while in the console run this:</p>
+
+<p><code>ruby
+include Rails.application.routes.url_helpers
+</code></p>
+
+<p><a href="https://rails.lighthouseapp.com/projects/8994/tickets/4749-actioncontrollerurlwriter-removed-without-deprecation">Source</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3 responders, JQuery 1.4 and empty json results]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results/"/>
+    <updated>2010-03-30T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results</id>
+    <content type="html"><![CDATA[<p> So, I have been playing with Rails 3 for a while, and it is really great! One of the new things I'm liking on it is the concept of
+<a href="%22http://ryandaigle.com/articles/2009/8/10/what-s-new-in-edge-rails-default-restful-rendering%22">responders</a>. It helps to thin your controllers and encapsulate same logic on the same place.</p>
+
+<p>Rails 3 responders have a default behavior to deal with api formats, like xml and json, so you don't have to create a responder to deal with that. This week I was programming a tool in which I would use Rails 3 and JQuery 1.4 and json communication. The ideia was that the user would be able to create, edit and destroy items on the same page with ajax, not a big deal. My problems started when I was creating the update form. Rails was, for some reason, responding with an empty json during updates. On create functions, respond_with returns the model attributes jsonified.</p>
+
+<p>As Rails was returning an empty json object, I was having problems on the Jquery side, as Jquery 1.4 does a
+<a href="%22http://api.jquery.com/jQuery.ajax/%22">strict parse</a> of a json object. That means that an empty string does not parse to a json object, and so Jquery throws an error, and as I was using $.ajax function, I falled on the error callback instead of the success callback.</p>
+
+<p>After a while I discovered that Rails does that on purpose (at least for now). On the Rails source file /actionpack-3.0.0.beta/lib/action_controller/metal/responder.rb, on line 154, the api_behavior method defines returns for gets, posts, and errors, and everything else just returns an empty :ok header. I did not have an answer for why the Rails team has made it this way, but I have found a
+<a href="%22http://metaskills.net/2008/5/24/the-ajax-head-br-design-pattern%22">possible motive</a>.</p>
+
+<p>Anyway, for this to work, I think there are two possible solutions. One would be to create a custom responder that would respond with an empty json object. The other one is to filter the response on Jquery side. For now I'm filtering the response with this:</p>
+
+<p>``` javascript
+$.ajax({ url: '/my_url', type: 'POST', data: form.serialize(
+  dataFilter: function(data,type) {</p>
+
+<pre><code>if(!data || $.trim(data) == "") return "{}"; return data;
+</code></pre>
+
+<p>  },
+  success: function(data, status, req) { //success behavior },
+  error: function(req, status, error) { //error behavior }
+});
+```</p>
+
+<p>That's it, maybe this can help someone else :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Simple Scrum Application]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/01/20/simple-scrum-application/"/>
+    <updated>2010-01-20T00:00:00-02:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/01/20/simple-scrum-application</id>
+    <content type="html"><![CDATA[<p> So, I have now finally a 'releasable' version of Simple Scrum.</p>
+
+<p>Simple Scrum is an application that I have developed for myself to help me manage personal software projects using a Scrum-like workflow. It contains products management, stories, sprints and burn-down charts.</p>
+
+<p>I have learned a lot more about Ruby, Ruby on Rails, code quality and tests on the development process, and I think those are the best results I have obtained for now.</p>
+
+<p>The application is released under the MIT open source license.</p>
+
+<p>I hope it can help others (if not as an usable application, at least as a learning material!).</p>
+
+<p>I have also deployed a
+<a href="http://simple-scrum-demo.heroku.com">demo</a> version on
+<a href="http://heroku.com/">Heroku</a> (Heroku is so cool!). You can access it to have a sample view of the application.</p>
+
+<p>The
+<a href="http://github.com/fabiokr/simple-scrum">source code</a> is hosted on
+<a href="http://github.com">Github</a>.</p>
+
+<p>There is a README file on the source code with install instructions.</p>
+
+<p>Until next time!</p>
+]]></content>
+  </entry>
+  
+</feed>

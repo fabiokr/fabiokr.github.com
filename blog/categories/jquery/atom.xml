@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Jquery | Fabio Kreusch]]></title>
+  <link href="http://fabiokr.github.com/blog/categories/jquery/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-02T18:57:38-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
+  <author>
+    <name><![CDATA[Fabio Kreusch]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Jquery silently fails on ajax errors]]></title>
+    <link href="http://fabiokr.github.com/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/"/>
+    <updated>2012-09-12T18:38:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2012/09/12/jquery-silently-fails-on-ajax-errors</id>
+    <content type="html"><![CDATA[<p>Context: you have an ajax call that returns javascript code. If that javascript raises a runtime error, it turns out that Jquery will engulf it and you will have a hard time finding out what is failling.</p>
+
+<p>This is what I came up with to force raising when that kind of thing happens:</p>
+
+<p>``` coffeescript
+$ -></p>
+
+<pre><code>$(this).on "ajax:error", (e, xhr, data, error) -&gt;
+</code></pre>
+
+<p>    throw error
+```</p>
+
+<p>Code is in Coffeescript, by the way.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3 responders, JQuery 1.4 and empty json results]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results/"/>
+    <updated>2010-03-30T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results</id>
+    <content type="html"><![CDATA[<p> So, I have been playing with Rails 3 for a while, and it is really great! One of the new things I'm liking on it is the concept of
+<a href="%22http://ryandaigle.com/articles/2009/8/10/what-s-new-in-edge-rails-default-restful-rendering%22">responders</a>. It helps to thin your controllers and encapsulate same logic on the same place.</p>
+
+<p>Rails 3 responders have a default behavior to deal with api formats, like xml and json, so you don't have to create a responder to deal with that. This week I was programming a tool in which I would use Rails 3 and JQuery 1.4 and json communication. The ideia was that the user would be able to create, edit and destroy items on the same page with ajax, not a big deal. My problems started when I was creating the update form. Rails was, for some reason, responding with an empty json during updates. On create functions, respond_with returns the model attributes jsonified.</p>
+
+<p>As Rails was returning an empty json object, I was having problems on the Jquery side, as Jquery 1.4 does a
+<a href="%22http://api.jquery.com/jQuery.ajax/%22">strict parse</a> of a json object. That means that an empty string does not parse to a json object, and so Jquery throws an error, and as I was using $.ajax function, I falled on the error callback instead of the success callback.</p>
+
+<p>After a while I discovered that Rails does that on purpose (at least for now). On the Rails source file /actionpack-3.0.0.beta/lib/action_controller/metal/responder.rb, on line 154, the api_behavior method defines returns for gets, posts, and errors, and everything else just returns an empty :ok header. I did not have an answer for why the Rails team has made it this way, but I have found a
+<a href="%22http://metaskills.net/2008/5/24/the-ajax-head-br-design-pattern%22">possible motive</a>.</p>
+
+<p>Anyway, for this to work, I think there are two possible solutions. One would be to create a custom responder that would respond with an empty json object. The other one is to filter the response on Jquery side. For now I'm filtering the response with this:</p>
+
+<p>``` javascript
+$.ajax({ url: '/my_url', type: 'POST', data: form.serialize(
+  dataFilter: function(data,type) {</p>
+
+<pre><code>if(!data || $.trim(data) == "") return "{}"; return data;
+</code></pre>
+
+<p>  },
+  success: function(data, status, req) { //success behavior },
+  error: function(req, status, error) { //error behavior }
+});
+```</p>
+
+<p>That's it, maybe this can help someone else :)</p>
+]]></content>
+  </entry>
+  
+</feed>

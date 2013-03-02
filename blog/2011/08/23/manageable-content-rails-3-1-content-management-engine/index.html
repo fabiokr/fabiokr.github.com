@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Manageable Content - Rails 3.1 Content Management Engine - Fabio Kreusch</title>
+  <meta name="author" content="Fabio Kreusch">
+
+  
+  <meta name="description" content="Hi there! This is a tutorial post about a gem I have just released:
+manageable_content. It is a content management framework for Rails 3.1. It &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://fabiokr.github.com/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Fabio Kreusch" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-7244289-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fabio Kreusch</a></h1>
+  
+    <h2>Personal page</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:fabiokr.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Manageable Content - Rails 3.1 Content Management Engine</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-23T23:37:00-03:00" pubdate data-updated="true">Aug 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Hi there!</p>
+
+<p>This is a tutorial post about a gem I have just released:
+<a href="https://github.com/fabiokr/manageable_content">manageable_content</a>. It is a content management framework for Rails 3.1. It provides a basic mapping between controllers to manageable contents. More detailed info can be found on the
+<a href="https://github.com/fabiokr/manageable_content/blob/master/README.rdoc">README</a> file.</p>
+
+<p>In this post, I&#8217;ll show how to create a new Rails project using the engine. The full example is available in
+<a href="https://github.com/fabiokr/manageable_content_example_app">Github</a>. So, let the fun begin!</p>
+
+<p>The first step is to create a new Rails app. Right now the engine requires Rails 3.1, so be sure to have it installed:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails new manageable_content_example_app</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, the ideia of the website is to allow each page to have its own title in a manageable way. We will also have two controllers, Home and Contact. Home controller will have a body content, and Contact will have a body and a side content. Also, we need a content for the footer that will be shared across all pages. </p>
+
+<p>Let&#8217;s generate our controllers first:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails g controller home index --no-helper
+</span><span class='line'>rails g controller contact index --no-helper</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/c90fae643a6dc778d6b744487b6f9abe81f8c7c9">this commit</a> I have added sample contents so that you can see which contents we want to be manageable.</p>
+
+<p>Ok, now we need to add manageable_content to our Gemfile. This line needs to be added:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;manageable_content&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, run the &#8216;bundle&#8217; command to install it. After that, we need to import and run the engine migrations:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="n">manageable_content_engine</span><span class="ss">:install:migrations</span>
+</span><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The next step is to make the engine Dsl available for our controllers. We need to add this to our application_controller:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="kp">include</span> <span class="ss">ManageableContent</span><span class="p">:</span><span class="ss">:Controllers</span><span class="o">::</span><span class="no">Dsl</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We will start with our title content. Let&#8217;s make the title content manageable for all controllers in our website by adding this to our application_controller:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_content_for</span> <span class="ss">:title</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> 
+Now run:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="n">manageable_content</span><span class="ss">:generate</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This command will generate our contents in the database based on our controllers configurations. We should than use the engine helper to print the manageable content in our views. You can see how I have done that in
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/340b254aa6f2cd4e41b022f398f01f6f8e783609">this commit</a>. Now, we need a place in which we can edit our manageable contents. In
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/702b4cd266e33d24ff5d25ca13a7c5b075ecf206">this commit</a> and in
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/4c6f599b9c9ec8b973e57cfd13638d8915f703d4">this one</a> I created a basic administration page to manage the pages. An important thing to remeber is that the admin controller should inherit from a controller different that the application_controller, otherwise your admin controller will have manageable contents too!</p>
+
+<p>Now, by accessing the admin page and saving some title contents, if we access our website pages their titles should be using the manageable contents. In our pages admin, you can notice that there was a page for our home controller, contact controller and for the application controller. To use the application controller title in our views, we have to use the manageable_layout_content_for helper. Check
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/f1043c56d2923b0c4eb07e24f7c0b7fdfc0816a7">this commit</a>.</p>
+
+<p>We can also have content that will be shared by all pages. In our website, the &#8216;footer&#8217; content has to be like that. On our application_controller, we add this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_layout_content_for</span><span class="err"> </span><span class="ss">:footer</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Than, after generating our contents with &#8216;bundle exec rake manageable_content:generate&#8217;, the footer content should be list under the &#8216;application&#8217; page on our admin. To use it in our views, just add this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_layout_content_for</span><span class="err"> </span><span class="ss">:footer</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The commit for this step is
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/5352ca2cb8d4483243c78d2abec0586a4e6adfd8">this one</a>.</p>
+
+<p>To finish this example, we will add contents that will be specific to our home and contact controller. Home controller will have a body content, and contact will have a body and a side content. Add this to the controllers:</p>
+
+<p>home_controller:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_content_for</span><span class="err"> </span><span class="ss">:body</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>contact_controller:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_content_for</span><span class="err"> </span><span class="ss">:body</span><span class="p">,</span><span class="err"> </span><span class="ss">:side</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After generating the contents, we can manage them thought the admin interface, and use them in our views with the helper, as you can
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/633022f5d4d45d3e3735556caae80045b65098bd">see here.</a></p>
+
+<p>So basically, that&#8217;s it!</p>
+
+<pre><code>The ideia was to create a simple to use and generic content manager for Rails. The source code is available in
+</code></pre>
+
+<p><a href="https://github.com/fabiokr/manageable_content">GIthub</a> and it is open for collaboration.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Fabio Kreusch</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-23T23:37:00-03:00" pubdate data-updated="true">Aug 23<span>rd</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rails/'>Rails</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://fabiokr.github.com/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/" data-via="fabiokr" data-counturl="http://fabiokr.github.com/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/09/rightjs-growl-notification-widget/" title="Previous Post: RightJS Growl notification Widget">&laquo; RightJS Growl notification Widget</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/13/notifying-delayed-job-failures-by-default/" title="Next Post: Notifying delayed_job failures by default">Notifying delayed_job failures by default &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/">Record a screen cast to a gif file</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/">Jquery silently fails on ajax errors</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/05/guake-autostart-script-with-rails/">Guake autostart script with Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/13/notifying-delayed-job-failures-by-default/">Notifying delayed_job failures by default</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/">Manageable Content - Rails 3.1 Content Management Engine</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/fabiokr">@fabiokr</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'fabiokr',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("fabiokr", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/fabiokr" class="twitter-follow-button" data-show-count="false">Follow @fabiokr</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  This work by <a href="">Fabio Kreusch</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a> (2013).
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

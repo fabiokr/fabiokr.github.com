@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Fabio Kreusch]]></title>
+  <link href="http://fabiokr.github.com/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-02T18:57:38-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
+  <author>
+    <name><![CDATA[Fabio Kreusch]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Record a screen cast to a gif file]]></title>
+    <link href="http://fabiokr.github.com/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/"/>
+    <updated>2012-09-19T15:08:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2012/09/19/record-a-screen-cast-to-a-gif-file</id>
+    <content type="html"><![CDATA[<p>Here is a simple shell script that converts a recorded ogv file to an animated gif, pretty useful for demonstrating small interactions. For recording an ogv, I&#8217;ve been using Record my Desktop on Ubuntu. You&#8217;ll also need mplayer, and imagemagick. Under Ubuntu/Debian, you can install those with this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install imagemagick mplayer gtk-recordmydesktop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And here is the shell script:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>ogv_to_gif<span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>  <span class="c"># Export into images</span>
+</span><span class='line'>  mplayer -ao null <span class="nv">$1</span> -vo jpeg:outdir<span class="o">=</span>/tmp/ogv_to_gif
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># Convert images to animated gif</span>
+</span><span class='line'>  <span class="nb">echo</span> <span class="s2">&quot;Converting images folder to gif...&quot;</span>
+</span><span class='line'>  convert /tmp/ogv_to_gif/* /tmp/ogv_to_gif.gif
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># Final filename</span>
+</span><span class='line'>  <span class="nv">original_filename</span><span class="o">=</span><span class="nv">$1</span>
+</span><span class='line'>  <span class="nv">filename</span><span class="o">=</span><span class="k">${</span><span class="nv">original_filename</span><span class="p">//ogv/gif</span><span class="k">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># Optimize gif</span>
+</span><span class='line'>  <span class="nb">echo</span> <span class="s2">&quot;Optimizing generated gif...&quot;</span>
+</span><span class='line'>  convert /tmp/ogv_to_gif.gif -fuzz 10% -layers Optimize <span class="s2">&quot;$filename&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># Cleans up tmp folders</span>
+</span><span class='line'>  rm -rf /tmp/ogv_to_gif.gif /tmp/ogv_to_gif
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> </p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Jquery silently fails on ajax errors]]></title>
+    <link href="http://fabiokr.github.com/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/"/>
+    <updated>2012-09-12T18:38:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2012/09/12/jquery-silently-fails-on-ajax-errors</id>
+    <content type="html"><![CDATA[<p>Context: you have an ajax call that returns javascript code. If that javascript raises a runtime error, it turns out that Jquery will engulf it and you will have a hard time finding out what is failling.</p>
+
+<p>This is what I came up with to force raising when that kind of thing happens:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">$</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">on</span> <span class="s">&quot;ajax:error&quot;</span><span class="p">,</span> <span class="nf">(e, xhr, data, error) -&gt;</span>
+</span><span class='line'>  <span class="err"> </span> <span class="k">throw</span> <span class="nx">error</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Code is in Coffeescript, by the way.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Guake autostart script with Rails]]></title>
+    <link href="http://fabiokr.github.com/blog/2012/07/05/guake-autostart-script-with-rails/"/>
+    <updated>2012-07-05T17:23:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2012/07/05/guake-autostart-script-with-rails</id>
+    <content type="html"><![CDATA[<p>I use
+<a href="http://guake.org/">Guake</a> terminal in my development
+<a href="http://www.ubuntu.com">Ubuntu</a> machine, and most of the time I find myself repeating a ton of commands to start my Rails devlopment environment, each process under its own tab. So today I finally took some time to setup a simple script that sets up Guake the way I want it. By adding something like the following to your .bashrc file, you&#8217;ll be able to start it by running the &#8220;guake-my-project&#8221; command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>guake-my-project() {  
+</span><span class='line'>    guake --rename-tab=Specs" --execute-command="cd ~/path/to/project && bundle exec guard" &&  
+</span><span class='line'>    guake --new-tab=2 --rename-tab="Server" --execute-command="cd ~/path/to/project && rails s" &&  
+</span><span class='line'>    guake --new-tab=3 --rename-tab="MyProject" --execute-command="cd ~/path/to/project";
+</span><span class='line'>  }</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Notifying delayed_job failures by default]]></title>
+    <link href="http://fabiokr.github.com/blog/2012/01/13/notifying-delayed-job-failures-by-default/"/>
+    <updated>2012-01-13T12:35:00-02:00</updated>
+    <id>http://fabiokr.github.com/blog/2012/01/13/notifying-delayed-job-failures-by-default</id>
+    <content type="html"><![CDATA[<p>Here is a helpful code snippet to notify delayed_job errors by default in a Rails application. In a config/initializers file, add the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Optional but recommended for less future surprises.</span>
+</span><span class='line'><span class="c1"># Fail at startup if method does not exist instead of in background job </span>
+</span><span class='line'><span class="o">[[</span><span class="no">Airbrake</span><span class="p">,</span> <span class="ss">:notify</span><span class="o">]].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">object</span><span class="p">,</span> <span class="n">method_name</span><span class="o">|</span>
+</span><span class='line'><span class="err"> </span> <span class="k">raise</span> <span class="no">NoMethodError</span><span class="p">,</span> <span class="s2">&quot;undefined method `</span><span class="si">#{</span><span class="n">method_name</span><span class="si">}</span><span class="s2">&#39; for </span><span class="si">#{</span><span class="n">object</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">unless</span> <span class="n">object</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="n">method_name</span><span class="p">,</span> <span class="kp">true</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Chain delayed job&#39;s handle_failed_job method to do exception notification</span>
+</span><span class='line'><span class="ss">Delayed</span><span class="p">:</span><span class="ss">:Worker</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span><span class="err"> </span>
+</span><span class='line'><span class="err"> </span> <span class="k">def</span> <span class="nf">handle_failed_job_with_notification</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="n">handle_failed_job_without_notification</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="c1"># only actually send mail in production</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="no">Rails</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">production?</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="c1"># rescue if ExceptionNotifier fails for some reason</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">begin</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="no">Airbrake</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">rescue</span> <span class="no">Exception</span> <span class="o">=&gt;</span> <span class="n">e</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="no">Rails</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span> <span class="s2">&quot;Airbrake failed: </span><span class="si">#{</span><span class="n">e</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">e</span><span class="o">.</span><span class="n">backtrace</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="no">Rails</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span> <span class="s2">&quot;  </span><span class="si">#{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="no">Rails</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">flush</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">end</span>
+</span><span class='line'><span class="err"> </span> <span class="err"> </span> <span class="k">end</span>
+</span><span class='line'><span class="err"> </span> <span class="k">end</span><span class="err"> </span>
+</span><span class='line'>
+</span><span class='line'><span class="err"> </span> <span class="n">alias_method_chain</span> <span class="ss">:handle_failed_job</span><span class="p">,</span> <span class="ss">:notification</span><span class="err"> </span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this example, Airbrake is being used for error notification, but this can be easily changed to the desired notification method.</p>
+
+<p>Credits to this thread: 
+<a href="http://stackoverflow.com/questions/5972903/how-to-make-exceptionnotifier-work-with-delayed-job-in-rails-3">http://stackoverflow.com/questions/5972903/how-to-make-exceptionnotifier-work-with-delayed-job-in-rails-3</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Manageable Content - Rails 3.1 Content Management Engine]]></title>
+    <link href="http://fabiokr.github.com/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/"/>
+    <updated>2011-08-23T23:37:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine</id>
+    <content type="html"><![CDATA[<p>Hi there!</p>
+
+<p>This is a tutorial post about a gem I have just released:
+<a href="https://github.com/fabiokr/manageable_content">manageable_content</a>. It is a content management framework for Rails 3.1. It provides a basic mapping between controllers to manageable contents. More detailed info can be found on the
+<a href="https://github.com/fabiokr/manageable_content/blob/master/README.rdoc">README</a> file.</p>
+
+<p>In this post, I&#8217;ll show how to create a new Rails project using the engine. The full example is available in
+<a href="https://github.com/fabiokr/manageable_content_example_app">Github</a>. So, let the fun begin!</p>
+
+<p>The first step is to create a new Rails app. Right now the engine requires Rails 3.1, so be sure to have it installed:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails new manageable_content_example_app</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, the ideia of the website is to allow each page to have its own title in a manageable way. We will also have two controllers, Home and Contact. Home controller will have a body content, and Contact will have a body and a side content. Also, we need a content for the footer that will be shared across all pages. </p>
+
+<p>Let&#8217;s generate our controllers first:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails g controller home index --no-helper
+</span><span class='line'>rails g controller contact index --no-helper</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/c90fae643a6dc778d6b744487b6f9abe81f8c7c9">this commit</a> I have added sample contents so that you can see which contents we want to be manageable.</p>
+
+<p>Ok, now we need to add manageable_content to our Gemfile. This line needs to be added:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;manageable_content&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, run the &#8216;bundle&#8217; command to install it. After that, we need to import and run the engine migrations:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="n">manageable_content_engine</span><span class="ss">:install:migrations</span>
+</span><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The next step is to make the engine Dsl available for our controllers. We need to add this to our application_controller:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="kp">include</span> <span class="ss">ManageableContent</span><span class="p">:</span><span class="ss">:Controllers</span><span class="o">::</span><span class="no">Dsl</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We will start with our title content. Let&#8217;s make the title content manageable for all controllers in our website by adding this to our application_controller:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_content_for</span> <span class="ss">:title</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> 
+Now run:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="n">manageable_content</span><span class="ss">:generate</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This command will generate our contents in the database based on our controllers configurations. We should than use the engine helper to print the manageable content in our views. You can see how I have done that in
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/340b254aa6f2cd4e41b022f398f01f6f8e783609">this commit</a>. Now, we need a place in which we can edit our manageable contents. In
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/702b4cd266e33d24ff5d25ca13a7c5b075ecf206">this commit</a> and in
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/4c6f599b9c9ec8b973e57cfd13638d8915f703d4">this one</a> I created a basic administration page to manage the pages. An important thing to remeber is that the admin controller should inherit from a controller different that the application_controller, otherwise your admin controller will have manageable contents too!</p>
+
+<p>Now, by accessing the admin page and saving some title contents, if we access our website pages their titles should be using the manageable contents. In our pages admin, you can notice that there was a page for our home controller, contact controller and for the application controller. To use the application controller title in our views, we have to use the manageable_layout_content_for helper. Check
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/f1043c56d2923b0c4eb07e24f7c0b7fdfc0816a7">this commit</a>.</p>
+
+<p>We can also have content that will be shared by all pages. In our website, the &#8216;footer&#8217; content has to be like that. On our application_controller, we add this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_layout_content_for</span><span class="err"> </span><span class="ss">:footer</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Than, after generating our contents with &#8216;bundle exec rake manageable_content:generate&#8217;, the footer content should be list under the &#8216;application&#8217; page on our admin. To use it in our views, just add this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_layout_content_for</span><span class="err"> </span><span class="ss">:footer</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The commit for this step is
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/5352ca2cb8d4483243c78d2abec0586a4e6adfd8">this one</a>.</p>
+
+<p>To finish this example, we will add contents that will be specific to our home and contact controller. Home controller will have a body content, and contact will have a body and a side content. Add this to the controllers:</p>
+
+<p>home_controller:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_content_for</span><span class="err"> </span><span class="ss">:body</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>contact_controller:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">manageable_content_for</span><span class="err"> </span><span class="ss">:body</span><span class="p">,</span><span class="err"> </span><span class="ss">:side</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After generating the contents, we can manage them thought the admin interface, and use them in our views with the helper, as you can
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/633022f5d4d45d3e3735556caae80045b65098bd">see here.</a></p>
+
+<p>So basically, that&#8217;s it!</p>
+
+<pre><code>The ideia was to create a simple to use and generic content manager for Rails. The source code is available in
+</code></pre>
+
+<p><a href="https://github.com/fabiokr/manageable_content">GIthub</a> and it is open for collaboration.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RightJS Growl notification Widget]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget/"/>
+    <updated>2010-10-09T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget</id>
+    <content type="html"><![CDATA[<p>Hi there!</p>
+
+<p>I&#8217;m experimenting with
+<a href="http://rightjs.org/">RightJS</a> on some personal projects, and I&#8217;m starting to like it!</p>
+
+<p>I have also developed my first Widget, a Growl like notification. It is based on
+<a href="http://code.google.com/p/jquery-purr/">Jquery-purr</a> plugin, and I have ported it to RightJS. It&#8217;s freely available on
+<a href="http://github.com/fabiokr/rightjs-growl">Github</a>.</p>
+
+<p>I must do some tests on IE, but for now it&#8217;s functional on Firefox and Chrome (the ones I have tested).</p>
+
+<p>Until next time!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Bzr: Branches have no common ancestor, and no merge base revision was specified]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified/"/>
+    <updated>2010-09-21T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified</id>
+    <content type="html"><![CDATA[<p>Aqui na empresa, temos um projeto base. Os projetos aqui desenvolvidos herdam deste projeto base.</p>
+
+<p>Também, utilizamos o Bazaar como sistema de versionamento de código.</p>
+
+<p>Quando vamos criar um projeto novo, precisamos fazer com que ele herde do projeto base. A solu</p>
+
+<p>ção que estamos utilizando é criar um novo branch para o novo projeto, e então fazer um merge com o projeto base. Assim, dali em diante conseguimos fazer updates a partir do projeto base. Porém, quando vai-se fazer o merge com o projeto base pela primeira vez, o seguinte erro é lançado:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bzr: ERROR: Branches have no common ancestor, and no merge base revision was specified</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Isso acontece porque o novo branch ainda não tem um ancestral comum com o branch do projeto base, sendo assim o bzr não tem como saber a partir do que ele deve fazer o merge.</p>
+
+<p>Neste caso, deve-se especificar o merge manualmente.  O seguinte comando (executado a partir da raiz do novo projeto) explicita isso:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bzr merge -r 0..-1 caminho/do/projeto/base</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Assim, o Bazaar irá fazer o merge com o projeto base da revisão 0 até a última possí­vel (-1). Deste momento em diante, os dois projetos terão um ancestral comum e será possí­vel fazer merges com o projeto base sem mais problemas.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A successful Git branching model - Cheatsheet]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/08/24/a-successful-git-branching-model-cheatsheet/"/>
+    <updated>2010-08-24T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/08/24/a-successful-git-branching-model-cheatsheet</id>
+    <content type="html"><![CDATA[<p>Nestes dias estava a procura de um modelo de desenvolvimento usando Git, algo que oferecesse algum padrão de como lidar com o desenvolvimento de uma aplicação, com branches para correções de bugs, branches de desenvolvimento, etc. Encontrei um ótimo artigo sobre o assunto, que pode ser
+<a href="http://nvie.com/git-model">lido aqui</a>. Gostei muito do modelo e estou usando nos meus projetos pessoais.</p>
+
+<p>Ao ler o artigo, o autor cita vários comandos para serem usados durante o workflow de desenvolvimento com o Git. Para facilitar a adaptação ao modelo, extrai os comandos do workflow em uma
+<a href="https://docs.google.com/document/pub?id=1_KLZ-4I5b1lPCYq3MRbFzWYHJ6ffUYuysiuK_weXLK8">cheatsheet de referência</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Testing Rails router paths on Rails console]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/07/28/testing-rails-router-paths-on-rails-console/"/>
+    <updated>2010-07-28T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/07/28/testing-rails-router-paths-on-rails-console</id>
+    <content type="html"><![CDATA[<p>The Rails console is a pragmatic way to test and experiment code inside a Rails environment.</p>
+
+<p>Sometimes it can be helpful to have access to the Rails router url paths helpers, e.g. products_path, new_product_path, etc. To be able to use these helpers on Rails 3, while in the console run this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://rails.lighthouseapp.com/projects/8994/tickets/4749-actioncontrollerurlwriter-removed-without-deprecation">Source</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A teoria da janela quebrada]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/05/22/a-teoria-da-janela-quebrada/"/>
+    <updated>2010-05-22T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/05/22/a-teoria-da-janela-quebrada</id>
+    <content type="html"><![CDATA[<p>Finalmente, após quase um mês de espera, chegou na Ãºltima semana a minha encomenda da Amazon. Nela estão dois livros:
+<a href="%22\" title="http://37signals.com/rework/\&quot;\">Rework</a> e
+<a href="%22\" title="http://www.pragprog.com/the-pragmatic-programmer\&quot;\">The Pragmatic Programmer</a>.</p>
+
+<p>Rework é um livro rápido de se ler, ainda mais que eu já estava ávido por mais textos do pessoal da 37 Signals, e minha ansiedade me fez terminá-lo mais rápido ainda. Espero comentar sobre as idéias do livro em posts futuros.</p>
+
+<p>Ontem (sexta) iniciei a leitura do livro The pragmatic programmer, e uma teoria no início do livro me chamou a atenção: a teoria da janela quebrada.</p>
+
+<p>Segundo os autores, a teoria da janela quebrada surgiu de uma pesquisa que buscava descobrir por que alguns prédios em algumas cidades estão em bom estado e outros estão em estados precários. Os pesquisadores chegaram então a razão do problema: uma janela quebrada.</p>
+
+<p>A teoria da janela quebrada diz que, a partir do momento em que existe uma janela quebrada, o ambiente passa por um processo acelerado de deterioração. Em um dos testes, os pesquisadores deixaram um carro estacionado por uma semana no mesmo local, sem tirá-lo dali. Ninguém mecheu no carro.</p>
+
+<p>Na semana seguinte, os pesquisadores quebraram uma das janelas. Em algumas horas o carro estava em frangalhos. Uma janela quebrada é um gatilho que &#8220;dá permissão&#8221; para o surgimento de outras janelas quebradas.</p>
+
+<p>Levando isso para o mundo da programação, você já deve ter passado por uma situação onde o seguinte passou pela sua cabeça:</p>
+
+<p>&#8220;Bom, se o resto do código já está assim mesmo, vou fazer isso assim também.&#8221;</p>
+
+<p>E assim softwares se encaminham para mais e mais janelas quebradas. Em alguns projetos, uma pequena decisão errada pode ser o suficiente para desencaminhar todo o resto.</p>
+
+<p>Como pode-se enfretar este problema? Os autores incitam a consertar as janelas quebradas o mais rápido possível, de preferência assim que forem avistadas.  Não de tempo de elas se estabilizarem, o trabalho de consertar janelas quebradas no futuro será muito maior!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3 responders, JQuery 1.4 and empty json results]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results/"/>
+    <updated>2010-03-30T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results</id>
+    <content type="html"><![CDATA[<p> So, I have been playing with Rails 3 for a while, and it is really great! One of the new things I&#8217;m liking on it is the concept of
+<a href="%22http://ryandaigle.com/articles/2009/8/10/what-s-new-in-edge-rails-default-restful-rendering%22">responders</a>. It helps to thin your controllers and encapsulate same logic on the same place.</p>
+
+<p>Rails 3 responders have a default behavior to deal with api formats, like xml and json, so you don&#8217;t have to create a responder to deal with that. This week I was programming a tool in which I would use Rails 3 and JQuery 1.4 and json communication. The ideia was that the user would be able to create, edit and destroy items on the same page with ajax, not a big deal. My problems started when I was creating the update form. Rails was, for some reason, responding with an empty json during updates. On create functions, respond_with returns the model attributes jsonified.</p>
+
+<p>As Rails was returning an empty json object, I was having problems on the Jquery side, as Jquery 1.4 does a
+<a href="%22http://api.jquery.com/jQuery.ajax/%22">strict parse</a> of a json object. That means that an empty string does not parse to a json object, and so Jquery throws an error, and as I was using $.ajax function, I falled on the error callback instead of the success callback.</p>
+
+<p>After a while I discovered that Rails does that on purpose (at least for now). On the Rails source file /actionpack-3.0.0.beta/lib/action_controller/metal/responder.rb, on line 154, the api_behavior method defines returns for gets, posts, and errors, and everything else just returns an empty :ok header. I did not have an answer for why the Rails team has made it this way, but I have found a
+<a href="%22http://metaskills.net/2008/5/24/the-ajax-head-br-design-pattern%22">possible motive</a>.</p>
+
+<p>Anyway, for this to work, I think there are two possible solutions. One would be to create a custom responder that would respond with an empty json object. The other one is to filter the response on Jquery side. For now I&#8217;m filtering the response with this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/my_url&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">form</span><span class="p">.</span><span class="nx">serialize</span><span class="p">(</span>
+</span><span class='line'>  <span class="nx">dataFilter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">data</span> <span class="o">||</span> <span class="nx">$</span><span class="p">.</span><span class="nx">trim</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;{}&quot;</span><span class="p">;</span> <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//success behavior },</span>
+</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//error behavior }</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&#8217;s it, maybe this can help someone else :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Segmentation fault no apache ao fazer Code Coverage com Cakephp]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp/"/>
+    <updated>2010-03-23T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp</id>
+    <content type="html"><![CDATA[<p> Tive problemas ao tentar usar o Xdebug com os testes no CakePHP. Meu ambiente é um Ubuntu 9.10, Apache 2, PHP 5 com XDebug instalado via apt-get. Ao tentar executar os testes no Cake com code coverage report, o processo morria, e o seguinte erro aparecia no log do Apache:</p>
+
+<blockquote><p>[Tue Mar 23 09:58:38 2010] [notice] child pid 16792 exit signal Segmentation fault (11)</p></blockquote>
+
+<p>Encontrei
+<a href="%22\" title="http://mark-story.com/posts/view/code-coverage-in-cakephp-1-2-test-suite\&quot;\">nesta</a> página uma solução que resolveu meu problema:</p>
+
+<p>Altere a linha 115 do arquivo cake/tests/lib/code_coverage_manager.php para:</p>
+
+<blockquote><p>xdebug_start_code_coverage(XDEBUG_CC_UNUSED);</p></blockquote>
+
+<p>Pronto! </p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Instalando Bazaar server como serviço em windows server 2008]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/"/>
+    <updated>2010-03-22T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008</id>
+    <content type="html"><![CDATA[<p>Aqui na empresa estamos usando o Bazaar como sistema de controle de versío. Estamos utilizando um repositório compartilhado em rede, mas estamos tendo muitos problemas com o Bazaar nío conseguindo liberar os locks das pastas apí³s dar commits.</p>
+
+<p>Sendo assim, decidi tentar usar o 
+<a href="%22\" title="http://doc.bazaar.canonical.com/bzr.2.1/en/admin-guide/simple-setups.html\&quot;\">servidor especí­fico do Bazaar</a> no Windows, instalando-o como um serviço.</p>
+
+<p>Seguem os passos para instalá-lo no Windows Server 2008:</p>
+
+<p>1 - Instalar o Bazaar normalmente no Windows Server.</p>
+
+<p>2 - Instalar o 
+<a href="%22\" title="http://www.microsoft.com/downloads/details.aspx?FamilyID=9D467A69-57FF-4AE7-96EE-B18C4790CFFD&amp;displaylang=en\&quot;\">Resource Kit Tools</a>. Esta versío é para Windows Server 2003, mas nío tive problemas usando-o no 2008 (nío encontrei versío do Resource Kit Tools para o 2008). Precisamos do Resource Kit Tools porque ele contém o Srvany, que permite instalar qualquer executável como um serviço do Windows.</p>
+
+<p>3 - Criar um serviço para o Bazaar: na linha de comando do Windows Server, digite &#8216;sc create bzr_server binPath= C:&#92;Program Files (x86)&#92;Windows Resource Kits&#92;Tools&#92;srvany.exe DisplayName= &#34;Bazaar Server&#34;&#8217;, levando em conta o caminho correto de onde o Resource Kit Tools foi instalado.</p>
+
+<p>4 - Devemos agora configurar qual executável o srvany irá rodar como serviço. Para isso devemos editar o registro do Windows com o programa &#8216;regedit&#8217;. Procure pela chave HKEY_LOCAL_MACHINE&#92;SYSTEM&#92;CurrentControlSet&#92;Services&#92;bzr_server, e adicione uma chave chamada &#8216;Parameters&#8217;. Dentro da chave Parameters, crie um valor do tipo string chamado &#8216;Application&#8217; e tendo como valor o caminho para o bzr server. No meu caso ficou assim:  </p>
+
+<p>bzr server &#8211;directory=G:&#92;Repositorios &#8211;port=0.0.0.0:4155 &#8211;allow-writes</p>
+
+<p>Pronto! Basta agora iniciar o serviço no Windows e vocíª deverá conseguir acessar o repositorio. Para testá-lo vocíª pode tentar o seguinte comando:</p>
+
+<p>bzr check bzr://localdarede/pasta_do_repositorio</p>
+
+<p>Espero que agora os problema com break-lock se resolvam =S</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Simple Scrum Application]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/01/20/simple-scrum-application/"/>
+    <updated>2010-01-20T00:00:00-02:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/01/20/simple-scrum-application</id>
+    <content type="html"><![CDATA[<p> So, I have now finally a &#8216;releasable&#8217; version of Simple Scrum.</p>
+
+<p>Simple Scrum is an application that I have developed for myself to help me manage personal software projects using a Scrum-like workflow. It contains products management, stories, sprints and burn-down charts.</p>
+
+<p>I have learned a lot more about Ruby, Ruby on Rails, code quality and tests on the development process, and I think those are the best results I have obtained for now.</p>
+
+<p>The application is released under the MIT open source license.</p>
+
+<p>I hope it can help others (if not as an usable application, at least as a learning material!).</p>
+
+<p>I have also deployed a
+<a href="http://simple-scrum-demo.heroku.com">demo</a> version on
+<a href="http://heroku.com/">Heroku</a> (Heroku is so cool!). You can access it to have a sample view of the application.</p>
+
+<p>The
+<a href="http://github.com/fabiokr/simple-scrum">source code</a> is hosted on
+<a href="http://github.com">Github</a>.</p>
+
+<p>There is a README file on the source code with install instructions.</p>
+
+<p>Until next time!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Entrevista sobre carreira com Fabio Akita]]></title>
+    <link href="http://fabiokr.github.com/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita/"/>
+    <updated>2009-10-10T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita</id>
+    <content type="html"><![CDATA[<p>Estou postando aqui esta entrevista que realizei no meu Último semestre da faculdade e que foi um trabalho muito interessante, e que estava armazenada no meu antigo blog.</p>
+
+<p>Durante meu perÃ­odo de faculdade, tive boas e nem tão boas experiências na área de desenvolvimento de software. Passei por experiências onde tarefas eram realizadas de qualquer maneira, sem preocupação com qualidade. Isso de alguma forma me abalou, não era possÃ­vel que esta fosse a melhor maneira de se fazer software. Comecei a pesquisar alternativas para o problema, metodologias de desenvolvimento e frameworks de desenvolvimento. Eis que me deparei com o framework Ruby on Rails e, inevitavelmente, com o Fabio Akita, um dos grandes responsáveis por sua expansão no Brasil.</p>
+
+<p>Este foi um trabalho para a disciplina de Orientação e Planejamento de Carreira, cujo objetivo é entrevistar um profissional da área de atuação do aluno que, de alguma forma, ele admire. Pensei em conversar com o Akita, já que compartilho muitos de seus pontos de vista em questões de desenvolvimento, gerenciamento e pessoas na área de software. Solicitei ao Akita a possibilidade de realizarmos a entrevista, e ele prontamente aceitou.</p>
+
+<p>O entrevistado então é Fabio Akita, 32 anos, atualmente gerente de produtos da Locaweb, empresa de hospedagem e serviços de internet. Akita ficou conhecido na Internet por sua ativa participação na comunidade de desenvolvimento ágil, expondo valores e boas práticas de programação. É também palestrante, escreveu alguns livros de programação e escreve em seu blog http://www.akitaonrails.com, onde fala sobre o framework Ruby on Rails e sobre questões de desenvolvimento e gerenciamento de projetos de software.</p>
+
+<p>Iniciei a entrevista perguntando sobre como ele se sente por ter escolhido esta área de atuação: “Foi algo bastante natural, na realidade. Eu gosto de informática em geral desde que era muito novo. Já fui programador, analista, coordenador, gerente. Eu vario bastante minha área de atuação, ainda gosto de colocar muito a mão na massa, e estou sempre pensando como posso fazer o que eu faço hoje, melhor. Então não é exatamente “uma” escolha, são “várias” escolhas feitas durante o caminho, onde vou me adaptando e me reinventando em vez de seguir uma Única carreira”.</p>
+
+<p>Como você descreveria a sua profissão? “Como disse antes, atualmente sou Gerente de Produtos, tecnicamente eu seria responsável pela concepção de produtos, pelo acompanhamento da sua implementação, e tudo mais. Mas na realidade eu me atiro em outras áreas, desde metodologias, avaliação de tecnologias, um pouco de desenvolvimento, e coisas do tipo. Não consigo pensar em mim como um Única profissão, mas como várias atividades que gosto de fazer”.</p>
+
+<p>Como foi o seu primeiro emprego? Ele atendeu as suas expectativas? “Meu primeiro emprego “formal” foi enquanto eu ainda estava na faculdade. Antes disso já tinha feito alguns trabalhos esporádicos como freelancer. Eu não tinha muita experiência e nem tinha ideia da dimensão do que se podia fazer. Foi numa produtora multimÃ­dia perto da USP. Lá eu fiz muitas coisas que nunca tinha feito antes. Tinha liberdade para aprender coisas que eu não sabia e me esforçava para dominar o que eles precisavam muito rápido. Meu chefe na época e a equipe em geral me davam muita liberdade e eu aprendi muito com eles, principalmente porque eles eram mais da área de criação e publicidade, coisas que não eram parte do que eu estudava. Isso me abriu muitas perspectivas e até hoje tenho influência do que aprendi naquela época, portanto, acho que superou em muito minhas expectativas em termos de aprendizado”.</p>
+
+<p>Houveram mudanças de emprego? “Diversas, até perco a conta. Somente no ano 2000, se não me engano, mudei de trabalho umas 3 vezes. Estou na Locaweb há apenas um ano. Antes disso fiquei um ano trabalhando remotamente para uma consultoria americana. Antes disso, eu era consultor no mundo SAP e, como consultor, circulei por diversas empresas onde passava vários meses. Eu gosto de experimentar coisas diferentes, encarar novos desafios e tenho pavor Ã rotina. Sempre que eu estou aprendendo algo novo, o trabalho é proveitoso, caso contrário não vale a pena. Eu gosto de me reinventar. Eu não acredito em carreira fixa como algo estável e, principalmente, algo que eu gostaria de perseguir”.</p>
+
+<p>Ao iniciar sua carreira profissional, você havia estabelecido objetivos e metas de onde gostaria de chegar? “Não, eu faço o que faço porque gosto de fazer. Quando entendi que gostava de informática, especificamente de programar, eu ainda era pré-adolescente. Não havia objetivos de longo prazo. Eu continuei gostando do que faço quando passei pela faculdade. Não tenho metas financeiras ou de carreira pré-definidas. Eu prefiro me adaptar Ã realidade, mas manter o valor de fazer o que gosto de fazer. Na medida do possÃ­vel, felizmente, isso tem funcionado. Financeiramente falando talvez fosse até melhor ter mantido uma carreira fixa, mas em termos de satisfação pessoal, tenho pouco do que reclamar até agora”.</p>
+
+<p>Você está satisfeito com o conjunto de esferas da sua vida (trabalho, pessoal, lazer)? “Sou muito workaholic, não separo muito bem trabalho de lazer. Sinceramente acho que negligencio a famÃ­lia mais do que deveria. Portanto, não, não estou satisfeito ainda nesse sentido. Por outro lado, como já enfatizei, isso é consequência justamente de eu estar envolvido em coisas que eu gosto de fazer mesmo fora do escritório, que é porque consumo meu tempo mais do que deveria.”.</p>
+
+<p>Que perÃ­odos de sua carreira você considera que foram mais e menos proveitosos? “Provavelmente a que mais gostei foi justamente do primeiro emprego que mencionei. Não financeiramente falando, claro, mas em termos da quantidade de coisas diferentes que tive oportunidade de fazer e aprender, e as portas que se abriram que eu não esperava. O que menos gostei foram alguns perÃ­odos de tempo da minha carreira como consultor SAP (que durou uns 5 anos) onde eu definitivamente estava fazendo coisas em que não acreditava e que não gostava de fazer, mas fazia por obrigação profissional. Por isso desisti dessa área.”.</p>
+
+<p>Você, agora, possui um objetivo a longo prazo? “Não, nenhum objetivo fixo, eu gosto de pensar no que faço como uma exploração, assim como explorar uma floresta, talvez como faziam os bandeirantes. Eu quero ver até onde isso pode ir. Pode parecer imprudente e aleatório, mas claro, estou atento com o que acontece no mercado. Eu tento escolher fazer as coisas que fazem sentido na realidade do mercado mas sempre na direção do valor de “fazer o que gosto”. Não tenho pretensões em ficar milionário ou coisa parecida. Se eu puder passar a vida toda trabalhando nas coisas que gosto - seja lá quais elas forem nos anos seguintes - tanto melhor”.</p>
+
+<p>O que você considera como seus pontos fortes? “Acho que meu ponto mais forte é minha natureza auto-didata. Eu não espero os outros me dizerem o que eu devo saber: prefiro ir atrás primeiro, aprender sozinho e rápido. Talvez isso me permite ser flexÃ­vel no que faço, sem muitas limitações do tipo “isso eu não sei fazer, passe para outro””.</p>
+
+<p>E seus pontos fracos? “Justamente o fato irônico de abraçar muitas coisas ao mesmo tempo. Como muitas coisas me interessam ao mesmo tempo, talvez isso me evite terminar algumas coisas mais rápido”.</p>
+
+<p>Falando do futuro, o que você pensa que acontecerá com sua carreira nos próximos dez anos? “Eu tenho um conceito muito diferente de “carreira”, eu não penso em aumento de salários, aumento de cargos, mais prestÃ­gio ou coisa parecida. A Única coisa que eu espero é que daqui dez anos eu esteja fazendo algo muito diferente do que estou fazendo agora que, por sinal, é muito diferente do que eu fazia dez anos atrás”.</p>
+
+<p>Por fim, o que você aconselharia para alguém que estivesse iniciando na área de sistemas de informação? “Infelizmente, pode parecer pedante, mas a boa e velha história do faça o que gosta de fazer e você nunca vai efetivamente “trabalhar” funciona para mim. Não quer dizer que funciona para todos, mas é um valor que talvez possa ser perseguido. Em alguns momentos você vai precisar se desviar, fazer o que não gosta porque é obrigado, mas se tiver esse norte, vai se lembrar que a meta de curto prazo é voltar Ã rota original. Sem isso você pode se desviar tanto do caminho que vai se conformar a ela e nunca mais tentar mudar. Mas enquanto o foco for “fazer o que gosta”, nem que isso demore para acontecer, será um objetivo a ser perseguido. O mais importante é, reinvente-se quantas vezes for preciso, entendendo que mudanças são importante e, por isso, é importante se acostumar a se modificar”.</p>
+
+<p>Acredito que a entrevista foi bastante proveitosa. Compartilho com a ideia de carreira flexÃ­vel, de não ficar preso a um determinado contexto, acredito que esta seja a melhor forma de ficar atento ao mercado, e também de estar preparado para mudanças. Compreendo a sua opinião de não traçar objetivos fixos a longo prazo, mas eu acredito que objetivos deste tipo ajudam a você ter o seu norte.</p>
+
+<p>Agradeço ao Akita por dispor seu tempo para a realização deste trabalho. Curiosamente, passamos por experiências de trabalho parecidas, onde em um momento percebia-se que o que se estava fazendo não era algo que você acreditava. Ambos rompemos este laço, e partimos para caminhos diferentes. Atualmente, passo por uma experiência de trabalho muito gratificante, onde tenho a oportunidade de aprender muito e estar trabalhando em algo que eu acredito.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fabio Kreusch</title>
+  <meta name="author" content="Fabio Kreusch">
+
+  
+  <meta name="description" content=" So, I have been playing with Rails 3 for a while, and it is really great! One of the new things I&#8217;m liking on it is the concept of
+responders &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://fabiokr.github.com/blog/page/2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Fabio Kreusch" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-7244289-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fabio Kreusch</a></h1>
+  
+    <h2>Personal page</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:fabiokr.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results/">Rails 3 Responders, JQuery 1.4 and Empty Json Results</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-30T00:00:00-03:00" pubdate data-updated="true">Mar 30<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p> So, I have been playing with Rails 3 for a while, and it is really great! One of the new things I&#8217;m liking on it is the concept of
+<a href="%22http://ryandaigle.com/articles/2009/8/10/what-s-new-in-edge-rails-default-restful-rendering%22">responders</a>. It helps to thin your controllers and encapsulate same logic on the same place.</p>
+
+<p>Rails 3 responders have a default behavior to deal with api formats, like xml and json, so you don&#8217;t have to create a responder to deal with that. This week I was programming a tool in which I would use Rails 3 and JQuery 1.4 and json communication. The ideia was that the user would be able to create, edit and destroy items on the same page with ajax, not a big deal. My problems started when I was creating the update form. Rails was, for some reason, responding with an empty json during updates. On create functions, respond_with returns the model attributes jsonified.</p>
+
+<p>As Rails was returning an empty json object, I was having problems on the Jquery side, as Jquery 1.4 does a
+<a href="%22http://api.jquery.com/jQuery.ajax/%22">strict parse</a> of a json object. That means that an empty string does not parse to a json object, and so Jquery throws an error, and as I was using $.ajax function, I falled on the error callback instead of the success callback.</p>
+
+<p>After a while I discovered that Rails does that on purpose (at least for now). On the Rails source file /actionpack-3.0.0.beta/lib/action_controller/metal/responder.rb, on line 154, the api_behavior method defines returns for gets, posts, and errors, and everything else just returns an empty :ok header. I did not have an answer for why the Rails team has made it this way, but I have found a
+<a href="%22http://metaskills.net/2008/5/24/the-ajax-head-br-design-pattern%22">possible motive</a>.</p>
+
+<p>Anyway, for this to work, I think there are two possible solutions. One would be to create a custom responder that would respond with an empty json object. The other one is to filter the response on Jquery side. For now I&#8217;m filtering the response with this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/my_url&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">form</span><span class="p">.</span><span class="nx">serialize</span><span class="p">(</span>
+</span><span class='line'>  <span class="nx">dataFilter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">data</span> <span class="o">||</span> <span class="nx">$</span><span class="p">.</span><span class="nx">trim</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;{}&quot;</span><span class="p">;</span> <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//success behavior },</span>
+</span><span class='line'>  <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//error behavior }</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&#8217;s it, maybe this can help someone else :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp/">Segmentation Fault No Apache Ao Fazer Code Coverage Com Cakephp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-23T00:00:00-03:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p> Tive problemas ao tentar usar o Xdebug com os testes no CakePHP. Meu ambiente é um Ubuntu 9.10, Apache 2, PHP 5 com XDebug instalado via apt-get. Ao tentar executar os testes no Cake com code coverage report, o processo morria, e o seguinte erro aparecia no log do Apache:</p>
+
+<blockquote><p>[Tue Mar 23 09:58:38 2010] [notice] child pid 16792 exit signal Segmentation fault (11)</p></blockquote>
+
+<p>Encontrei
+<a href="%22\" title="http://mark-story.com/posts/view/code-coverage-in-cakephp-1-2-test-suite\&quot;\">nesta</a> página uma solução que resolveu meu problema:</p>
+
+<p>Altere a linha 115 do arquivo cake/tests/lib/code_coverage_manager.php para:</p>
+
+<blockquote><p>xdebug_start_code_coverage(XDEBUG_CC_UNUSED);</p></blockquote>
+
+<p>Pronto! </p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/">Instalando Bazaar Server Como Serviço Em Windows Server 2008</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-22T00:00:00-03:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aqui na empresa estamos usando o Bazaar como sistema de controle de versío. Estamos utilizando um repositório compartilhado em rede, mas estamos tendo muitos problemas com o Bazaar nío conseguindo liberar os locks das pastas apí³s dar commits.</p>
+
+<p>Sendo assim, decidi tentar usar o 
+<a href="%22\" title="http://doc.bazaar.canonical.com/bzr.2.1/en/admin-guide/simple-setups.html\&quot;\">servidor especí­fico do Bazaar</a> no Windows, instalando-o como um serviço.</p>
+
+<p>Seguem os passos para instalá-lo no Windows Server 2008:</p>
+
+<p>1 - Instalar o Bazaar normalmente no Windows Server.</p>
+
+<p>2 - Instalar o 
+<a href="%22\" title="http://www.microsoft.com/downloads/details.aspx?FamilyID=9D467A69-57FF-4AE7-96EE-B18C4790CFFD&amp;displaylang=en\&quot;\">Resource Kit Tools</a>. Esta versío é para Windows Server 2003, mas nío tive problemas usando-o no 2008 (nío encontrei versío do Resource Kit Tools para o 2008). Precisamos do Resource Kit Tools porque ele contém o Srvany, que permite instalar qualquer executável como um serviço do Windows.</p>
+
+<p>3 - Criar um serviço para o Bazaar: na linha de comando do Windows Server, digite &#8216;sc create bzr_server binPath= C:&#92;Program Files (x86)&#92;Windows Resource Kits&#92;Tools&#92;srvany.exe DisplayName= &#34;Bazaar Server&#34;&#8217;, levando em conta o caminho correto de onde o Resource Kit Tools foi instalado.</p>
+
+<p>4 - Devemos agora configurar qual executável o srvany irá rodar como serviço. Para isso devemos editar o registro do Windows com o programa &#8216;regedit&#8217;. Procure pela chave HKEY_LOCAL_MACHINE&#92;SYSTEM&#92;CurrentControlSet&#92;Services&#92;bzr_server, e adicione uma chave chamada &#8216;Parameters&#8217;. Dentro da chave Parameters, crie um valor do tipo string chamado &#8216;Application&#8217; e tendo como valor o caminho para o bzr server. No meu caso ficou assim:  </p>
+
+<p>bzr server &#8211;directory=G:&#92;Repositorios &#8211;port=0.0.0.0:4155 &#8211;allow-writes</p>
+
+<p>Pronto! Basta agora iniciar o serviço no Windows e vocíª deverá conseguir acessar o repositorio. Para testá-lo vocíª pode tentar o seguinte comando:</p>
+
+<p>bzr check bzr://localdarede/pasta_do_repositorio</p>
+
+<p>Espero que agora os problema com break-lock se resolvam =S</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/01/20/simple-scrum-application/">Simple Scrum Application</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-20T00:00:00-02:00" pubdate data-updated="true">Jan 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p> So, I have now finally a &#8216;releasable&#8217; version of Simple Scrum.</p>
+
+<p>Simple Scrum is an application that I have developed for myself to help me manage personal software projects using a Scrum-like workflow. It contains products management, stories, sprints and burn-down charts.</p>
+
+<p>I have learned a lot more about Ruby, Ruby on Rails, code quality and tests on the development process, and I think those are the best results I have obtained for now.</p>
+
+<p>The application is released under the MIT open source license.</p>
+
+<p>I hope it can help others (if not as an usable application, at least as a learning material!).</p>
+
+<p>I have also deployed a
+<a href="http://simple-scrum-demo.heroku.com">demo</a> version on
+<a href="http://heroku.com/">Heroku</a> (Heroku is so cool!). You can access it to have a sample view of the application.</p>
+
+<p>The
+<a href="http://github.com/fabiokr/simple-scrum">source code</a> is hosted on
+<a href="http://github.com">Github</a>.</p>
+
+<p>There is a README file on the source code with install instructions.</p>
+
+<p>Until next time!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita/">Entrevista Sobre Carreira Com Fabio Akita</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-10T00:00:00-03:00" pubdate data-updated="true">Oct 10<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Estou postando aqui esta entrevista que realizei no meu Último semestre da faculdade e que foi um trabalho muito interessante, e que estava armazenada no meu antigo blog.</p>
+
+<p>Durante meu perÃ­odo de faculdade, tive boas e nem tão boas experiências na área de desenvolvimento de software. Passei por experiências onde tarefas eram realizadas de qualquer maneira, sem preocupação com qualidade. Isso de alguma forma me abalou, não era possÃ­vel que esta fosse a melhor maneira de se fazer software. Comecei a pesquisar alternativas para o problema, metodologias de desenvolvimento e frameworks de desenvolvimento. Eis que me deparei com o framework Ruby on Rails e, inevitavelmente, com o Fabio Akita, um dos grandes responsáveis por sua expansão no Brasil.</p>
+
+<p>Este foi um trabalho para a disciplina de Orientação e Planejamento de Carreira, cujo objetivo é entrevistar um profissional da área de atuação do aluno que, de alguma forma, ele admire. Pensei em conversar com o Akita, já que compartilho muitos de seus pontos de vista em questões de desenvolvimento, gerenciamento e pessoas na área de software. Solicitei ao Akita a possibilidade de realizarmos a entrevista, e ele prontamente aceitou.</p>
+
+<p>O entrevistado então é Fabio Akita, 32 anos, atualmente gerente de produtos da Locaweb, empresa de hospedagem e serviços de internet. Akita ficou conhecido na Internet por sua ativa participação na comunidade de desenvolvimento ágil, expondo valores e boas práticas de programação. É também palestrante, escreveu alguns livros de programação e escreve em seu blog http://www.akitaonrails.com, onde fala sobre o framework Ruby on Rails e sobre questões de desenvolvimento e gerenciamento de projetos de software.</p>
+
+<p>Iniciei a entrevista perguntando sobre como ele se sente por ter escolhido esta área de atuação: “Foi algo bastante natural, na realidade. Eu gosto de informática em geral desde que era muito novo. Já fui programador, analista, coordenador, gerente. Eu vario bastante minha área de atuação, ainda gosto de colocar muito a mão na massa, e estou sempre pensando como posso fazer o que eu faço hoje, melhor. Então não é exatamente “uma” escolha, são “várias” escolhas feitas durante o caminho, onde vou me adaptando e me reinventando em vez de seguir uma Única carreira”.</p>
+
+<p>Como você descreveria a sua profissão? “Como disse antes, atualmente sou Gerente de Produtos, tecnicamente eu seria responsável pela concepção de produtos, pelo acompanhamento da sua implementação, e tudo mais. Mas na realidade eu me atiro em outras áreas, desde metodologias, avaliação de tecnologias, um pouco de desenvolvimento, e coisas do tipo. Não consigo pensar em mim como um Única profissão, mas como várias atividades que gosto de fazer”.</p>
+
+<p>Como foi o seu primeiro emprego? Ele atendeu as suas expectativas? “Meu primeiro emprego “formal” foi enquanto eu ainda estava na faculdade. Antes disso já tinha feito alguns trabalhos esporádicos como freelancer. Eu não tinha muita experiência e nem tinha ideia da dimensão do que se podia fazer. Foi numa produtora multimÃ­dia perto da USP. Lá eu fiz muitas coisas que nunca tinha feito antes. Tinha liberdade para aprender coisas que eu não sabia e me esforçava para dominar o que eles precisavam muito rápido. Meu chefe na época e a equipe em geral me davam muita liberdade e eu aprendi muito com eles, principalmente porque eles eram mais da área de criação e publicidade, coisas que não eram parte do que eu estudava. Isso me abriu muitas perspectivas e até hoje tenho influência do que aprendi naquela época, portanto, acho que superou em muito minhas expectativas em termos de aprendizado”.</p>
+
+<p>Houveram mudanças de emprego? “Diversas, até perco a conta. Somente no ano 2000, se não me engano, mudei de trabalho umas 3 vezes. Estou na Locaweb há apenas um ano. Antes disso fiquei um ano trabalhando remotamente para uma consultoria americana. Antes disso, eu era consultor no mundo SAP e, como consultor, circulei por diversas empresas onde passava vários meses. Eu gosto de experimentar coisas diferentes, encarar novos desafios e tenho pavor Ã rotina. Sempre que eu estou aprendendo algo novo, o trabalho é proveitoso, caso contrário não vale a pena. Eu gosto de me reinventar. Eu não acredito em carreira fixa como algo estável e, principalmente, algo que eu gostaria de perseguir”.</p>
+
+<p>Ao iniciar sua carreira profissional, você havia estabelecido objetivos e metas de onde gostaria de chegar? “Não, eu faço o que faço porque gosto de fazer. Quando entendi que gostava de informática, especificamente de programar, eu ainda era pré-adolescente. Não havia objetivos de longo prazo. Eu continuei gostando do que faço quando passei pela faculdade. Não tenho metas financeiras ou de carreira pré-definidas. Eu prefiro me adaptar Ã realidade, mas manter o valor de fazer o que gosto de fazer. Na medida do possÃ­vel, felizmente, isso tem funcionado. Financeiramente falando talvez fosse até melhor ter mantido uma carreira fixa, mas em termos de satisfação pessoal, tenho pouco do que reclamar até agora”.</p>
+
+<p>Você está satisfeito com o conjunto de esferas da sua vida (trabalho, pessoal, lazer)? “Sou muito workaholic, não separo muito bem trabalho de lazer. Sinceramente acho que negligencio a famÃ­lia mais do que deveria. Portanto, não, não estou satisfeito ainda nesse sentido. Por outro lado, como já enfatizei, isso é consequência justamente de eu estar envolvido em coisas que eu gosto de fazer mesmo fora do escritório, que é porque consumo meu tempo mais do que deveria.”.</p>
+
+<p>Que perÃ­odos de sua carreira você considera que foram mais e menos proveitosos? “Provavelmente a que mais gostei foi justamente do primeiro emprego que mencionei. Não financeiramente falando, claro, mas em termos da quantidade de coisas diferentes que tive oportunidade de fazer e aprender, e as portas que se abriram que eu não esperava. O que menos gostei foram alguns perÃ­odos de tempo da minha carreira como consultor SAP (que durou uns 5 anos) onde eu definitivamente estava fazendo coisas em que não acreditava e que não gostava de fazer, mas fazia por obrigação profissional. Por isso desisti dessa área.”.</p>
+
+<p>Você, agora, possui um objetivo a longo prazo? “Não, nenhum objetivo fixo, eu gosto de pensar no que faço como uma exploração, assim como explorar uma floresta, talvez como faziam os bandeirantes. Eu quero ver até onde isso pode ir. Pode parecer imprudente e aleatório, mas claro, estou atento com o que acontece no mercado. Eu tento escolher fazer as coisas que fazem sentido na realidade do mercado mas sempre na direção do valor de “fazer o que gosto”. Não tenho pretensões em ficar milionário ou coisa parecida. Se eu puder passar a vida toda trabalhando nas coisas que gosto - seja lá quais elas forem nos anos seguintes - tanto melhor”.</p>
+
+<p>O que você considera como seus pontos fortes? “Acho que meu ponto mais forte é minha natureza auto-didata. Eu não espero os outros me dizerem o que eu devo saber: prefiro ir atrás primeiro, aprender sozinho e rápido. Talvez isso me permite ser flexÃ­vel no que faço, sem muitas limitações do tipo “isso eu não sei fazer, passe para outro””.</p>
+
+<p>E seus pontos fracos? “Justamente o fato irônico de abraçar muitas coisas ao mesmo tempo. Como muitas coisas me interessam ao mesmo tempo, talvez isso me evite terminar algumas coisas mais rápido”.</p>
+
+<p>Falando do futuro, o que você pensa que acontecerá com sua carreira nos próximos dez anos? “Eu tenho um conceito muito diferente de “carreira”, eu não penso em aumento de salários, aumento de cargos, mais prestÃ­gio ou coisa parecida. A Única coisa que eu espero é que daqui dez anos eu esteja fazendo algo muito diferente do que estou fazendo agora que, por sinal, é muito diferente do que eu fazia dez anos atrás”.</p>
+
+<p>Por fim, o que você aconselharia para alguém que estivesse iniciando na área de sistemas de informação? “Infelizmente, pode parecer pedante, mas a boa e velha história do faça o que gosta de fazer e você nunca vai efetivamente “trabalhar” funciona para mim. Não quer dizer que funciona para todos, mas é um valor que talvez possa ser perseguido. Em alguns momentos você vai precisar se desviar, fazer o que não gosta porque é obrigado, mas se tiver esse norte, vai se lembrar que a meta de curto prazo é voltar Ã rota original. Sem isso você pode se desviar tanto do caminho que vai se conformar a ela e nunca mais tentar mudar. Mas enquanto o foco for “fazer o que gosta”, nem que isso demore para acontecer, será um objetivo a ser perseguido. O mais importante é, reinvente-se quantas vezes for preciso, entendendo que mudanças são importante e, por isso, é importante se acostumar a se modificar”.</p>
+
+<p>Acredito que a entrevista foi bastante proveitosa. Compartilho com a ideia de carreira flexÃ­vel, de não ficar preso a um determinado contexto, acredito que esta seja a melhor forma de ficar atento ao mercado, e também de estar preparado para mudanças. Compreendo a sua opinião de não traçar objetivos fixos a longo prazo, mas eu acredito que objetivos deste tipo ajudam a você ter o seu norte.</p>
+
+<p>Agradeço ao Akita por dispor seu tempo para a realização deste trabalho. Curiosamente, passamos por experiências de trabalho parecidas, onde em um momento percebia-se que o que se estava fazendo não era algo que você acreditava. Ambos rompemos este laço, e partimos para caminhos diferentes. Atualmente, passo por uma experiência de trabalho muito gratificante, onde tenho a oportunidade de aprender muito e estar trabalhando em algo que eu acredito.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/">Record a screen cast to a gif file</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/">Jquery silently fails on ajax errors</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/05/guake-autostart-script-with-rails/">Guake autostart script with Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/13/notifying-delayed-job-failures-by-default/">Notifying delayed_job failures by default</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/">Manageable Content - Rails 3.1 Content Management Engine</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/fabiokr">@fabiokr</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'fabiokr',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("fabiokr", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/fabiokr" class="twitter-follow-button" data-show-count="false">Follow @fabiokr</a>
+  
+</section>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  This work by <a href="">Fabio Kreusch</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a> (2013).
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

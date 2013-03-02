@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Bzr | Fabio Kreusch]]></title>
+  <link href="http://fabiokr.github.com/blog/categories/bzr/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-02T18:57:38-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
+  <author>
+    <name><![CDATA[Fabio Kreusch]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Bzr: Branches have no common ancestor, and no merge base revision was specified]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified/"/>
+    <updated>2010-09-21T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified</id>
+    <content type="html"><![CDATA[<p>Aqui na empresa, temos um projeto base. Os projetos aqui desenvolvidos herdam deste projeto base.</p>
+
+<p>Também, utilizamos o Bazaar como sistema de versionamento de código.</p>
+
+<p>Quando vamos criar um projeto novo, precisamos fazer com que ele herde do projeto base. A solu</p>
+
+<p>ção que estamos utilizando é criar um novo branch para o novo projeto, e então fazer um merge com o projeto base. Assim, dali em diante conseguimos fazer updates a partir do projeto base. Porém, quando vai-se fazer o merge com o projeto base pela primeira vez, o seguinte erro é lançado:</p>
+
+<p><code>
+bzr: ERROR: Branches have no common ancestor, and no merge base revision was specified
+</code></p>
+
+<p>Isso acontece porque o novo branch ainda não tem um ancestral comum com o branch do projeto base, sendo assim o bzr não tem como saber a partir do que ele deve fazer o merge.</p>
+
+<p>Neste caso, deve-se especificar o merge manualmente.  O seguinte comando (executado a partir da raiz do novo projeto) explicita isso:</p>
+
+<p><code>
+bzr merge -r 0..-1 caminho/do/projeto/base
+</code></p>
+
+<p>Assim, o Bazaar irá fazer o merge com o projeto base da revisão 0 até a última possí­vel (-1). Deste momento em diante, os dois projetos terão um ancestral comum e será possí­vel fazer merges com o projeto base sem mais problemas.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Instalando Bazaar server como serviço em windows server 2008]]></title>
+    <link href="http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/"/>
+    <updated>2010-03-22T00:00:00-03:00</updated>
+    <id>http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008</id>
+    <content type="html"><![CDATA[<p>Aqui na empresa estamos usando o Bazaar como sistema de controle de versío. Estamos utilizando um repositório compartilhado em rede, mas estamos tendo muitos problemas com o Bazaar nío conseguindo liberar os locks das pastas apí³s dar commits.</p>
+
+<p>Sendo assim, decidi tentar usar o 
+<a href="%22\" title="http://doc.bazaar.canonical.com/bzr.2.1/en/admin-guide/simple-setups.html\&quot;\">servidor especí­fico do Bazaar</a> no Windows, instalando-o como um serviço.</p>
+
+<p>Seguem os passos para instalá-lo no Windows Server 2008:</p>
+
+<p>1 - Instalar o Bazaar normalmente no Windows Server.</p>
+
+<p>2 - Instalar o 
+<a href="%22\" title="http://www.microsoft.com/downloads/details.aspx?FamilyID=9D467A69-57FF-4AE7-96EE-B18C4790CFFD&amp;displaylang=en\&quot;\">Resource Kit Tools</a>. Esta versío é para Windows Server 2003, mas nío tive problemas usando-o no 2008 (nío encontrei versío do Resource Kit Tools para o 2008). Precisamos do Resource Kit Tools porque ele contém o Srvany, que permite instalar qualquer executável como um serviço do Windows.</p>
+
+<p>3 - Criar um serviço para o Bazaar: na linha de comando do Windows Server, digite 'sc create bzr_server binPath= C:\\Program Files (x86)\\Windows Resource Kits\\Tools\\srvany.exe DisplayName= \"Bazaar Server\"', levando em conta o caminho correto de onde o Resource Kit Tools foi instalado.</p>
+
+<p>4 - Devemos agora configurar qual executável o srvany irá rodar como serviço. Para isso devemos editar o registro do Windows com o programa 'regedit'. Procure pela chave HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\bzr_server, e adicione uma chave chamada 'Parameters'. Dentro da chave Parameters, crie um valor do tipo string chamado 'Application' e tendo como valor o caminho para o bzr server. No meu caso ficou assim:  </p>
+
+<p>bzr server --directory=G:\\Repositorios --port=0.0.0.0:4155 --allow-writes</p>
+
+<p>Pronto! Basta agora iniciar o serviço no Windows e vocíª deverá conseguir acessar o repositorio. Para testá-lo vocíª pode tentar o seguinte comando:</p>
+
+<p>bzr check bzr://localdarede/pasta_do_repositorio</p>
+
+<p>Espero que agora os problema com break-lock se resolvam =S</p>
+]]></content>
+  </entry>
+  
+</feed>

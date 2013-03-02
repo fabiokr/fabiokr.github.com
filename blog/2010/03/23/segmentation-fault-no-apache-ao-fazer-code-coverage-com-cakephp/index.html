@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Fabio Kreusch</title>
+  <title>Segmentation fault no apache ao fazer Code Coverage com Cakephp - Fabio Kreusch</title>
   <meta name="author" content="Fabio Kreusch">
 
   
-  <meta name="description" content="Hi, I am a software engineer! Thank you for visiting my website. My name is Fabio Kreusch, and I am a software engineer experienced with web and &hellip;">
+  <meta name="description" content=" Tive problemas ao tentar usar o Xdebug com os testes no CakePHP. Meu ambiente é um Ubuntu 9.10, Apache 2, PHP 5 com XDebug instalado via apt-get. Ao &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://fabiokr.github.com/">
+  <link rel="canonical" href="http://fabiokr.github.com/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,29 +75,104 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
-  <article>
-    <h1>Hi, I am a software engineer!</h1>
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Segmentation Fault No Apache Ao Fazer Code Coverage Com Cakephp</h1>
+    
+    
+      <p class="meta">
+        
 
-    <img class="left" src="/assets/avatar-summer.jpg" />
 
-    <p>Thank you for visiting my website.</p>
 
-    <p>My name is <strong>Fabio Kreusch</strong>, and I am a software engineer experienced with web and systems development. My development utility belt includes Ruby, PHP, Java, HTML, Javascript and databases (MySQL, Oracle, Postgres) and it keeps expanding. I like to keep up with what is new in the software development world.</p>
 
-    <p>I&#8217;m currently a <a href="http://www.eng5.com">software engineer</a> at <a href="http://www.site5.com">Site5</a>.</p>
 
-    <p>Here is a list of resources where you can find more information about my experiences and what I have been doing:</p>
 
-    <ul>
-      <li><a href="https://github.com/fabiokr">Github</a> account with open source projects</li>
-      <li>Online resume at <a href="http://www.linkedin.com/in/fabiokreusch">LinkedIn</a></li>
-      <li>Online resume at <a href="http://careers.stackoverflow.com/fabiokr">Stack Overflow Careers</a></li>
-    </ul>
 
-    <p>You can contact me through <a href="mailto:fabiokr@gmail.com">my email</a>.</p>
-  </article>
+
+  
+
+
+<time datetime="2010-03-23T00:00:00-03:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p> Tive problemas ao tentar usar o Xdebug com os testes no CakePHP. Meu ambiente é um Ubuntu 9.10, Apache 2, PHP 5 com XDebug instalado via apt-get. Ao tentar executar os testes no Cake com code coverage report, o processo morria, e o seguinte erro aparecia no log do Apache:</p>
+
+<blockquote><p>[Tue Mar 23 09:58:38 2010] [notice] child pid 16792 exit signal Segmentation fault (11)</p></blockquote>
+
+<p>Encontrei
+<a href="%22\" title="http://mark-story.com/posts/view/code-coverage-in-cakephp-1-2-test-suite\&quot;\">nesta</a> página uma solução que resolveu meu problema:</p>
+
+<p>Altere a linha 115 do arquivo cake/tests/lib/code_coverage_manager.php para:</p>
+
+<blockquote><p>xdebug_start_code_coverage(XDEBUG_CC_UNUSED);</p></blockquote>
+
+<p>Pronto! </p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Fabio Kreusch</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-23T00:00:00-03:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cakephp/'>Cakephp</a>, <a class='category' href='/blog/categories/php/'>Php</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://fabiokr.github.com/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp/" data-via="fabiokr" data-counturl="http://fabiokr.github.com/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/" title="Previous Post: Instalando Bazaar server como serviço em windows server 2008">&laquo; Instalando Bazaar server como serviço em windows server 2008</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results/" title="Next Post: Rails 3 responders, JQuery 1.4 and empty json results">Rails 3 responders, JQuery 1.4 and empty json results &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -130,7 +205,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/fabiokr">@fabiokr</a> on GitHub
@@ -160,7 +235,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -176,6 +251,7 @@
 
   
 </aside>
+
 
     </div>
   </div>

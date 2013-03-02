@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Fabio Kreusch</title>
+  <title>Instalando Bazaar server como serviço em windows server 2008 - Fabio Kreusch</title>
   <meta name="author" content="Fabio Kreusch">
 
   
-  <meta name="description" content="Hi, I am a software engineer! Thank you for visiting my website. My name is Fabio Kreusch, and I am a software engineer experienced with web and &hellip;">
+  <meta name="description" content="Aqui na empresa estamos usando o Bazaar como sistema de controle de versío. Estamos utilizando um repositório compartilhado em rede, mas estamos &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://fabiokr.github.com/">
+  <link rel="canonical" href="http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,29 +75,115 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
-  <article>
-    <h1>Hi, I am a software engineer!</h1>
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Instalando Bazaar Server Como Serviço Em Windows Server 2008</h1>
+    
+    
+      <p class="meta">
+        
 
-    <img class="left" src="/assets/avatar-summer.jpg" />
 
-    <p>Thank you for visiting my website.</p>
 
-    <p>My name is <strong>Fabio Kreusch</strong>, and I am a software engineer experienced with web and systems development. My development utility belt includes Ruby, PHP, Java, HTML, Javascript and databases (MySQL, Oracle, Postgres) and it keeps expanding. I like to keep up with what is new in the software development world.</p>
 
-    <p>I&#8217;m currently a <a href="http://www.eng5.com">software engineer</a> at <a href="http://www.site5.com">Site5</a>.</p>
 
-    <p>Here is a list of resources where you can find more information about my experiences and what I have been doing:</p>
 
-    <ul>
-      <li><a href="https://github.com/fabiokr">Github</a> account with open source projects</li>
-      <li>Online resume at <a href="http://www.linkedin.com/in/fabiokreusch">LinkedIn</a></li>
-      <li>Online resume at <a href="http://careers.stackoverflow.com/fabiokr">Stack Overflow Careers</a></li>
-    </ul>
 
-    <p>You can contact me through <a href="mailto:fabiokr@gmail.com">my email</a>.</p>
-  </article>
+
+  
+
+
+<time datetime="2010-03-22T00:00:00-03:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Aqui na empresa estamos usando o Bazaar como sistema de controle de versío. Estamos utilizando um repositório compartilhado em rede, mas estamos tendo muitos problemas com o Bazaar nío conseguindo liberar os locks das pastas apí³s dar commits.</p>
+
+<p>Sendo assim, decidi tentar usar o 
+<a href="%22\" title="http://doc.bazaar.canonical.com/bzr.2.1/en/admin-guide/simple-setups.html\&quot;\">servidor especí­fico do Bazaar</a> no Windows, instalando-o como um serviço.</p>
+
+<p>Seguem os passos para instalá-lo no Windows Server 2008:</p>
+
+<p>1 - Instalar o Bazaar normalmente no Windows Server.</p>
+
+<p>2 - Instalar o 
+<a href="%22\" title="http://www.microsoft.com/downloads/details.aspx?FamilyID=9D467A69-57FF-4AE7-96EE-B18C4790CFFD&amp;displaylang=en\&quot;\">Resource Kit Tools</a>. Esta versío é para Windows Server 2003, mas nío tive problemas usando-o no 2008 (nío encontrei versío do Resource Kit Tools para o 2008). Precisamos do Resource Kit Tools porque ele contém o Srvany, que permite instalar qualquer executável como um serviço do Windows.</p>
+
+<p>3 - Criar um serviço para o Bazaar: na linha de comando do Windows Server, digite &#8216;sc create bzr_server binPath= C:&#92;Program Files (x86)&#92;Windows Resource Kits&#92;Tools&#92;srvany.exe DisplayName= &#34;Bazaar Server&#34;&#8217;, levando em conta o caminho correto de onde o Resource Kit Tools foi instalado.</p>
+
+<p>4 - Devemos agora configurar qual executável o srvany irá rodar como serviço. Para isso devemos editar o registro do Windows com o programa &#8216;regedit&#8217;. Procure pela chave HKEY_LOCAL_MACHINE&#92;SYSTEM&#92;CurrentControlSet&#92;Services&#92;bzr_server, e adicione uma chave chamada &#8216;Parameters&#8217;. Dentro da chave Parameters, crie um valor do tipo string chamado &#8216;Application&#8217; e tendo como valor o caminho para o bzr server. No meu caso ficou assim:  </p>
+
+<p>bzr server &#8211;directory=G:&#92;Repositorios &#8211;port=0.0.0.0:4155 &#8211;allow-writes</p>
+
+<p>Pronto! Basta agora iniciar o serviço no Windows e vocíª deverá conseguir acessar o repositorio. Para testá-lo vocíª pode tentar o seguinte comando:</p>
+
+<p>bzr check bzr://localdarede/pasta_do_repositorio</p>
+
+<p>Espero que agora os problema com break-lock se resolvam =S</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Fabio Kreusch</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-22T00:00:00-03:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bazaar/'>Bazaar</a>, <a class='category' href='/blog/categories/bzr/'>Bzr</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/" data-via="fabiokr" data-counturl="http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/01/20/simple-scrum-application/" title="Previous Post: Simple Scrum Application">&laquo; Simple Scrum Application</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp/" title="Next Post: Segmentation fault no apache ao fazer Code Coverage com Cakephp">Segmentation fault no apache ao fazer Code Coverage com Cakephp &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -130,7 +216,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/fabiokr">@fabiokr</a> on GitHub
@@ -160,7 +246,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -176,6 +262,7 @@
 
   
 </aside>
+
 
     </div>
   </div>

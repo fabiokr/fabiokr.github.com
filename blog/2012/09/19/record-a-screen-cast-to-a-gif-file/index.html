@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Fabio Kreusch</title>
+  <title>Record a screen cast to a gif file - Fabio Kreusch</title>
   <meta name="author" content="Fabio Kreusch">
 
   
-  <meta name="description" content="Hi, I am a software engineer! Thank you for visiting my website. My name is Fabio Kreusch, and I am a software engineer experienced with web and &hellip;">
+  <meta name="description" content="Here is a simple shell script that converts a recorded ogv file to an animated gif, pretty useful for demonstrating small interactions. For recording &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://fabiokr.github.com/">
+  <link rel="canonical" href="http://fabiokr.github.com/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,29 +75,140 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
-  <article>
-    <h1>Hi, I am a software engineer!</h1>
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Record a Screen Cast to a Gif File</h1>
+    
+    
+      <p class="meta">
+        
 
-    <img class="left" src="/assets/avatar-summer.jpg" />
 
-    <p>Thank you for visiting my website.</p>
 
-    <p>My name is <strong>Fabio Kreusch</strong>, and I am a software engineer experienced with web and systems development. My development utility belt includes Ruby, PHP, Java, HTML, Javascript and databases (MySQL, Oracle, Postgres) and it keeps expanding. I like to keep up with what is new in the software development world.</p>
 
-    <p>I&#8217;m currently a <a href="http://www.eng5.com">software engineer</a> at <a href="http://www.site5.com">Site5</a>.</p>
 
-    <p>Here is a list of resources where you can find more information about my experiences and what I have been doing:</p>
 
-    <ul>
-      <li><a href="https://github.com/fabiokr">Github</a> account with open source projects</li>
-      <li>Online resume at <a href="http://www.linkedin.com/in/fabiokreusch">LinkedIn</a></li>
-      <li>Online resume at <a href="http://careers.stackoverflow.com/fabiokr">Stack Overflow Careers</a></li>
-    </ul>
 
-    <p>You can contact me through <a href="mailto:fabiokr@gmail.com">my email</a>.</p>
-  </article>
+
+  
+
+
+<time datetime="2012-09-19T15:08:00-03:00" pubdate data-updated="true">Sep 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Here is a simple shell script that converts a recorded ogv file to an animated gif, pretty useful for demonstrating small interactions. For recording an ogv, I&#8217;ve been using Record my Desktop on Ubuntu. You&#8217;ll also need mplayer, and imagemagick. Under Ubuntu/Debian, you can install those with this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install imagemagick mplayer gtk-recordmydesktop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And here is the shell script:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>ogv_to_gif<span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>  <span class="c"># Export into images</span>
+</span><span class='line'>  mplayer -ao null <span class="nv">$1</span> -vo jpeg:outdir<span class="o">=</span>/tmp/ogv_to_gif
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># Convert images to animated gif</span>
+</span><span class='line'>  <span class="nb">echo</span> <span class="s2">&quot;Converting images folder to gif...&quot;</span>
+</span><span class='line'>  convert /tmp/ogv_to_gif/* /tmp/ogv_to_gif.gif
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># Final filename</span>
+</span><span class='line'>  <span class="nv">original_filename</span><span class="o">=</span><span class="nv">$1</span>
+</span><span class='line'>  <span class="nv">filename</span><span class="o">=</span><span class="k">${</span><span class="nv">original_filename</span><span class="p">//ogv/gif</span><span class="k">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># Optimize gif</span>
+</span><span class='line'>  <span class="nb">echo</span> <span class="s2">&quot;Optimizing generated gif...&quot;</span>
+</span><span class='line'>  convert /tmp/ogv_to_gif.gif -fuzz 10% -layers Optimize <span class="s2">&quot;$filename&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># Cleans up tmp folders</span>
+</span><span class='line'>  rm -rf /tmp/ogv_to_gif.gif /tmp/ogv_to_gif
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> </p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Fabio Kreusch</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-19T15:08:00-03:00" pubdate data-updated="true">Sep 19<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gif/'>Gif</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/screenscast/'>Screenscast</a>, <a class='category' href='/blog/categories/ubuntu/'>Ubuntu</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://fabiokr.github.com/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/" data-via="fabiokr" data-counturl="http://fabiokr.github.com/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/" title="Previous Post: Jquery silently fails on ajax errors">&laquo; Jquery silently fails on ajax errors</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -130,7 +241,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/fabiokr">@fabiokr</a> on GitHub
@@ -160,7 +271,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -176,6 +287,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
