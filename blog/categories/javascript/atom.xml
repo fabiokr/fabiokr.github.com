@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Javascript | Fabio Kreusch]]></title>
-  <link href="http://fabiokr.github.com/blog/categories/javascript/atom.xml" rel="self"/>
-  <link href="http://fabiokr.github.com/"/>
-  <updated>2013-03-02T18:57:38-03:00</updated>
-  <id>http://fabiokr.github.com/</id>
+  <link href="http://www.kreusch.com.br/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://www.kreusch.com.br/"/>
+  <updated>2013-03-02T19:05:38-03:00</updated>
+  <id>http://www.kreusch.com.br/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Jquery silently fails on ajax errors]]></title>
-    <link href="http://fabiokr.github.com/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/"/>
+    <link href="http://www.kreusch.com.br/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/"/>
     <updated>2012-09-12T18:38:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2012/09/12/jquery-silently-fails-on-ajax-errors</id>
+    <id>http://www.kreusch.com.br/blog/2012/09/12/jquery-silently-fails-on-ajax-errors</id>
     <content type="html"><![CDATA[<p>Context: you have an ajax call that returns javascript code. If that javascript raises a runtime error, it turns out that Jquery will engulf it and you will have a hard time finding out what is failling.</p>
 
 <p>This is what I came up with to force raising when that kind of thing happens:</p>
@@ -37,9 +37,9 @@ $ -></p>
   
   <entry>
     <title type="html"><![CDATA[RightJS Growl notification Widget]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/10/09/rightjs-growl-notification-widget/"/>
     <updated>2010-10-09T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget</id>
+    <id>http://www.kreusch.com.br/blog/2010/10/09/rightjs-growl-notification-widget</id>
     <content type="html"><![CDATA[<p>Hi there!</p>
 
 <p>I'm experimenting with
@@ -57,9 +57,9 @@ $ -></p>
   
   <entry>
     <title type="html"><![CDATA[Rails 3 responders, JQuery 1.4 and empty json results]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results/"/>
     <updated>2010-03-30T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results</id>
+    <id>http://www.kreusch.com.br/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results</id>
     <content type="html"><![CDATA[<p> So, I have been playing with Rails 3 for a while, and it is really great! One of the new things I'm liking on it is the concept of
 <a href="%22http://ryandaigle.com/articles/2009/8/10/what-s-new-in-edge-rails-default-restful-rendering%22">responders</a>. It helps to thin your controllers and encapsulate same logic on the same place.</p>
 
