@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Carreira | Fabio Kreusch]]></title>
-  <link href="http://www.kreusch.com.br/blog/categories/carreira/atom.xml" rel="self"/>
-  <link href="http://www.kreusch.com.br/"/>
-  <updated>2013-03-02T19:05:38-03:00</updated>
-  <id>http://www.kreusch.com.br/</id>
+  <link href="http://fabiokr.github.com/blog/categories/carreira/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-07T20:29:27-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Entrevista sobre carreira com Fabio Akita]]></title>
-    <link href="http://www.kreusch.com.br/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita/"/>
+    <link href="http://fabiokr.github.com/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita/"/>
     <updated>2009-10-10T00:00:00-03:00</updated>
-    <id>http://www.kreusch.com.br/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita</id>
+    <id>http://fabiokr.github.com/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita</id>
     <content type="html"><![CDATA[<p>Estou postando aqui esta entrevista que realizei no meu Último semestre da faculdade e que foi um trabalho muito interessante, e que estava armazenada no meu antigo blog.</p>
 
 <p>Durante meu perÃ­odo de faculdade, tive boas e nem tão boas experiências na área de desenvolvimento de software. Passei por experiências onde tarefas eram realizadas de qualquer maneira, sem preocupação com qualidade. Isso de alguma forma me abalou, não era possÃ­vel que esta fosse a melhor maneira de se fazer software. Comecei a pesquisar alternativas para o problema, metodologias de desenvolvimento e frameworks de desenvolvimento. Eis que me deparei com o framework Ruby on Rails e, inevitavelmente, com o Fabio Akita, um dos grandes responsáveis por sua expansão no Brasil.</p>

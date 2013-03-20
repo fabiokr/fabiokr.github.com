@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Agile | Fabio Kreusch]]></title>
-  <link href="http://www.kreusch.com.br/blog/categories/agile/atom.xml" rel="self"/>
-  <link href="http://www.kreusch.com.br/"/>
-  <updated>2013-03-02T19:05:38-03:00</updated>
-  <id>http://www.kreusch.com.br/</id>
+  <link href="http://fabiokr.github.com/blog/categories/agile/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-07T20:29:27-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[A teoria da janela quebrada]]></title>
-    <link href="http://www.kreusch.com.br/blog/2010/05/22/a-teoria-da-janela-quebrada/"/>
+    <link href="http://fabiokr.github.com/blog/2010/05/22/a-teoria-da-janela-quebrada/"/>
     <updated>2010-05-22T00:00:00-03:00</updated>
-    <id>http://www.kreusch.com.br/blog/2010/05/22/a-teoria-da-janela-quebrada</id>
+    <id>http://fabiokr.github.com/blog/2010/05/22/a-teoria-da-janela-quebrada</id>
     <content type="html"><![CDATA[<p>Finalmente, após quase um mês de espera, chegou na Ãºltima semana a minha encomenda da Amazon. Nela estão dois livros:
 <a href="%22\" title="http://37signals.com/rework/\&quot;\">Rework</a> e
 <a href="%22\" title="http://www.pragprog.com/the-pragmatic-programmer\&quot;\">The Pragmatic Programmer</a>.</p>
@@ -44,9 +44,9 @@
   
   <entry>
     <title type="html"><![CDATA[Simple Scrum Application]]></title>
-    <link href="http://www.kreusch.com.br/blog/2010/01/20/simple-scrum-application/"/>
+    <link href="http://fabiokr.github.com/blog/2010/01/20/simple-scrum-application/"/>
     <updated>2010-01-20T00:00:00-02:00</updated>
-    <id>http://www.kreusch.com.br/blog/2010/01/20/simple-scrum-application</id>
+    <id>http://fabiokr.github.com/blog/2010/01/20/simple-scrum-application</id>
     <content type="html"><![CDATA[<p> So, I have now finally a 'releasable' version of Simple Scrum.</p>
 
 <p>Simple Scrum is an application that I have developed for myself to help me manage personal software projects using a Scrum-like workflow. It contains products management, stories, sprints and burn-down charts.</p>

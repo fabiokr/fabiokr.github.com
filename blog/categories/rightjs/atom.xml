@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Rightjs | Fabio Kreusch]]></title>
-  <link href="http://www.kreusch.com.br/blog/categories/rightjs/atom.xml" rel="self"/>
-  <link href="http://www.kreusch.com.br/"/>
-  <updated>2013-03-02T19:05:38-03:00</updated>
-  <id>http://www.kreusch.com.br/</id>
+  <link href="http://fabiokr.github.com/blog/categories/rightjs/atom.xml" rel="self"/>
+  <link href="http://fabiokr.github.com/"/>
+  <updated>2013-03-07T20:29:27-03:00</updated>
+  <id>http://fabiokr.github.com/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[RightJS Growl notification Widget]]></title>
-    <link href="http://www.kreusch.com.br/blog/2010/10/09/rightjs-growl-notification-widget/"/>
+    <link href="http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget/"/>
     <updated>2010-10-09T00:00:00-03:00</updated>
-    <id>http://www.kreusch.com.br/blog/2010/10/09/rightjs-growl-notification-widget</id>
+    <id>http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget</id>
     <content type="html"><![CDATA[<p>Hi there!</p>
 
 <p>I'm experimenting with
