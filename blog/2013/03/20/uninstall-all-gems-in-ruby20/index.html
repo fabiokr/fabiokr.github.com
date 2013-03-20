@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>RightJS Growl notification Widget - Fabio Kreusch</title>
+  <title>Uninstall all gems in Ruby 2.0 - Fabio Kreusch</title>
   <meta name="author" content="Fabio Kreusch">
 
   
-  <meta name="description" content="Hi there! I&#8217;m experimenting with
-RightJS on some personal projects, and I&#8217;m starting to like it! I have also developed my first Widget, a &hellip;">
+  <meta name="description" content="Here is a command to uninstall all non default gems in Ruby 2.0: 1
+gem list | cut -d" " -f1 | grep -v "test-unit\|psych\|minitest\|io-console\|rdoc\| &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ RightJS on some personal projects, and I&#8217;m starting to like it! I have als
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget/">
+  <link rel="canonical" href="http://fabiokr.github.com/blog/2013/03/20/uninstall-all-gems-in-ruby20/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -81,7 +81,7 @@ RightJS on some personal projects, and I&#8217;m starting to like it! I have als
   
   <header>
     
-      <h1 class="entry-title">RightJS Growl Notification Widget</h1>
+      <h1 class="entry-title">Uninstall All Gems in Ruby 2.0</h1>
     
     
       <p class="meta">
@@ -97,25 +97,18 @@ RightJS on some personal projects, and I&#8217;m starting to like it! I have als
   
 
 
-<time datetime="2010-10-09T00:00:00-03:00" pubdate data-updated="true">Oct 9<span>th</span>, 2010</time>
+<time datetime="2013-03-20T10:40:00-03:00" pubdate data-updated="true">Mar 20<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Hi there!</p>
+<div class="entry-content"><p>Here is a command to uninstall all non default gems in Ruby 2.0:</p>
 
-<p>I&#8217;m experimenting with
-<a href="http://rightjs.org/">RightJS</a> on some personal projects, and I&#8217;m starting to like it!</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem list | cut -d" " -f1 | grep -v "test-unit\|psych\|minitest\|io-console\|rdoc\|bigdecimal\|rake\|json"  | xargs gem uninstall -aIx</span></code></pre></td></tr></table></div></figure>
 
-<p>I have also developed my first Widget, a Growl like notification. It is based on
-<a href="http://code.google.com/p/jquery-purr/">Jquery-purr</a> plugin, and I have ported it to RightJS. It&#8217;s freely available on
-<a href="http://github.com/fabiokr/rightjs-growl">Github</a>.</p>
-
-<p>I must do some tests on IE, but for now it&#8217;s functional on Firefox and Chrome (the ones I have tested).</p>
-
-<p>Until next time!</p>
 </div>
 
 
@@ -138,12 +131,12 @@ RightJS on some personal projects, and I&#8217;m starting to like it! I have als
   
 
 
-<time datetime="2010-10-09T00:00:00-03:00" pubdate data-updated="true">Oct 9<span>th</span>, 2010</time>
+<time datetime="2013-03-20T10:40:00-03:00" pubdate data-updated="true">Mar 20<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/javascript/'>Javascript</a>, <a class='category' href='/blog/categories/rightjs/'>Rightjs</a>
+    <a class='category' href='/blog/categories/ruby/'>Ruby</a>
   
 </span>
 
@@ -152,7 +145,7 @@ RightJS on some personal projects, and I&#8217;m starting to like it! I have als
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget/" data-via="fabiokr" data-counturl="http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://fabiokr.github.com/blog/2013/03/20/uninstall-all-gems-in-ruby20/" data-via="fabiokr" data-counturl="http://fabiokr.github.com/blog/2013/03/20/uninstall-all-gems-in-ruby20/" >Tweet</a>
   
   
   
@@ -163,10 +156,8 @@ RightJS on some personal projects, and I&#8217;m starting to like it! I have als
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified/" title="Previous Post: Bzr: Branches have no common ancestor, and no merge base revision was specified">&laquo; Bzr: Branches have no common ancestor, and no merge base revision was specified</a>
+        <a class="basic-alignment left" href="/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/" title="Previous Post: Record a screen cast to a gif file">&laquo; Record a screen cast to a gif file</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/" title="Next Post: Manageable Content - Rails 3.1 Content Management Engine">Manageable Content - Rails 3.1 Content Management Engine &raquo;</a>
       
     </p>
   </footer>
