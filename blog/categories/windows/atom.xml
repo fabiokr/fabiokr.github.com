@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Windows | Fabio Kreusch]]></title>
-  <link href="http://fabiokr.github.com/blog/categories/windows/atom.xml" rel="self"/>
-  <link href="http://fabiokr.github.com/"/>
-  <updated>2013-03-20T10:48:05-03:00</updated>
-  <id>http://fabiokr.github.com/</id>
+  <link href="http://www.kreusch.com.br/blog/categories/windows/atom.xml" rel="self"/>
+  <link href="http://www.kreusch.com.br/"/>
+  <updated>2013-03-20T10:52:04-03:00</updated>
+  <id>http://www.kreusch.com.br/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Instalando Bazaar server como serviço em windows server 2008]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/"/>
     <updated>2010-03-22T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008</id>
+    <id>http://www.kreusch.com.br/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008</id>
     <content type="html"><![CDATA[<p>Aqui na empresa estamos usando o Bazaar como sistema de controle de versío. Estamos utilizando um repositório compartilhado em rede, mas estamos tendo muitos problemas com o Bazaar nío conseguindo liberar os locks das pastas apí³s dar commits.</p>
 
 <p>Sendo assim, decidi tentar usar o 

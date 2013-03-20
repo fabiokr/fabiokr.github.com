@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Fabio Kreusch]]></title>
-  <link href="http://fabiokr.github.com/atom.xml" rel="self"/>
-  <link href="http://fabiokr.github.com/"/>
-  <updated>2013-03-20T10:48:05-03:00</updated>
-  <id>http://fabiokr.github.com/</id>
+  <link href="http://www.kreusch.com.br/atom.xml" rel="self"/>
+  <link href="http://www.kreusch.com.br/"/>
+  <updated>2013-03-20T10:52:04-03:00</updated>
+  <id>http://www.kreusch.com.br/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Uninstall all gems in Ruby 2.0]]></title>
-    <link href="http://fabiokr.github.com/blog/2013/03/20/uninstall-all-gems-in-ruby20/"/>
+    <link href="http://www.kreusch.com.br/blog/2013/03/20/uninstall-all-gems-in-ruby20/"/>
     <updated>2013-03-20T10:40:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2013/03/20/uninstall-all-gems-in-ruby20</id>
+    <id>http://www.kreusch.com.br/blog/2013/03/20/uninstall-all-gems-in-ruby20</id>
     <content type="html"><![CDATA[<p>Here is a command to uninstall all non default gems in Ruby 2.0:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -28,9 +28,9 @@
   
   <entry>
     <title type="html"><![CDATA[Record a screen cast to a gif file]]></title>
-    <link href="http://fabiokr.github.com/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/"/>
+    <link href="http://www.kreusch.com.br/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/"/>
     <updated>2012-09-19T15:08:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2012/09/19/record-a-screen-cast-to-a-gif-file</id>
+    <id>http://www.kreusch.com.br/blog/2012/09/19/record-a-screen-cast-to-a-gif-file</id>
     <content type="html"><![CDATA[<p>Here is a simple shell script that converts a recorded ogv file to an animated gif, pretty useful for demonstrating small interactions. For recording an ogv, I&#8217;ve been using Record my Desktop on Ubuntu. You&#8217;ll also need mplayer, and imagemagick. Under Ubuntu/Debian, you can install those with this:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -86,9 +86,9 @@
   
   <entry>
     <title type="html"><![CDATA[Jquery silently fails on ajax errors]]></title>
-    <link href="http://fabiokr.github.com/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/"/>
+    <link href="http://www.kreusch.com.br/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/"/>
     <updated>2012-09-12T18:38:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2012/09/12/jquery-silently-fails-on-ajax-errors</id>
+    <id>http://www.kreusch.com.br/blog/2012/09/12/jquery-silently-fails-on-ajax-errors</id>
     <content type="html"><![CDATA[<p>Context: you have an ajax call that returns javascript code. If that javascript raises a runtime error, it turns out that Jquery will engulf it and you will have a hard time finding out what is failling.</p>
 
 <p>This is what I came up with to force raising when that kind of thing happens:</p>
@@ -108,9 +108,9 @@
   
   <entry>
     <title type="html"><![CDATA[Guake autostart script with Rails]]></title>
-    <link href="http://fabiokr.github.com/blog/2012/07/05/guake-autostart-script-with-rails/"/>
+    <link href="http://www.kreusch.com.br/blog/2012/07/05/guake-autostart-script-with-rails/"/>
     <updated>2012-07-05T17:23:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2012/07/05/guake-autostart-script-with-rails</id>
+    <id>http://www.kreusch.com.br/blog/2012/07/05/guake-autostart-script-with-rails</id>
     <content type="html"><![CDATA[<p>I use
 <a href="http://guake.org/">Guake</a> terminal in my development
 <a href="http://www.ubuntu.com">Ubuntu</a> machine, and most of the time I find myself repeating a ton of commands to start my Rails devlopment environment, each process under its own tab. So today I finally took some time to setup a simple script that sets up Guake the way I want it. By adding something like the following to your .bashrc file, you&#8217;ll be able to start it by running the &#8220;guake-my-project&#8221; command:</p>
@@ -131,9 +131,9 @@
   
   <entry>
     <title type="html"><![CDATA[Notifying delayed_job failures by default]]></title>
-    <link href="http://fabiokr.github.com/blog/2012/01/13/notifying-delayed-job-failures-by-default/"/>
+    <link href="http://www.kreusch.com.br/blog/2012/01/13/notifying-delayed-job-failures-by-default/"/>
     <updated>2012-01-13T12:35:00-02:00</updated>
-    <id>http://fabiokr.github.com/blog/2012/01/13/notifying-delayed-job-failures-by-default</id>
+    <id>http://www.kreusch.com.br/blog/2012/01/13/notifying-delayed-job-failures-by-default</id>
     <content type="html"><![CDATA[<p>Here is a helpful code snippet to notify delayed_job errors by default in a Rails application. In a config/initializers file, add the following:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -208,9 +208,9 @@
   
   <entry>
     <title type="html"><![CDATA[Manageable Content - Rails 3.1 Content Management Engine]]></title>
-    <link href="http://fabiokr.github.com/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/"/>
+    <link href="http://www.kreusch.com.br/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine/"/>
     <updated>2011-08-23T23:37:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine</id>
+    <id>http://www.kreusch.com.br/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine</id>
     <content type="html"><![CDATA[<p>Hi there!</p>
 
 <p>This is a tutorial post about a gem I have just released:
@@ -332,9 +332,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[RightJS Growl notification Widget]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/10/09/rightjs-growl-notification-widget/"/>
     <updated>2010-10-09T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/10/09/rightjs-growl-notification-widget</id>
+    <id>http://www.kreusch.com.br/blog/2010/10/09/rightjs-growl-notification-widget</id>
     <content type="html"><![CDATA[<p>Hi there!</p>
 
 <p>I&#8217;m experimenting with
@@ -352,9 +352,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[Bzr: Branches have no common ancestor, and no merge base revision was specified]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified/"/>
     <updated>2010-09-21T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified</id>
+    <id>http://www.kreusch.com.br/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified</id>
     <content type="html"><![CDATA[<p>Aqui na empresa, temos um projeto base. Os projetos aqui desenvolvidos herdam deste projeto base.</p>
 
 <p>Também, utilizamos o Bazaar como sistema de versionamento de código.</p>
@@ -381,9 +381,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[A successful Git branching model - Cheatsheet]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/08/24/a-successful-git-branching-model-cheatsheet/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/08/24/a-successful-git-branching-model-cheatsheet/"/>
     <updated>2010-08-24T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/08/24/a-successful-git-branching-model-cheatsheet</id>
+    <id>http://www.kreusch.com.br/blog/2010/08/24/a-successful-git-branching-model-cheatsheet</id>
     <content type="html"><![CDATA[<p>Nestes dias estava a procura de um modelo de desenvolvimento usando Git, algo que oferecesse algum padrão de como lidar com o desenvolvimento de uma aplicação, com branches para correções de bugs, branches de desenvolvimento, etc. Encontrei um ótimo artigo sobre o assunto, que pode ser
 <a href="http://nvie.com/git-model">lido aqui</a>. Gostei muito do modelo e estou usando nos meus projetos pessoais.</p>
 
@@ -394,9 +394,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[Testing Rails router paths on Rails console]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/07/28/testing-rails-router-paths-on-rails-console/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/07/28/testing-rails-router-paths-on-rails-console/"/>
     <updated>2010-07-28T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/07/28/testing-rails-router-paths-on-rails-console</id>
+    <id>http://www.kreusch.com.br/blog/2010/07/28/testing-rails-router-paths-on-rails-console</id>
     <content type="html"><![CDATA[<p>The Rails console is a pragmatic way to test and experiment code inside a Rails environment.</p>
 
 <p>Sometimes it can be helpful to have access to the Rails router url paths helpers, e.g. products_path, new_product_path, etc. To be able to use these helpers on Rails 3, while in the console run this:</p>
@@ -412,9 +412,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[A teoria da janela quebrada]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/05/22/a-teoria-da-janela-quebrada/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/05/22/a-teoria-da-janela-quebrada/"/>
     <updated>2010-05-22T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/05/22/a-teoria-da-janela-quebrada</id>
+    <id>http://www.kreusch.com.br/blog/2010/05/22/a-teoria-da-janela-quebrada</id>
     <content type="html"><![CDATA[<p>Finalmente, após quase um mês de espera, chegou na Ãºltima semana a minha encomenda da Amazon. Nela estão dois livros:
 <a href="%22\" title="http://37signals.com/rework/\&quot;\">Rework</a> e
 <a href="%22\" title="http://www.pragprog.com/the-pragmatic-programmer\&quot;\">The Pragmatic Programmer</a>.</p>
@@ -441,9 +441,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[Rails 3 responders, JQuery 1.4 and empty json results]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results/"/>
     <updated>2010-03-30T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results</id>
+    <id>http://www.kreusch.com.br/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results</id>
     <content type="html"><![CDATA[<p> So, I have been playing with Rails 3 for a while, and it is really great! One of the new things I&#8217;m liking on it is the concept of
 <a href="%22http://ryandaigle.com/articles/2009/8/10/what-s-new-in-edge-rails-default-restful-rendering%22">responders</a>. It helps to thin your controllers and encapsulate same logic on the same place.</p>
 
@@ -480,9 +480,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[Segmentation fault no apache ao fazer Code Coverage com Cakephp]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp/"/>
     <updated>2010-03-23T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp</id>
+    <id>http://www.kreusch.com.br/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp</id>
     <content type="html"><![CDATA[<p> Tive problemas ao tentar usar o Xdebug com os testes no CakePHP. Meu ambiente é um Ubuntu 9.10, Apache 2, PHP 5 com XDebug instalado via apt-get. Ao tentar executar os testes no Cake com code coverage report, o processo morria, e o seguinte erro aparecia no log do Apache:</p>
 
 <blockquote><p>[Tue Mar 23 09:58:38 2010] [notice] child pid 16792 exit signal Segmentation fault (11)</p></blockquote>
@@ -500,9 +500,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[Instalando Bazaar server como serviço em windows server 2008]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008/"/>
     <updated>2010-03-22T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008</id>
+    <id>http://www.kreusch.com.br/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008</id>
     <content type="html"><![CDATA[<p>Aqui na empresa estamos usando o Bazaar como sistema de controle de versío. Estamos utilizando um repositório compartilhado em rede, mas estamos tendo muitos problemas com o Bazaar nío conseguindo liberar os locks das pastas apí³s dar commits.</p>
 
 <p>Sendo assim, decidi tentar usar o 
@@ -531,9 +531,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[Simple Scrum Application]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/01/20/simple-scrum-application/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/01/20/simple-scrum-application/"/>
     <updated>2010-01-20T00:00:00-02:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/01/20/simple-scrum-application</id>
+    <id>http://www.kreusch.com.br/blog/2010/01/20/simple-scrum-application</id>
     <content type="html"><![CDATA[<p> So, I have now finally a &#8216;releasable&#8217; version of Simple Scrum.</p>
 
 <p>Simple Scrum is an application that I have developed for myself to help me manage personal software projects using a Scrum-like workflow. It contains products management, stories, sprints and burn-down charts.</p>
@@ -560,9 +560,9 @@ Now run:</p>
   
   <entry>
     <title type="html"><![CDATA[Entrevista sobre carreira com Fabio Akita]]></title>
-    <link href="http://fabiokr.github.com/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita/"/>
+    <link href="http://www.kreusch.com.br/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita/"/>
     <updated>2009-10-10T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita</id>
+    <id>http://www.kreusch.com.br/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita</id>
     <content type="html"><![CDATA[<p>Estou postando aqui esta entrevista que realizei no meu Último semestre da faculdade e que foi um trabalho muito interessante, e que estava armazenada no meu antigo blog.</p>
 
 <p>Durante meu perÃ­odo de faculdade, tive boas e nem tão boas experiências na área de desenvolvimento de software. Passei por experiências onde tarefas eram realizadas de qualquer maneira, sem preocupação com qualidade. Isso de alguma forma me abalou, não era possÃ­vel que esta fosse a melhor maneira de se fazer software. Comecei a pesquisar alternativas para o problema, metodologias de desenvolvimento e frameworks de desenvolvimento. Eis que me deparei com o framework Ruby on Rails e, inevitavelmente, com o Fabio Akita, um dos grandes responsáveis por sua expansão no Brasil.</p>

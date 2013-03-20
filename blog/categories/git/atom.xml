@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Git | Fabio Kreusch]]></title>
-  <link href="http://fabiokr.github.com/blog/categories/git/atom.xml" rel="self"/>
-  <link href="http://fabiokr.github.com/"/>
-  <updated>2013-03-20T10:48:05-03:00</updated>
-  <id>http://fabiokr.github.com/</id>
+  <link href="http://www.kreusch.com.br/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://www.kreusch.com.br/"/>
+  <updated>2013-03-20T10:52:04-03:00</updated>
+  <id>http://www.kreusch.com.br/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[A successful Git branching model - Cheatsheet]]></title>
-    <link href="http://fabiokr.github.com/blog/2010/08/24/a-successful-git-branching-model-cheatsheet/"/>
+    <link href="http://www.kreusch.com.br/blog/2010/08/24/a-successful-git-branching-model-cheatsheet/"/>
     <updated>2010-08-24T00:00:00-03:00</updated>
-    <id>http://fabiokr.github.com/blog/2010/08/24/a-successful-git-branching-model-cheatsheet</id>
+    <id>http://www.kreusch.com.br/blog/2010/08/24/a-successful-git-branching-model-cheatsheet</id>
     <content type="html"><![CDATA[<p>Nestes dias estava a procura de um modelo de desenvolvimento usando Git, algo que oferecesse algum padrão de como lidar com o desenvolvimento de uma aplicação, com branches para correções de bugs, branches de desenvolvimento, etc. Encontrei um ótimo artigo sobre o assunto, que pode ser
 <a href="http://nvie.com/git-model">lido aqui</a>. Gostei muito do modelo e estou usando nos meus projetos pessoais.</p>
 
