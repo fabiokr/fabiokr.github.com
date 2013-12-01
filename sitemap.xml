@@ -83,19 +83,27 @@
         <lastmod>2013-03-20T10:41:33-03:00</lastmod>
     </url>
     <url>
-        <loc>http://www.kreusch.com.br/robots.txt</loc>
-        <lastmod>2013-03-02T18:49:54-03:00</lastmod>
+        <loc>http://www.kreusch.com.br/blog/2013/12/01/sublime-related-files/</loc>
+        <lastmod>2013-12-01T20:42:45-02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.kreusch.com.br/blog/2013/12/01/vagrant-sshfs/</loc>
+        <lastmod>2013-12-01T20:58:45-02:00</lastmod>
     </url>
     <url>
         <loc>http://www.kreusch.com.br/</loc>
-        <lastmod>2013-03-20T10:41:33-03:00</lastmod>
+        <lastmod>2013-12-01T20:58:45-02:00</lastmod>
     </url>
     <url>
         <loc>http://www.kreusch.com.br/blog/archives/</loc>
-        <lastmod>2013-03-20T10:41:33-03:00</lastmod>
+        <lastmod>2013-12-01T20:58:45-02:00</lastmod>
     </url>
     <url>
         <loc>http://www.kreusch.com.br/blog/</loc>
-        <lastmod>2013-03-20T10:41:33-03:00</lastmod>
+        <lastmod>2013-12-01T20:58:45-02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.kreusch.com.br/robots.txt</loc>
+        <lastmod>2013-03-02T18:49:54-03:00</lastmod>
     </url>
 </urlset>

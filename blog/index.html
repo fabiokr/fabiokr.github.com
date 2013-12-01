@@ -9,8 +9,7 @@
   <meta name="author" content="Fabio Kreusch">
 
   
-  <meta name="description" content="Here is a command to uninstall all non default gems in Ruby 2.0: 1
-gem list | cut -d" " -f1 | grep -v "test-unit\|psych\|minitest\|io-console\|rdoc\| &hellip;">
+  <meta name="description" content="Vagrant supports NFS by default to mount host directories in the client machine. In some situations that won&#8217;t work well, so I developed an SSH &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,98 @@ gem list | cut -d" " -f1 | grep -v "test-unit\|psych\|minitest\|io-console\|rdoc
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/01/vagrant-sshfs/">Vagrant SSHFS Plugin</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-01T20:50:00-02:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://vagrantup.com/">Vagrant</a> supports NFS by default to mount host directories in the client machine. In some situations that won&#8217;t work well, so I developed an <a href="https://github.com/fabiokr/vagrant-sshfs">SSH file system</a> plugin for it.</p>
+
+<p>Basically, you have to install it and configure the mounted folders:</p>
+
+<p><code>vagrant plugin install vagrant-sshfs</code></p>
+
+<p>In the <code>VagrantFile</code>:</p>
+
+<p><code>config.sshfs.paths = { "src" =&gt; "mountpoint" }</code></p>
+
+<p>That will mount the <code>src</code> folder in the virtual box into the <code>mountpoint</code> folder in the host machine.</p>
+
+<p>More information is available in the plugin <a href="https://github.com/fabiokr/vagrant-sshfs">README</a> file.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/01/sublime-related-files/">Sublime Related Files Plugin</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-01T20:33:00-02:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/fabiokr/sublime-related-files">Sublime Related Files</a> is a <a href="http://www.sublimetext.com/">SublimeText</a> plugin that displays a list of related files for your currently opened file.</p>
+
+<p>For example, a source code file could be related to its unit test file.</p>
+
+<p>It comes precofigured for a <a href="https://github.com/fabiokr/sublime-related-files/blob/master/RelatedFiles.sublime-settings">Rails project</a>, so it will display related test/spec files, views, controllers, helpers and routes, and you can easily add your own setup.</p>
+
+<p>You can easily install it through the <a href="https://sublime.wbond.net/">Sublime Package Manager</a>.</p>
+
+<p><img src="https://raw.github.com/fabiokr/sublime-related-files/master/screenshots/list.png" alt="Screenshot" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -661,91 +752,6 @@ Now run:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/08/24/a-successful-git-branching-model-cheatsheet/">A Successful Git Branching Model - Cheatsheet</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-24T00:00:00-03:00" pubdate data-updated="true">Aug 24<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Nestes dias estava a procura de um modelo de desenvolvimento usando Git, algo que oferecesse algum padrão de como lidar com o desenvolvimento de uma aplicação, com branches para correções de bugs, branches de desenvolvimento, etc. Encontrei um ótimo artigo sobre o assunto, que pode ser
-<a href="http://nvie.com/git-model">lido aqui</a>. Gostei muito do modelo e estou usando nos meus projetos pessoais.</p>
-
-<p>Ao ler o artigo, o autor cita vários comandos para serem usados durante o workflow de desenvolvimento com o Git. Para facilitar a adaptação ao modelo, extrai os comandos do workflow em uma
-<a href="https://docs.google.com/document/pub?id=1_KLZ-4I5b1lPCYq3MRbFzWYHJ6ffUYuysiuK_weXLK8">cheatsheet de referência</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/07/28/testing-rails-router-paths-on-rails-console/">Testing Rails Router Paths on Rails Console</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-07-28T00:00:00-03:00" pubdate data-updated="true">Jul 28<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The Rails console is a pragmatic way to test and experiment code inside a Rails environment.</p>
-
-<p>Sometimes it can be helpful to have access to the Rails router url paths helpers, e.g. products_path, new_product_path, etc. To be able to use these helpers on Rails 3, while in the console run this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="https://rails.lighthouseapp.com/projects/8994/tickets/4749-actioncontrollerurlwriter-removed-without-deprecation">Source</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -761,6 +767,14 @@ Now run:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/12/01/vagrant-sshfs/">Vagrant SSHFS plugin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/01/sublime-related-files/">Sublime Related Files plugin</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/20/uninstall-all-gems-in-ruby20/">Uninstall all gems in Ruby 2.0</a>
       </li>
     
@@ -770,14 +784,6 @@ Now run:</p>
     
       <li class="post">
         <a href="/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/">Jquery silently fails on ajax errors</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/05/guake-autostart-script-with-rails/">Guake autostart script with Rails</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/13/notifying-delayed-job-failures-by-default/">Notifying delayed_job failures by default</a>
       </li>
     
   </ul>

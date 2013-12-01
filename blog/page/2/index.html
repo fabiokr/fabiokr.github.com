@@ -9,9 +9,7 @@
   <meta name="author" content="Fabio Kreusch">
 
   
-  <meta name="description" content="Finalmente, após quase um mês de espera, chegou na Ãºltima semana a minha encomenda da Amazon. Nela estão dois livros:
-Rework e
-The Pragmatic &hellip;">
+  <meta name="description" content="Nestes dias estava a procura de um modelo de desenvolvimento usando Git, algo que oferecesse algum padrão de como lidar com o desenvolvimento de uma &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +77,91 @@ The Pragmatic &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/08/24/a-successful-git-branching-model-cheatsheet/">A Successful Git Branching Model - Cheatsheet</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-24T00:00:00-03:00" pubdate data-updated="true">Aug 24<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Nestes dias estava a procura de um modelo de desenvolvimento usando Git, algo que oferecesse algum padrão de como lidar com o desenvolvimento de uma aplicação, com branches para correções de bugs, branches de desenvolvimento, etc. Encontrei um ótimo artigo sobre o assunto, que pode ser
+<a href="http://nvie.com/git-model">lido aqui</a>. Gostei muito do modelo e estou usando nos meus projetos pessoais.</p>
+
+<p>Ao ler o artigo, o autor cita vários comandos para serem usados durante o workflow de desenvolvimento com o Git. Para facilitar a adaptação ao modelo, extrai os comandos do workflow em uma
+<a href="https://docs.google.com/document/pub?id=1_KLZ-4I5b1lPCYq3MRbFzWYHJ6ffUYuysiuK_weXLK8">cheatsheet de referência</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/07/28/testing-rails-router-paths-on-rails-console/">Testing Rails Router Paths on Rails Console</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-28T00:00:00-03:00" pubdate data-updated="true">Jul 28<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The Rails console is a pragmatic way to test and experiment code inside a Rails environment.</p>
+
+<p>Sometimes it can be helpful to have access to the Rails router url paths helpers, e.g. products_path, new_product_path, etc. To be able to use these helpers on Rails 3, while in the console run this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://rails.lighthouseapp.com/projects/8994/tickets/4749-actioncontrollerurlwriter-removed-without-deprecation">Source</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -448,6 +531,14 @@ The Pragmatic &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/12/01/vagrant-sshfs/">Vagrant SSHFS plugin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/01/sublime-related-files/">Sublime Related Files plugin</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/20/uninstall-all-gems-in-ruby20/">Uninstall all gems in Ruby 2.0</a>
       </li>
     
@@ -457,14 +548,6 @@ The Pragmatic &hellip;">
     
       <li class="post">
         <a href="/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/">Jquery silently fails on ajax errors</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/05/guake-autostart-script-with-rails/">Guake autostart script with Rails</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/13/notifying-delayed-job-failures-by-default/">Notifying delayed_job failures by default</a>
       </li>
     
   </ul>

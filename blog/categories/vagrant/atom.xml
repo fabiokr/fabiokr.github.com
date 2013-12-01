@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Vagrant | Fabio Kreusch]]></title>
+  <link href="http://www.kreusch.com.br/blog/categories/vagrant/atom.xml" rel="self"/>
+  <link href="http://www.kreusch.com.br/"/>
+  <updated>2013-12-01T20:59:07-02:00</updated>
+  <id>http://www.kreusch.com.br/</id>
+  <author>
+    <name><![CDATA[Fabio Kreusch]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Vagrant SSHFS plugin]]></title>
+    <link href="http://www.kreusch.com.br/blog/2013/12/01/vagrant-sshfs/"/>
+    <updated>2013-12-01T20:50:00-02:00</updated>
+    <id>http://www.kreusch.com.br/blog/2013/12/01/vagrant-sshfs</id>
+    <content type="html"><![CDATA[<p><a href="http://vagrantup.com/">Vagrant</a> supports NFS by default to mount host directories in the client machine. In some situations that won't work well, so I developed an <a href="https://github.com/fabiokr/vagrant-sshfs">SSH file system</a> plugin for it.</p>
+
+<p>Basically, you have to install it and configure the mounted folders:</p>
+
+<p><code>vagrant plugin install vagrant-sshfs</code></p>
+
+<p>In the <code>VagrantFile</code>:</p>
+
+<p><code>config.sshfs.paths = { "src" =&gt; "mountpoint" }</code></p>
+
+<p>That will mount the <code>src</code> folder in the virtual box into the <code>mountpoint</code> folder in the host machine.</p>
+
+<p>More information is available in the plugin <a href="https://github.com/fabiokr/vagrant-sshfs">README</a> file.</p>
+]]></content>
+  </entry>
+  
+</feed>
