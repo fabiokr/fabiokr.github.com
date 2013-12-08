@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Development | Fabio Kreusch]]></title>
   <link href="http://www.kreusch.com.br/blog/categories/development/atom.xml" rel="self"/>
   <link href="http://www.kreusch.com.br/"/>
-  <updated>2013-12-08T18:29:51-02:00</updated>
+  <updated>2013-12-08T18:31:58-02:00</updated>
   <id>http://www.kreusch.com.br/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
@@ -196,13 +196,13 @@ shell:  chsh -s /bin/zsh
 </ul>
 
 
-<p>Now, to run our playbookÇ</p>
+<p>Now, to run our playbook:</p>
 
 <p><code>
 ansible-playbook -K -i inventory playbook.yml
 </code></p>
 
-<p>"-K" will ask for the machine sudo password. "-i" will pass the inventory file to use.</p>
+<p><code>-K</code> will ask for the machine sudo password. <code>-i</code> will pass the inventory file to use.</p>
 
 <p>For additional modules, look into the <a href="http://www.ansibleworks.com/docs/modules.html">Ansible modules documentation</a>.</p>
 ]]></content>

@@ -296,13 +296,13 @@
 </span><span class='line'>  when: default_shell.stdout.find('/bin/zsh') == -1</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now, to run our playbookÇ</p>
+<p>Now, to run our playbook:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ansible-playbook -K -i inventory playbook.yml</span></code></pre></td></tr></table></div></figure>
 
 
-<p>&#8220;-K&#8221; will ask for the machine sudo password. &#8220;-i&#8221; will pass the inventory file to use.</p>
+<p><code>-K</code> will ask for the machine sudo password. <code>-i</code> will pass the inventory file to use.</p>
 
 <p>For additional modules, look into the <a href="http://www.ansibleworks.com/docs/modules.html">Ansible modules documentation</a>.</p>
 </div>
