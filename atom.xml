@@ -4,7 +4,7 @@
   <title><![CDATA[Fabio Kreusch]]></title>
   <link href="http://www.kreusch.com.br/atom.xml" rel="self"/>
   <link href="http://www.kreusch.com.br/"/>
-  <updated>2013-12-01T20:59:07-02:00</updated>
+  <updated>2013-12-08T18:29:51-02:00</updated>
   <id>http://www.kreusch.com.br/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
@@ -12,6 +12,216 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Manage a development machine with Ansible]]></title>
+    <link href="http://www.kreusch.com.br/blog/2013/12/03/manage-a-development-machine-with-ansible/"/>
+    <updated>2013-12-03T21:11:00-02:00</updated>
+    <id>http://www.kreusch.com.br/blog/2013/12/03/manage-a-development-machine-with-ansible</id>
+    <content type="html"><![CDATA[<p><a href="http://www.ansibleworks.com">Ansible</a> is an IT orchestration tool I&#8217;ve been playing with lately. Similar tools include <a href="http://www.opscode.com/chef/">Chef</a> and <a href="http://puppetlabs.com">Puppet</a>. Some cools things about Ansible is that it is open source, and you don&#8217;t need anything in your target machine (it just uses an ssh connection).</p>
+
+<p>In this quickstart, I&#8217;ll build an Ansible playbook to manage a personal Ubuntu desktop.</p>
+
+<p>First step is to install Ansible. For Ubuntu, a repository is available:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo add-apt-repository ppa:rquillo/ansible
+</span><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install ansible</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Additional installation methods can be found in <a href="http://ansibleworks.com/docs/intro_installation.html">this page</a>.</p>
+
+<p>Now, we create a directory that will hold our playbook:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir my_playbook</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A playbook is the source of instructions that ansible will run when provisioning.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ touch playbook.yml</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ansible expects instructions in the <code>yml</code> format. Lets populate our playbook with an initial content:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>---
+</span><span class='line'># the host in which the playbook will be run
+</span><span class='line'>- hosts: localhost
+</span><span class='line'>  # in this example, we using a localhost, so this is needed
+</span><span class='line'>  connection: local
+</span><span class='line'>
+</span><span class='line'>  # the target user Ansible will impersonate when provisioning
+</span><span class='line'>  user: johndoe
+</span><span class='line'>
+</span><span class='line'>  # this makes all tasks run with sudo by default
+</span><span class='line'>  sudo: true
+</span><span class='line'>
+</span><span class='line'>  # additional variables
+</span><span class='line'>  vars:
+</span><span class='line'>    user: johndoe
+</span><span class='line'>
+</span><span class='line'>  # roles are a way to group tasks; they will run in the sequence determined here
+</span><span class='line'>  roles:
+</span><span class='line'>    - system</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The next step is to create an inventory file. This will hold a list of servers Ansible can run with:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ touch inventory
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>localhost   ansible_connection=local</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, lets create our roles. For this example, the idea is to have a <code>system</code> role that is responsible for setting up system libraries.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir roles
+</span><span class='line'>$ mkdir roles/system</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And our system main task:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ touch roles/system/main.yml</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And this is the content of our sytems task:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>---
+</span><span class='line'>
+</span><span class='line'># This is a task. Basically, it needs a module command. In this example, it
+</span><span class='line'># also have a `name`, which will be displayed while running the task to give a
+</span><span class='line'># better description of the running task.
+</span><span class='line'>- name: install
+</span><span class='line'>  # apt is our module. It installs debian packages. Here we are passing an
+</span><span class='line'>  # `` variable, which is the item from `with_items`
+</span><span class='line'>  apt: pkg=
+</span><span class='line'>  # `with_items` will loop through a list and run the module passing each item
+</span><span class='line'>  # as ``
+</span><span class='line'>  with_items:
+</span><span class='line'>    # better shell
+</span><span class='line'>    - zsh
+</span><span class='line'>    # terminal multiplexer
+</span><span class='line'>    - tmux
+</span><span class='line'>    # terminal editor
+</span><span class='line'>    - vim-gtk
+</span><span class='line'>    # shh
+</span><span class='line'>    - ssh
+</span><span class='line'>    # ruby
+</span><span class='line'>    - ruby
+</span><span class='line'>    # ruby dev headers
+</span><span class='line'>    - ruby-dev
+</span><span class='line'>    # ruby package manager
+</span><span class='line'>    - rubygems
+</span><span class='line'>
+</span><span class='line'># This is an example of how to gather information from the machine. We
+</span><span class='line'># run a command with the "shell" module and register the result into the
+</span><span class='line'># "default_shell" variable
+</span><span class='line'>- name: zsh facts
+</span><span class='line'>  shell: 'echo $SHELL'
+</span><span class='line'>  register: default_shell
+</span><span class='line'>  # changed when determines when will this task be considered changed when running
+</span><span class='line'>  # ansible. In this case, we want it to always be false, as we are just
+</span><span class='line'>  # retrieving information.
+</span><span class='line'>  changed_when: False
+</span><span class='line'>  sudo: no
+</span><span class='line'>
+</span><span class='line'># Now, we want to set zsh as the default shell, unless it is already the default
+</span><span class='line'># one.
+</span><span class='line'>- name: make zsh default
+</span><span class='line'>  shell:  chsh -s /bin/zsh 
+</span><span class='line'>  # This task will run only when the following is true. In here, we check the
+</span><span class='line'>  # value registered previously within the "default_shell" variable.
+</span><span class='line'>  when: default_shell.stdout.find('/bin/zsh') == -1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, to run our playbookÇ</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ansible-playbook -K -i inventory playbook.yml</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&#8220;-K&#8221; will ask for the machine sudo password. &#8220;-i&#8221; will pass the inventory file to use.</p>
+
+<p>For additional modules, look into the <a href="http://www.ansibleworks.com/docs/modules.html">Ansible modules documentation</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Vagrant SSHFS plugin]]></title>

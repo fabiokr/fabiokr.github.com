@@ -9,7 +9,7 @@
   <meta name="author" content="Fabio Kreusch">
 
   
-  <meta name="description" content="Nestes dias estava a procura de um modelo de desenvolvimento usando Git, algo que oferecesse algum padrão de como lidar com o desenvolvimento de uma &hellip;">
+  <meta name="description" content="Aqui na empresa, temos um projeto base. Os projetos aqui desenvolvidos herdam deste projeto base. Também, utilizamos o Bazaar como sistema de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified/">Bzr: Branches Have No Common Ancestor, and No Merge Base Revision Was Specified</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-21T00:00:00-03:00" pubdate data-updated="true">Sep 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aqui na empresa, temos um projeto base. Os projetos aqui desenvolvidos herdam deste projeto base.</p>
+
+<p>Também, utilizamos o Bazaar como sistema de versionamento de código.</p>
+
+<p>Quando vamos criar um projeto novo, precisamos fazer com que ele herde do projeto base. A solu</p>
+
+<p>ção que estamos utilizando é criar um novo branch para o novo projeto, e então fazer um merge com o projeto base. Assim, dali em diante conseguimos fazer updates a partir do projeto base. Porém, quando vai-se fazer o merge com o projeto base pela primeira vez, o seguinte erro é lançado:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bzr: ERROR: Branches have no common ancestor, and no merge base revision was specified</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Isso acontece porque o novo branch ainda não tem um ancestral comum com o branch do projeto base, sendo assim o bzr não tem como saber a partir do que ele deve fazer o merge.</p>
+
+<p>Neste caso, deve-se especificar o merge manualmente.  O seguinte comando (executado a partir da raiz do novo projeto) explicita isso:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bzr merge -r 0..-1 caminho/do/projeto/base</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Assim, o Bazaar irá fazer o merge com o projeto base da revisão 0 até a última possí­vel (-1). Deste momento em diante, os dois projetos terão um ancestral comum e será possí­vel fazer merges com o projeto base sem mais problemas.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -531,6 +587,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible/">Manage a development machine with Ansible</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/01/vagrant-sshfs/">Vagrant SSHFS plugin</a>
       </li>
     
@@ -544,10 +604,6 @@
     
       <li class="post">
         <a href="/blog/2012/09/19/record-a-screen-cast-to-a-gif-file/">Record a screen cast to a gif file</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/12/jquery-silently-fails-on-ajax-errors/">Jquery silently fails on ajax errors</a>
       </li>
     
   </ul>
