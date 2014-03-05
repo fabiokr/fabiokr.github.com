@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Development | Fabio Kreusch]]></title>
   <link href="http://www.kreusch.com.br/blog/categories/development/atom.xml" rel="self"/>
   <link href="http://www.kreusch.com.br/"/>
-  <updated>2013-12-08T18:31:58-02:00</updated>
+  <updated>2014-03-05T20:48:07-03:00</updated>
   <id>http://www.kreusch.com.br/</id>
   <author>
     <name><![CDATA[Fabio Kreusch]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[My Ubuntu Ansible setup]]></title>
+    <link href="http://www.kreusch.com.br/blog/2014/03/05/my-ubuntu-ansible-setup/"/>
+    <updated>2014-03-05T19:58:00-03:00</updated>
+    <id>http://www.kreusch.com.br/blog/2014/03/05/my-ubuntu-ansible-setup</id>
+    <content type="html"><![CDATA[<p>In my <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible/">previous post</a> I talked about on how to manage an Ubuntu development machine with <a href="http://www.ansibleworks.com">Ansible</a>. For reference, this is the full playbook I'm currently using for myself: <a href="https://github.com/fabiokr/ansible-ubuntu">https://github.com/fabiokr/ansible-ubuntu</a>. I'm releasing it under the MIT license, so please feel free to modify it to your own needs.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Manage a development machine with Ansible]]></title>
