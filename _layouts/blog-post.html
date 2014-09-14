@@ -1,0 +1,25 @@
+---
+layout: blog-sidebar
+---
+
+<article class="blog-post">
+    <header>
+        <h1>{{ page.title }}</h1>
+        <div class="lead-image">
+            <img src="/img/hands-big.png" alt="Hands" class="img-responsive">
+            <div class="meta clearfix">
+                <div class="date">
+                    <i class="fa fa-calendar"></i>
+                    <span class="data">{{ page.date | date_to_string }}</span>
+                </div>
+                <div class="comments">
+                    <i class="fa fa-comments"></i>
+                    <span class="data"><a href="#comments">26 Comments</a></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="body">
+        {{ content }}
+    </div>
+</article>
