@@ -15,52 +15,52 @@ In this post, I'll show how to create a new Rails project using the engine. The 
 
 The first step is to create a new Rails app. Right now the engine requires Rails 3.1, so be sure to have it installed:
 
-```
+{% highlight bash %}
 rails new manageable_content_example_app
-```
+{% endhighlight %}
 
 So, the ideia of the website is to allow each page to have its own title in a manageable way. We will also have two controllers, Home and Contact. Home controller will have a body content, and Contact will have a body and a side content. Also, we need a content for the footer that will be shared across all pages. 
 
 Let's generate our controllers first:
 
-```
+{% highlight bash %}
 rails g controller home index --no-helper
 rails g controller contact index --no-helper
-```
+{% endhighlight %}
 
 In
 [this commit](https://github.com/fabiokr/manageable_content_example_app/commit/c90fae643a6dc778d6b744487b6f9abe81f8c7c9) I have added sample contents so that you can see which contents we want to be manageable.
 
 Ok, now we need to add manageable_content to our Gemfile. This line needs to be added:
 
-``` ruby
+{% highlight ruby %}
 gem 'manageable_content'
-```
+{% endhighlight %}
 
 Then, run the 'bundle' command to install it. After that, we need to import and run the engine migrations:
 
-```
+{% highlight bash %}
 bundle exec rake manageable_content_engine:install:migrations
 bundle exec rake db:migrate
-```
+{% endhighlight %}
 
 The next step is to make the engine Dsl available for our controllers. We need to add this to our application_controller:
 
-``` ruby
+{% highlight ruby %}
 include ManageableContent::Controllers::Dsl
-```
+{% endhighlight %}
 
 We will start with our title content. Let's make the title content manageable for all controllers in our website by adding this to our application_controller:
 
-``` ruby
+{% highlight ruby %}
 manageable_content_for :title
-```
+{% endhighlight %}
  
 Now run:
 
-```
+{% highlight bash %}
 bundle exec rake manageable_content:generate
-```
+{% endhighlight %}
 
 This command will generate our contents in the database based on our controllers configurations. We should than use the engine helper to print the manageable content in our views. You can see how I have done that in
 [this commit](https://github.com/fabiokr/manageable_content_example_app/commit/340b254aa6f2cd4e41b022f398f01f6f8e783609). Now, we need a place in which we can edit our manageable contents. In
@@ -72,15 +72,15 @@ Now, by accessing the admin page and saving some title contents, if we access ou
 
 We can also have content that will be shared by all pages. In our website, the 'footer' content has to be like that. On our application_controller, we add this:
 
-``` ruby
+{% highlight ruby %}
 manageable_layout_content_for :footer
-```
+{% endhighlight %}
 
 Than, after generating our contents with 'bundle exec rake manageable_content:generate', the footer content should be list under the 'application' page on our admin. To use it in our views, just add this:
 
-``` ruby
+{% highlight ruby %}
 manageable_layout_content_for :footer
-```
+{% endhighlight %}
 
 The commit for this step is
 [this one](https://github.com/fabiokr/manageable_content_example_app/commit/5352ca2cb8d4483243c78d2abec0586a4e6adfd8).
@@ -89,15 +89,15 @@ To finish this example, we will add contents that will be specific to our home a
 
 home_controller:
 
-``` ruby
+{% highlight ruby %}
 manageable_content_for :body
-```
+{% endhighlight %}
 
 contact_controller:
 
-``` ruby
+{% highlight ruby %}
 manageable_content_for :body, :side
-```
+{% endhighlight %}
 
 After generating the contents, we can manage them thought the admin interface, and use them in our views with the helper, as you can
 [see here.](https://github.com/fabiokr/manageable_content_example_app/commit/633022f5d4d45d3e3735556caae80045b65098bd)

@@ -17,7 +17,7 @@ After a while I discovered that Rails does that on purpose (at least for now). O
 
 Anyway, for this to work, I think there are two possible solutions. One would be to create a custom responder that would respond with an empty json object. The other one is to filter the response on Jquery side. For now I'm filtering the response with this:
 
-``` javascript
+{% highlight javascript %}
 $.ajax({ url: '/my_url', type: 'POST', data: form.serialize(
   dataFilter: function(data,type) {
     if(!data || $.trim(data) == "") return "{}"; return data;
@@ -25,6 +25,6 @@ $.ajax({ url: '/my_url', type: 'POST', data: form.serialize(
   success: function(data, status, req) { //success behavior },
   error: function(req, status, error) { //error behavior }
 });
-```
+{% endhighlight %}
 
 That's it, maybe this can help someone else :)

@@ -6,7 +6,7 @@ categories: [Rails]
 ---
 Here is a helpful code snippet to notify delayed_job errors by default in a Rails application. In a config/initializers file, add the following:
 
-``` ruby
+{% highlight ruby %}
 # Optional but recommended for less future surprises.
 # Fail at startup if method does not exist instead of in background job 
 [[Airbrake, :notify]].each do |object, method_name|
@@ -37,7 +37,7 @@ Delayed::Worker.class_eval do 
 
   alias_method_chain :handle_failed_job, :notification 
 end
-```
+{% endhighlight %}
 
 In this example, Airbrake is being used for error notification, but this can be easily changed to the desired notification method.
 

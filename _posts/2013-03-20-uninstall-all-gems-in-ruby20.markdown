@@ -6,6 +6,6 @@ categories: [Ruby]
 ---
 Here is a command to uninstall all non default gems in Ruby 2.0:
 
-```
+{% highlight bash %}
 gem list | cut -d" " -f1 | grep -v "test-unit\|psych\|minitest\|io-console\|rdoc\|bigdecimal\|rake\|json"  | xargs gem uninstall -aIx
-```
+{% endhighlight %}

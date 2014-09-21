@@ -6,13 +6,13 @@ categories: [Ubuntu, Gif, Screenscast, Linux]
 ---
 Here is a simple shell script that converts a recorded ogv file to an animated gif, pretty useful for demonstrating small interactions. For recording an ogv, I've been using Record my Desktop on Ubuntu. You'll also need mplayer, and imagemagick. Under Ubuntu/Debian, you can install those with this:
 
-```
+{% highlight bash %}
 apt-get install imagemagick mplayer gtk-recordmydesktop
-```
+{% endhighlight %}
 
 And here is the shell script:
 
-``` sh
+{% highlight bash %}
 ogv_to_gif() {
   # Export into images
   mplayer -ao null $1 -vo jpeg:outdir=/tmp/ogv_to_gif
@@ -32,6 +32,4 @@ ogv_to_gif() {
   # Cleans up tmp folders
   rm -rf /tmp/ogv_to_gif.gif /tmp/ogv_to_gif
 }
-```
-
- 
+{% endhighlight %}

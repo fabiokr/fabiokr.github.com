@@ -8,10 +8,10 @@ Context: you have an ajax call that returns javascript code. If that javascript 
 
 This is what I came up with to force raising when that kind of thing happens:
 
-``` coffeescript
+{% highlight coffeescript %}
 $ ->
 	$(this).on "ajax:error", (e, xhr, data, error) ->
     throw error
-```
+{% endhighlight %}
 
 Code is in Coffeescript, by the way.
