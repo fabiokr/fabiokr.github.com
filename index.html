@@ -10,6 +10,15 @@ title: Blog
                 <header>
                     <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
                     <span class="meta">{{ post.date | date_to_string }}</span>
+
+                    <p>
+                        [
+                            {% for category in post.categories %}
+                                {% categorylink category %}{{ category }}{% endcategorylink %}
+                                {% unless forloop.last %}, {% endunless %}
+                            {% endfor %}
+                        ]
+                    </p>
                     <hr>
                 </header>
                 <div class="body">

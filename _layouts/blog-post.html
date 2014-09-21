@@ -12,12 +12,17 @@ layout: blog-sidebar
                     <i class="fa fa-calendar"></i>
                     <span class="data">{{ page.date | date_to_string }}</span>
                 </div>
-                <div class="comments">
-                    <i class="fa fa-comments"></i>
-                    <span class="data"><a href="#comments">26 Comments</a></span>
-                </div>
             </div>
         </div>
+
+        <p>
+            [
+                {% for category in page.categories %}
+                    {% categorylink category %}{{ category }}{% endcategorylink %}
+                    {% unless forloop.last %}, {% endunless %}
+                {% endfor %}
+            ]
+        </p>
     </header>
     <div class="body">
         {{ content }}
