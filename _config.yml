@@ -1,3 +1,4 @@
+exclude: ["Rakefile", "Gemfile", "Gemfile.lock"]
 timezone: America/Sao_Paulo
 gems: ['less']
 layout: default
