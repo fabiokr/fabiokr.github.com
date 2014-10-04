@@ -123,5 +123,6 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  jekyll-sitemap
   less
   therubyracer
