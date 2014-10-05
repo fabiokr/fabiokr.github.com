@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Manage a development machine with Ansible - Fabio Kreusch</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+    <!-- Google Webfonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
+
+    <!-- Pygments -->
+    <link rel="stylesheet" href="/css/pygments.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles-bluegreen.css" id="theme-styles">
+    <link rel="stylesheet" href="/css/custom.css">
+
+    <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <header>
+        <div class="widewrapper masthead">
+            <div class="container">
+                <a href="/" id="logo">
+                    Fabio Kreusch
+                </a>
+
+                <div id="mobile-nav-toggle" class="pull-right">
+                    <a href="#" data-toggle="collapse" data-target=".tales-nav .navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+
+                <nav class="pull-right tales-nav">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav nav-pills navbar-nav">
+                            <li class="active">
+                                <a href="/">Blog</a>
+                            </li>
+                            <li class="">
+                                <a href="/about">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <div class="widewrapper subheader">
+            <div class="container">
+                <div class="tales-breadcrumb">
+                    
+                        <a href="/">Blog</a>
+                        
+                            <span class="separator">/</span>
+                            <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible">Manage a development machine with Ansible</a>
+                        
+                    
+                </div>
+
+                <div class="tales-searchbox">
+                    <form action="http://google.com/search" method="get" accept-charset="utf-8" _lpchecked="1">
+                        <button class="searchbutton" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <input type="hidden" name="q" value="site:kreusch.com.br">
+                        <input class="searchfield" id="searchbox" type="text" placeholder="Search" name="q" results="0">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+  <div class="col-md-8 blog-main">
+      <article class="blog-post">
+    <header>
+        <h1>Manage a development machine with Ansible</h1>
+        <div class="lead-image">
+            <div class="placeholder"></div>
+            <div class="meta clearfix">
+                <div class="date">
+                    <i class="fa fa-calendar"></i>
+                    <span class="data">03 Dec 2013</span>
+                </div>
+            </div>
+        </div>
+
+        <p>
+            [
+                
+                    <a href="/blog/tags/ansible/index.html">ansible</a>
+                    , 
+                
+                    <a href="/blog/tags/development/index.html">development</a>
+                    
+                
+            ]
+        </p>
+    </header>
+    <div class="body">
+        <p><a href="http://www.ansibleworks.com">Ansible</a> is an IT orchestration tool I’ve been playing with lately. Similar tools include <a href="http://www.opscode.com/chef/">Chef</a> and <a href="http://puppetlabs.com">Puppet</a>. Some cools things about Ansible is that it is open source, and you don’t need anything in your target machine (it just uses an ssh connection).</p>
+
+<p>In this quickstart, I’ll build an Ansible playbook to manage a personal Ubuntu desktop.</p>
+
+<p>First step is to install Ansible. For Ubuntu, a repository is available:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo add-apt-repository ppa:rquillo/ansible
+<span class="nv">$ </span>sudo apt-get update
+<span class="nv">$ </span>sudo apt-get install ansible</code></pre></div>
+
+<p>Additional installation methods can be found in <a href="http://ansibleworks.com/docs/intro_installation.html">this page</a>.</p>
+
+<p>Now, we create a directory that will hold our playbook:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>mkdir my_playbook</code></pre></div>
+
+<p>A playbook is the source of instructions that ansible will run when provisioning.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>touch playbook.yml</code></pre></div>
+
+<p>Ansible expects instructions in the <code>yml</code> format. Lets populate our playbook with an initial content:</p>
+
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="nn">---</span>
+<span class="c1"># the host in which the playbook will be run</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+  <span class="c1"># in this example, we using a localhost, so this is needed</span>
+  <span class="l-Scalar-Plain">connection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">local</span>
+
+  <span class="c1"># the target user Ansible will impersonate when provisioning</span>
+  <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">johndoe</span>
+
+  <span class="c1"># this makes all tasks run with sudo by default</span>
+  <span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+  <span class="c1"># additional variables</span>
+  <span class="l-Scalar-Plain">vars</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">johndoe</span>
+
+  <span class="c1"># roles are a way to group tasks; they will run in the sequence determined here</span>
+  <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">system</span></code></pre></div>
+
+<p>The next step is to create an inventory file. This will hold a list of servers Ansible can run with:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>touch inventory</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">localhost   <span class="nv">ansible_connection</span><span class="o">=</span><span class="nb">local</span></code></pre></div>
+
+<p>Now, lets create our roles. For this example, the idea is to have a <code>system</code> role that is responsible for setting up system libraries.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>mkdir roles
+<span class="nv">$ </span>mkdir roles/system</code></pre></div>
+
+<p>And our system main task:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>touch roles/system/main.yml</code></pre></div>
+
+<p>And this is the content of our sytems task:</p>
+
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="nn">---</span>
+
+<span class="c1"># This is a task. Basically, it needs a module command. In this example, it</span>
+<span class="c1"># also have a `name`, which will be displayed while running the task to give a</span>
+<span class="c1"># better description of the running task.</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">install</span>
+  <span class="c1"># apt is our module. It installs debian packages. Here we are passing an</span>
+  <span class="c1"># `` variable, which is the item from `with_items`</span>
+  <span class="l-Scalar-Plain">apt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">pkg=</span>
+  <span class="c1"># `with_items` will loop through a list and run the module passing each item</span>
+  <span class="c1"># as ``</span>
+  <span class="l-Scalar-Plain">with_items</span><span class="p-Indicator">:</span>
+    <span class="c1"># better shell</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">zsh</span>
+    <span class="c1"># terminal multiplexer</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tmux</span>
+    <span class="c1"># terminal editor</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">vim-gtk</span>
+    <span class="c1"># shh</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ssh</span>
+    <span class="c1"># ruby</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ruby</span>
+    <span class="c1"># ruby dev headers</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ruby-dev</span>
+    <span class="c1"># ruby package manager</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">rubygems</span>
+
+<span class="c1"># This is an example of how to gather information from the machine. We</span>
+<span class="c1"># run a command with the &quot;shell&quot; module and register the result into the</span>
+<span class="c1"># &quot;default_shell&quot; variable</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">zsh facts</span>
+  <span class="l-Scalar-Plain">shell</span><span class="p-Indicator">:</span> <span class="s">&#39;echo</span><span class="nv"> </span><span class="s">$SHELL&#39;</span>
+  <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default_shell</span>
+  <span class="c1"># changed when determines when will this task be considered changed when running</span>
+  <span class="c1"># ansible. In this case, we want it to always be false, as we are just</span>
+  <span class="c1"># retrieving information.</span>
+  <span class="l-Scalar-Plain">changed_when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">sudo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">no</span>
+
+<span class="c1"># Now, we want to set zsh as the default shell, unless it is already the default</span>
+<span class="c1"># one.</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">make zsh default</span>
+  <span class="l-Scalar-Plain">shell</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">chsh -s /bin/zsh</span> 
+  <span class="c1"># This task will run only when the following is true. In here, we check the</span>
+  <span class="c1"># value registered previously within the &quot;default_shell&quot; variable.</span>
+  <span class="l-Scalar-Plain">when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default_shell.stdout.find(&#39;/bin/zsh&#39;) == -1</span></code></pre></div>
+
+<p>Now, to run our playbook:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">ansible-playbook -K -i inventory playbook.yml</code></pre></div>
+
+<p><code>-K</code> will ask for the machine sudo password. <code>-i</code> will pass the inventory file to use.</p>
+
+<p>For additional modules, look into the <a href="http://www.ansibleworks.com/docs/modules.html">Ansible modules documentation</a>.</p>
+
+    </div>
+</article>
+
+  </div>
+  <aside class="col-md-4 blog-aside">
+      <div class="aside-widget">
+          <header>
+              <h3>Tags</h3>
+          </header>
+          <div class="body clearfix">
+              <ul class="tags">
+                  
+                    <li><a href="/blog/tags/programacao/index.html">programacao</a></li>
+                  
+                    <li><a href="/blog/tags/carreira/index.html">carreira</a></li>
+                  
+                    <li><a href="/blog/tags/scrum/index.html">scrum</a></li>
+                  
+                    <li><a href="/blog/tags/rails/index.html">rails</a></li>
+                  
+                    <li><a href="/blog/tags/ruby/index.html">ruby</a></li>
+                  
+                    <li><a href="/blog/tags/agile/index.html">agile</a></li>
+                  
+                    <li><a href="/blog/tags/bzr/index.html">bzr</a></li>
+                  
+                    <li><a href="/blog/tags/bazaar/index.html">bazaar</a></li>
+                  
+                    <li><a href="/blog/tags/windows/index.html">windows</a></li>
+                  
+                    <li><a href="/blog/tags/php/index.html">php</a></li>
+                  
+                    <li><a href="/blog/tags/cakephp/index.html">cakephp</a></li>
+                  
+                    <li><a href="/blog/tags/jquery/index.html">jquery</a></li>
+                  
+                    <li><a href="/blog/tags/javascript/index.html">javascript</a></li>
+                  
+                    <li><a href="/blog/tags/git/index.html">git</a></li>
+                  
+                    <li><a href="/blog/tags/rightjs/index.html">rightjs</a></li>
+                  
+                    <li><a href="/blog/tags/linux ubuntu rails/index.html">linux ubuntu rails</a></li>
+                  
+                    <li><a href="/blog/tags/ubuntu/index.html">ubuntu</a></li>
+                  
+                    <li><a href="/blog/tags/gif/index.html">gif</a></li>
+                  
+                    <li><a href="/blog/tags/screenscast/index.html">screenscast</a></li>
+                  
+                    <li><a href="/blog/tags/linux/index.html">linux</a></li>
+                  
+                    <li><a href="/blog/tags/sublime/index.html">sublime</a></li>
+                  
+                    <li><a href="/blog/tags/vagrant/index.html">vagrant</a></li>
+                  
+                    <li><a href="/blog/tags/ansible/index.html">ansible</a></li>
+                  
+                    <li><a href="/blog/tags/development/index.html">development</a></li>
+                  
+              </ul>
+          </div>
+      </div>
+  </aside>
+</div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="widewrapper footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-3 footer-widget">
+                        <h3> <i class="fa fa-cog"></i>Statistics</h3>
+
+                        <div class="stats">
+                            <div class="line">
+                                <span class="counter">20</span>
+                                <span class="caption">Articles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 footer-widget">
+                        <h3> <i class="fa fa-envelope"></i>Contact Me</h3>
+
+                        <span>Drop me a line:</span>
+
+                        <span class="email">
+                            <a href='m&#97;ilto&#58;%66%61bio&#107;r&#64;&#103;ma%69l&#37;&#50;Ecom'>fa&#98;iokr&#64;gma&#105;l&#46;com</a>, PGP key on <a href="https://keybase.io/fabiokr">Keybase</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widewrapper copyright">
+            <div class="container">
+                This work by <a href="/">Fabio Kreusch</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a> (2014).
+
+                Powered by <a href="http://jekyllrb.com/">Jekyll</a>.
+
+                Theme by <a href="http://hackerthemes.com">HackerThemes</a>.
+            </div>
+        </div>
+    </footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2014/03/05/my-ubuntu-ansible-setup</loc>
+    
+    <lastmod>2014-03-05T19:58:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2013/12/03/manage-a-development-machine-with-ansible</loc>
+    
+    <lastmod>2013-12-03T21:11:00-02:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2013/12/01/vagrant-sshfs</loc>
+    
+    <lastmod>2013-12-01T20:50:00-02:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2013/12/01/sublime-related-files</loc>
+    
+    <lastmod>2013-12-01T20:33:00-02:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2013/03/20/uninstall-all-gems-in-ruby20</loc>
+    
+    <lastmod>2013-03-20T10:40:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2012/09/19/record-a-screen-cast-to-a-gif-file</loc>
+    
+    <lastmod>2012-09-19T15:08:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2012/09/12/jquery-silently-fails-on-ajax-errors</loc>
+    
+    <lastmod>2012-09-12T18:38:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2012/07/05/guake-autostart-script-with-rails</loc>
+    
+    <lastmod>2012-07-05T17:23:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2012/01/13/notifying-delayed-job-failures-by-default</loc>
+    
+    <lastmod>2012-01-13T12:35:00-02:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine</loc>
+    
+    <lastmod>2011-08-23T23:37:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2010/10/09/rightjs-growl-notification-widget</loc>
+    
+    <lastmod>2010-10-09T00:00:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2010/09/21/bzr-branches-have-no-common-ancestor-and-no-merge-base-revision-was-specified</loc>
+    
+    <lastmod>2010-09-21T00:00:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2010/08/24/a-successful-git-branching-model-cheatsheet</loc>
+    
+    <lastmod>2010-08-24T00:00:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2010/07/28/testing-rails-router-paths-on-rails-console</loc>
+    
+    <lastmod>2010-07-28T00:00:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2010/05/22/a-teoria-da-janela-quebrada</loc>
+    
+    <lastmod>2010-05-22T00:00:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2010/03/30/rails-3-responders-jquery-1-4-and-empty-json-results</loc>
+    
+    <lastmod>2010-03-30T00:00:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2010/03/23/segmentation-fault-no-apache-ao-fazer-code-coverage-com-cakephp</loc>
+    
+    <lastmod>2010-03-23T00:00:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2010/03/22/instalando-bazaar-server-como-servico-em-windows-server-2008</loc>
+    
+    <lastmod>2010-03-22T00:00:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2010/01/20/simple-scrum-application</loc>
+    
+    <lastmod>2010-01-20T00:00:00-02:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/2009/10/10/entrevista-sobre-carreira-com-fabio-akita</loc>
+    
+    <lastmod>2009-10-10T00:00:00-03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  
+  <url>
+    <loc>http://www.kreusch.com.br/about/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/programacao/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/carreira/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/scrum/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/rails/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/ruby/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/agile/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/bzr/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/bazaar/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/windows/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/php/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/cakephp/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/jquery/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/javascript/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/git/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/rightjs/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/linux ubuntu rails/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/ubuntu/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/gif/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/screenscast/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/linux/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/sublime/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/vagrant/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/ansible/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kreusch.com.br/blog/tags/development/</loc>
+    <lastmod>2014-10-04T21:14:02-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  
+  
+</urlset>
