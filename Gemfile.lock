@@ -126,3 +126,6 @@ DEPENDENCIES
   jekyll-sitemap
   less
   therubyracer
+
+BUNDLED WITH
+   1.10.2
