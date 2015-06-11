@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>Manageable Content - Rails 3.1 Content Management Engine - Fabio Kreusch</title>
+    <title>Ansible colored html output - Fabio Kreusch</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
@@ -67,7 +67,7 @@
                         <a href="/">Blog</a>
                         
                             <span class="separator">/</span>
-                            <a href="/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine">Manageable Content - Rails 3.1 Content Management Engine</a>
+                            <a href="/blog/2015/06/11/ansible-colored-html-output">Ansible colored html output</a>
                         
                     
                 </div>
@@ -91,13 +91,13 @@
   <div class="col-md-8 blog-main">
       <article class="blog-post">
     <header>
-        <h1>Manageable Content - Rails 3.1 Content Management Engine</h1>
+        <h1>Ansible colored html output</h1>
         <div class="lead-image">
             <div class="placeholder"></div>
             <div class="meta clearfix">
                 <div class="date">
                     <i class="fa fa-calendar"></i>
-                    <span class="data">23 Aug 2011</span>
+                    <span class="data">11 Jun 2015</span>
                 </div>
             </div>
         </div>
@@ -105,94 +105,26 @@
         <p>
             [
                 
-                    <a href="/blog/tags/rails/index.html">rails</a>
+                    <a href="/blog/tags/ansible/index.html">ansible</a>
+                    , 
+                
+                    <a href="/blog/tags/development/index.html">development</a>
                     
                 
             ]
         </p>
     </header>
     <div class="body">
-        <p>Hi there!</p>
+        <p>If you run Ansible in some automated way, you might miss the colored output it gives you when you run it through a terminal. I like it because it helps me to quickly check what has been modified in the run. I couldn’t find anything that did what I wanted, and I didn’t want to mess with the default Ansible output too, so what I did was to build a simple parser that transforms the default output into an html full of colors.</p>
 
-<p>This is a tutorial post about a gem I have just released:
-<a href="https://github.com/fabiokr/manageable_content">manageable_content</a>. It is a content management framework for Rails 3.1. It provides a basic mapping between controllers to manageable contents. More detailed info can be found on the
-<a href="https://github.com/fabiokr/manageable_content/blob/master/README.rdoc">README</a> file.</p>
+<p>Because we use Ruby on the automation stack at <a href="http://eng5.com">Eng5.com</a>, the script is in Ruby. To use it, just place both the ruby file and the erb together, and use it like <code>Ansible.new.parse(original_ansible_output)</code>. You’ll get a string back with the html version.</p>
 
-<p>In this post, I’ll show how to create a new Rails project using the engine. The full example is available in
-<a href="https://github.com/fabiokr/manageable_content_example_app">Github</a>. So, let the fun begin!</p>
+<p>It is not a full featured colored output (it does not parse multi line errors for example), but it does the trick for most part.</p>
 
-<p>The first step is to create a new Rails app. Right now the engine requires Rails 3.1, so be sure to have it installed:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">rails new manageable_content_example_app</code></pre></div>
-
-<p>So, the ideia of the website is to allow each page to have its own title in a manageable way. We will also have two controllers, Home and Contact. Home controller will have a body content, and Contact will have a body and a side content. Also, we need a content for the footer that will be shared across all pages. </p>
-
-<p>Let’s generate our controllers first:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">rails g controller home index --no-helper
-rails g controller contact index --no-helper</code></pre></div>
-
-<p>In
-<a href="https://github.com/fabiokr/manageable_content_example_app/commit/c90fae643a6dc778d6b744487b6f9abe81f8c7c9">this commit</a> I have added sample contents so that you can see which contents we want to be manageable.</p>
-
-<p>Ok, now we need to add manageable_content to our Gemfile. This line needs to be added:</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s1">&#39;manageable_content&#39;</span></code></pre></div>
-
-<p>Then, run the ‘bundle’ command to install it. After that, we need to import and run the engine migrations:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">bundle <span class="nb">exec </span>rake manageable_content_engine:install:migrations
-bundle <span class="nb">exec </span>rake db:migrate</code></pre></div>
-
-<p>The next step is to make the engine Dsl available for our controllers. We need to add this to our application_controller:</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">include</span> <span class="no">ManageableContent</span><span class="o">::</span><span class="no">Controllers</span><span class="o">::</span><span class="no">Dsl</span></code></pre></div>
-
-<p>We will start with our title content. Let’s make the title content manageable for all controllers in our website by adding this to our application_controller:</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_content_for</span> <span class="ss">:title</span></code></pre></div>
-
-<p> 
-Now run:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">bundle <span class="nb">exec </span>rake manageable_content:generate</code></pre></div>
-
-<p>This command will generate our contents in the database based on our controllers configurations. We should than use the engine helper to print the manageable content in our views. You can see how I have done that in
-<a href="https://github.com/fabiokr/manageable_content_example_app/commit/340b254aa6f2cd4e41b022f398f01f6f8e783609">this commit</a>. Now, we need a place in which we can edit our manageable contents. In
-<a href="https://github.com/fabiokr/manageable_content_example_app/commit/702b4cd266e33d24ff5d25ca13a7c5b075ecf206">this commit</a> and in
-<a href="https://github.com/fabiokr/manageable_content_example_app/commit/4c6f599b9c9ec8b973e57cfd13638d8915f703d4">this one</a> I created a basic administration page to manage the pages. An important thing to remeber is that the admin controller should inherit from a controller different that the application_controller, otherwise your admin controller will have manageable contents too!</p>
-
-<p>Now, by accessing the admin page and saving some title contents, if we access our website pages their titles should be using the manageable contents. In our pages admin, you can notice that there was a page for our home controller, contact controller and for the application controller. To use the application controller title in our views, we have to use the manageable_layout_content_for helper. Check
-<a href="https://github.com/fabiokr/manageable_content_example_app/commit/f1043c56d2923b0c4eb07e24f7c0b7fdfc0816a7">this commit</a>.</p>
-
-<p>We can also have content that will be shared by all pages. In our website, the ‘footer’ content has to be like that. On our application_controller, we add this:</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_layout_content_for</span><span class="err"> </span><span class="ss">:footer</span></code></pre></div>
-
-<p>Than, after generating our contents with ‘bundle exec rake manageable_content:generate’, the footer content should be list under the ‘application’ page on our admin. To use it in our views, just add this:</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_layout_content_for</span><span class="err"> </span><span class="ss">:footer</span></code></pre></div>
-
-<p>The commit for this step is
-<a href="https://github.com/fabiokr/manageable_content_example_app/commit/5352ca2cb8d4483243c78d2abec0586a4e6adfd8">this one</a>.</p>
-
-<p>To finish this example, we will add contents that will be specific to our home and contact controller. Home controller will have a body content, and contact will have a body and a side content. Add this to the controllers:</p>
-
-<p>home_controller:</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_content_for</span><span class="err"> </span><span class="ss">:body</span></code></pre></div>
-
-<p>contact_controller:</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_content_for</span><span class="err"> </span><span class="ss">:body</span><span class="p">,</span><span class="err"> </span><span class="ss">:side</span></code></pre></div>
-
-<p>After generating the contents, we can manage them thought the admin interface, and use them in our views with the helper, as you can
-<a href="https://github.com/fabiokr/manageable_content_example_app/commit/633022f5d4d45d3e3735556caae80045b65098bd">see here.</a></p>
-
-<p>So basically, that’s it!</p>
-
-<pre><code>The ideia was to create a simple to use and generic content manager for Rails. The source code is available in [GIthub](https://github.com/fabiokr/manageable_content) and it is open for collaboration.
-</code></pre>
+<ul>
+  <li><a href="https://gist.github.com/fabiokr/5c51f4e3c76d3fbaa3f2">Ruby Script</a></li>
+  <li><a href="https://gist.github.com/fabiokr/6cd0da3797d47f701ad4">HTML Template</a></li>
+</ul>
 
     </div>
 </article>
