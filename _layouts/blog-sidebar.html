@@ -14,7 +14,9 @@ layout: default
           <div class="body clearfix">
               <ul class="tags">
                   {% for category in site.categories %}
-                    <li>{% categorylink category[0] %}{{ category[0] }}{% endcategorylink %}</li>
+                      <li>
+                        <a href="/category/{{ category[0] | slugify }}">{{ category[0] }}</a>
+                      </li>
                   {% endfor %}
               </ul>
           </div>

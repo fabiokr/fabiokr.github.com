@@ -18,7 +18,7 @@ layout: blog-sidebar
         <p>
             [
                 {% for category in page.categories %}
-                    {% categorylink category %}{{ category }}{% endcategorylink %}
+                    <a href="/category/{{ category | slugify }}">{{ category }}</a>
                     {% unless forloop.last %}, {% endunless %}
                 {% endfor %}
             ]

@@ -1,12 +1,15 @@
 exclude: ["Rakefile", "Gemfile", "Gemfile.lock"]
 timezone: America/Sao_Paulo
-gems: ['less', 'jekyll-sitemap']
+gems: ['less', 'jekyll-sitemap', 'jekyll-archives', 'jekyll-paginate']
 layout: default
 permalink: /blog/:year/:month/:day/:title
 paginate: 5
 paginate_path: "/blog/page:num"
-category_archive:
-  path: "/blog/tags"
 name: Fabio kreusch
 description: My personal page
 url: "http://www.kreusch.com.br"
+jekyll-archives:
+  enabled: ['categories']
+  layout: 'blog-categories'
+  permalinks:
+    category: '/category/:name/'

@@ -14,7 +14,7 @@ title: Blog
                     <p>
                         [
                             {% for category in post.categories %}
-                                {% categorylink category %}{{ category }}{% endcategorylink %}
+                                <a href="/category/{{ category | slugify }}">{{ category }}</a>
                                 {% unless forloop.last %}, {% endunless %}
                             {% endfor %}
                         ]
