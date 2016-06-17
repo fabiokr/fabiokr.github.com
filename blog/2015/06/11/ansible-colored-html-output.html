@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>Blog - Fabio Kreusch</title>
+    <title>Ansible colored html output - Fabio Kreusch</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
@@ -66,6 +66,9 @@
                     
                         <a href="/">Blog</a>
                         
+                            <span class="separator">/</span>
+                            <a href="/blog/2015/06/11/ansible-colored-html-output">Ansible colored html output</a>
+                        
                     
                 </div>
 
@@ -86,169 +89,45 @@
         <div class="container">
             <div class="row">
   <div class="col-md-8 blog-main">
-      
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2015/06/11/ansible-colored-html-output">Ansible colored html output</a></h3>
-                    <span class="meta">11 Jun 2015</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/ansible">Ansible</a>
-                                , 
-                            
-                                <a href="/category/development">Development</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p>If you run Ansible in some automated way, you might miss the colored output it gives you when you run it through a terminal. I like it because it helps me to quickly check what has been modified in the run. I couldn’t find anything that did what I wanted, and I didn’t want to mess with the default Ansible output too, so what I did was to build a simple parser that transforms the default output into an html full of colors.</p>
-
-
+      <article class="blog-post">
+    <header>
+        <h1>Ansible colored html output</h1>
+        <div class="lead-image">
+            <div class="placeholder"></div>
+            <div class="meta clearfix">
+                <div class="date">
+                    <i class="fa fa-calendar"></i>
+                    <span class="data">11 Jun 2015</span>
                 </div>
-                <div class="clearfix">
-                    <a href="/blog/2015/06/11/ansible-colored-html-output" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
+            </div>
         </div>
+
+        <p>
+            [
+                
+                    <a href="/category/ansible">Ansible</a>
+                    , 
+                
+                    <a href="/category/development">Development</a>
+                    
+                
+            ]
+        </p>
+    </header>
+    <div class="body">
+        <p>If you run Ansible in some automated way, you might miss the colored output it gives you when you run it through a terminal. I like it because it helps me to quickly check what has been modified in the run. I couldn’t find anything that did what I wanted, and I didn’t want to mess with the default Ansible output too, so what I did was to build a simple parser that transforms the default output into an html full of colors.</p>
+
+<p>Because we use Ruby on the automation stack at <a href="http://eng5.com">Eng5.com</a>, the script is in Ruby. To use it, just place both the ruby file and the erb together, and use it like <code class="highlighter-rouge">Ansible.new.parse(original_ansible_output)</code>. You’ll get a string back with the html version.</p>
+
+<p>It is not a full featured colored output (it does not parse multi line errors for example), but it does the trick for most part.</p>
+
+<ul>
+  <li><a href="https://gist.github.com/fabiokr/5c51f4e3c76d3fbaa3f2">Ruby Script</a></li>
+  <li><a href="https://gist.github.com/fabiokr/6cd0da3797d47f701ad4">HTML Template</a></li>
+</ul>
+
     </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2014/03/05/my-ubuntu-ansible-setup">My Ubuntu Ansible setup</a></h3>
-                    <span class="meta">05 Mar 2014</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/ansible">Ansible</a>
-                                , 
-                            
-                                <a href="/category/development">Development</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p>In my <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible/">previous post</a> I talked about on how to manage an Ubuntu development machine with <a href="http://www.ansibleworks.com">Ansible</a>. For reference, this is the full playbook I’m currently using for myself: <a href="https://github.com/fabiokr/ansible-ubuntu">https://github.com/fabiokr/ansible-ubuntu</a>. I’m releasing it under the MIT license, so please feel free to modify it to your own needs.</p>
-
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2014/03/05/my-ubuntu-ansible-setup" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2013/12/03/manage-a-development-machine-with-ansible">Manage a development machine with Ansible</a></h3>
-                    <span class="meta">03 Dec 2013</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/ansible">Ansible</a>
-                                , 
-                            
-                                <a href="/category/development">Development</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p><a href="http://www.ansibleworks.com">Ansible</a> is an IT orchestration tool I’ve been playing with lately. Similar tools include <a href="http://www.opscode.com/chef/">Chef</a> and <a href="http://puppetlabs.com">Puppet</a>. Some cools things about Ansible is that it is open source, and you don’t need anything in your target machine (it just uses an ssh connection).</p>
-
-
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2013/12/01/vagrant-sshfs">Vagrant SSHFS plugin</a></h3>
-                    <span class="meta">01 Dec 2013</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/vagrant">Vagrant</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p><a href="http://vagrantup.com/">Vagrant</a> supports NFS by default to mount host directories in the client machine. In some situations that won’t work well, so I developed an <a href="https://github.com/fabiokr/vagrant-sshfs">SSH file system</a> plugin for it.</p>
-
-
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2013/12/01/vagrant-sshfs" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2013/12/01/sublime-related-files">Sublime Related Files plugin</a></h3>
-                    <span class="meta">01 Dec 2013</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/rails">Rails</a>
-                                , 
-                            
-                                <a href="/category/sublime">Sublime</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p><a href="https://github.com/fabiokr/sublime-related-files">Sublime Related Files</a> is a <a href="http://www.sublimetext.com/">SublimeText</a> plugin that displays a list of related files for your currently opened file.</p>
-
-
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2013/12/01/sublime-related-files" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
-
-
-<div class="paging">
-    <a href="" class="newer"><i class="fa fa-long-arrow-left"></i> Newer</a>
-     <span>&bull;</span>
-    <a href="/blog/page2" class="older">Older <i class="fa fa-long-arrow-right"></i></a>
-</div>
+</article>
 
   </div>
   <aside class="col-md-4 blog-aside">

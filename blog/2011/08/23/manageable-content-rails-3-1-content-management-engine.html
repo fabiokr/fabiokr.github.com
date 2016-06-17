@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>Blog - Fabio Kreusch</title>
+    <title>Manageable Content - Rails 3.1 Content Management Engine - Fabio Kreusch</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
@@ -66,6 +66,9 @@
                     
                         <a href="/">Blog</a>
                         
+                            <span class="separator">/</span>
+                            <a href="/blog/2011/08/23/manageable-content-rails-3-1-content-management-engine">Manageable Content - Rails 3.1 Content Management Engine</a>
+                        
                     
                 </div>
 
@@ -86,169 +89,114 @@
         <div class="container">
             <div class="row">
   <div class="col-md-8 blog-main">
-      
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2015/06/11/ansible-colored-html-output">Ansible colored html output</a></h3>
-                    <span class="meta">11 Jun 2015</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/ansible">Ansible</a>
-                                , 
-                            
-                                <a href="/category/development">Development</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p>If you run Ansible in some automated way, you might miss the colored output it gives you when you run it through a terminal. I like it because it helps me to quickly check what has been modified in the run. I couldn’t find anything that did what I wanted, and I didn’t want to mess with the default Ansible output too, so what I did was to build a simple parser that transforms the default output into an html full of colors.</p>
-
-
+      <article class="blog-post">
+    <header>
+        <h1>Manageable Content - Rails 3.1 Content Management Engine</h1>
+        <div class="lead-image">
+            <div class="placeholder"></div>
+            <div class="meta clearfix">
+                <div class="date">
+                    <i class="fa fa-calendar"></i>
+                    <span class="data">23 Aug 2011</span>
                 </div>
-                <div class="clearfix">
-                    <a href="/blog/2015/06/11/ansible-colored-html-output" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2014/03/05/my-ubuntu-ansible-setup">My Ubuntu Ansible setup</a></h3>
-                    <span class="meta">05 Mar 2014</span>
+        <p>
+            [
+                
+                    <a href="/category/rails">Rails</a>
+                    
+                
+            ]
+        </p>
+    </header>
+    <div class="body">
+        <p>Hi there!</p>
 
-                    <p>
-                        [
-                            
-                                <a href="/category/ansible">Ansible</a>
-                                , 
-                            
-                                <a href="/category/development">Development</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p>In my <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible/">previous post</a> I talked about on how to manage an Ubuntu development machine with <a href="http://www.ansibleworks.com">Ansible</a>. For reference, this is the full playbook I’m currently using for myself: <a href="https://github.com/fabiokr/ansible-ubuntu">https://github.com/fabiokr/ansible-ubuntu</a>. I’m releasing it under the MIT license, so please feel free to modify it to your own needs.</p>
+<p>This is a tutorial post about a gem I have just released:
+<a href="https://github.com/fabiokr/manageable_content">manageable_content</a>. It is a content management framework for Rails 3.1. It provides a basic mapping between controllers to manageable contents. More detailed info can be found on the
+<a href="https://github.com/fabiokr/manageable_content/blob/master/README.rdoc">README</a> file.</p>
 
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2014/03/05/my-ubuntu-ansible-setup" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
+<p>In this post, I’ll show how to create a new Rails project using the engine. The full example is available in
+<a href="https://github.com/fabiokr/manageable_content_example_app">Github</a>. So, let the fun begin!</p>
 
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2013/12/03/manage-a-development-machine-with-ansible">Manage a development machine with Ansible</a></h3>
-                    <span class="meta">03 Dec 2013</span>
+<p>The first step is to create a new Rails app. Right now the engine requires Rails 3.1, so be sure to have it installed:</p>
 
-                    <p>
-                        [
-                            
-                                <a href="/category/ansible">Ansible</a>
-                                , 
-                            
-                                <a href="/category/development">Development</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p><a href="http://www.ansibleworks.com">Ansible</a> is an IT orchestration tool I’ve been playing with lately. Similar tools include <a href="http://www.opscode.com/chef/">Chef</a> and <a href="http://puppetlabs.com">Puppet</a>. Some cools things about Ansible is that it is open source, and you don’t need anything in your target machine (it just uses an ssh connection).</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">rails new manageable_content_example_app</code></pre></figure>
 
+<p>So, the ideia of the website is to allow each page to have its own title in a manageable way. We will also have two controllers, Home and Contact. Home controller will have a body content, and Contact will have a body and a side content. Also, we need a content for the footer that will be shared across all pages. </p>
 
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
+<p>Let’s generate our controllers first:</p>
 
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2013/12/01/vagrant-sshfs">Vagrant SSHFS plugin</a></h3>
-                    <span class="meta">01 Dec 2013</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">rails g controller home index --no-helper
+rails g controller contact index --no-helper</code></pre></figure>
 
-                    <p>
-                        [
-                            
-                                <a href="/category/vagrant">Vagrant</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p><a href="http://vagrantup.com/">Vagrant</a> supports NFS by default to mount host directories in the client machine. In some situations that won’t work well, so I developed an <a href="https://github.com/fabiokr/vagrant-sshfs">SSH file system</a> plugin for it.</p>
+<p>In
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/c90fae643a6dc778d6b744487b6f9abe81f8c7c9">this commit</a> I have added sample contents so that you can see which contents we want to be manageable.</p>
 
+<p>Ok, now we need to add manageable_content to our Gemfile. This line needs to be added:</p>
 
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2013/12/01/vagrant-sshfs" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s1">'manageable_content'</span></code></pre></figure>
 
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2013/12/01/sublime-related-files">Sublime Related Files plugin</a></h3>
-                    <span class="meta">01 Dec 2013</span>
+<p>Then, run the ‘bundle’ command to install it. After that, we need to import and run the engine migrations:</p>
 
-                    <p>
-                        [
-                            
-                                <a href="/category/rails">Rails</a>
-                                , 
-                            
-                                <a href="/category/sublime">Sublime</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p><a href="https://github.com/fabiokr/sublime-related-files">Sublime Related Files</a> is a <a href="http://www.sublimetext.com/">SublimeText</a> plugin that displays a list of related files for your currently opened file.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">bundle <span class="nb">exec </span>rake manageable_content_engine:install:migrations
+bundle <span class="nb">exec </span>rake db:migrate</code></pre></figure>
 
+<p>The next step is to make the engine Dsl available for our controllers. We need to add this to our application_controller:</p>
 
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2013/12/01/sublime-related-files" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">include</span> <span class="no">ManageableContent</span><span class="o">::</span><span class="no">Controllers</span><span class="o">::</span><span class="no">Dsl</span></code></pre></figure>
 
+<p>We will start with our title content. Let’s make the title content manageable for all controllers in our website by adding this to our application_controller:</p>
 
-<div class="paging">
-    <a href="" class="newer"><i class="fa fa-long-arrow-left"></i> Newer</a>
-     <span>&bull;</span>
-    <a href="/blog/page2" class="older">Older <i class="fa fa-long-arrow-right"></i></a>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_content_for</span> <span class="ss">:title</span></code></pre></figure>
+
+<p> 
+Now run:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">bundle <span class="nb">exec </span>rake manageable_content:generate</code></pre></figure>
+
+<p>This command will generate our contents in the database based on our controllers configurations. We should than use the engine helper to print the manageable content in our views. You can see how I have done that in
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/340b254aa6f2cd4e41b022f398f01f6f8e783609">this commit</a>. Now, we need a place in which we can edit our manageable contents. In
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/702b4cd266e33d24ff5d25ca13a7c5b075ecf206">this commit</a> and in
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/4c6f599b9c9ec8b973e57cfd13638d8915f703d4">this one</a> I created a basic administration page to manage the pages. An important thing to remeber is that the admin controller should inherit from a controller different that the application_controller, otherwise your admin controller will have manageable contents too!</p>
+
+<p>Now, by accessing the admin page and saving some title contents, if we access our website pages their titles should be using the manageable contents. In our pages admin, you can notice that there was a page for our home controller, contact controller and for the application controller. To use the application controller title in our views, we have to use the manageable_layout_content_for helper. Check
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/f1043c56d2923b0c4eb07e24f7c0b7fdfc0816a7">this commit</a>.</p>
+
+<p>We can also have content that will be shared by all pages. In our website, the ‘footer’ content has to be like that. On our application_controller, we add this:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_layout_content_for</span><span class="err"> </span><span class="ss">:footer</span></code></pre></figure>
+
+<p>Than, after generating our contents with ‘bundle exec rake manageable_content:generate’, the footer content should be list under the ‘application’ page on our admin. To use it in our views, just add this:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_layout_content_for</span><span class="err"> </span><span class="ss">:footer</span></code></pre></figure>
+
+<p>The commit for this step is
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/5352ca2cb8d4483243c78d2abec0586a4e6adfd8">this one</a>.</p>
+
+<p>To finish this example, we will add contents that will be specific to our home and contact controller. Home controller will have a body content, and contact will have a body and a side content. Add this to the controllers:</p>
+
+<p>home_controller:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_content_for</span><span class="err"> </span><span class="ss">:body</span></code></pre></figure>
+
+<p>contact_controller:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">manageable_content_for</span><span class="err"> </span><span class="ss">:body</span><span class="p">,</span><span class="err"> </span><span class="ss">:side</span></code></pre></figure>
+
+<p>After generating the contents, we can manage them thought the admin interface, and use them in our views with the helper, as you can
+<a href="https://github.com/fabiokr/manageable_content_example_app/commit/633022f5d4d45d3e3735556caae80045b65098bd">see here.</a></p>
+
+<p>So basically, that’s it!</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>The ideia was to create a simple to use and generic content manager for Rails. The source code is available in [GIthub](https://github.com/fabiokr/manageable_content) and it is open for collaboration.
+</code></pre>
 </div>
+
+    </div>
+</article>
 
   </div>
   <aside class="col-md-4 blog-aside">

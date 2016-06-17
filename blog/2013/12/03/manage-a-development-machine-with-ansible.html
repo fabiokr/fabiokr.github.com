@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>Blog - Fabio Kreusch</title>
+    <title>Manage a development machine with Ansible - Fabio Kreusch</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
@@ -66,6 +66,9 @@
                     
                         <a href="/">Blog</a>
                         
+                            <span class="separator">/</span>
+                            <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible">Manage a development machine with Ansible</a>
+                        
                     
                 </div>
 
@@ -86,169 +89,148 @@
         <div class="container">
             <div class="row">
   <div class="col-md-8 blog-main">
-      
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2015/06/11/ansible-colored-html-output">Ansible colored html output</a></h3>
-                    <span class="meta">11 Jun 2015</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/ansible">Ansible</a>
-                                , 
-                            
-                                <a href="/category/development">Development</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p>If you run Ansible in some automated way, you might miss the colored output it gives you when you run it through a terminal. I like it because it helps me to quickly check what has been modified in the run. I couldn’t find anything that did what I wanted, and I didn’t want to mess with the default Ansible output too, so what I did was to build a simple parser that transforms the default output into an html full of colors.</p>
-
-
+      <article class="blog-post">
+    <header>
+        <h1>Manage a development machine with Ansible</h1>
+        <div class="lead-image">
+            <div class="placeholder"></div>
+            <div class="meta clearfix">
+                <div class="date">
+                    <i class="fa fa-calendar"></i>
+                    <span class="data">03 Dec 2013</span>
                 </div>
-                <div class="clearfix">
-                    <a href="/blog/2015/06/11/ansible-colored-html-output" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
+            </div>
         </div>
+
+        <p>
+            [
+                
+                    <a href="/category/ansible">Ansible</a>
+                    , 
+                
+                    <a href="/category/development">Development</a>
+                    
+                
+            ]
+        </p>
+    </header>
+    <div class="body">
+        <p><a href="http://www.ansibleworks.com">Ansible</a> is an IT orchestration tool I’ve been playing with lately. Similar tools include <a href="http://www.opscode.com/chef/">Chef</a> and <a href="http://puppetlabs.com">Puppet</a>. Some cools things about Ansible is that it is open source, and you don’t need anything in your target machine (it just uses an ssh connection).</p>
+
+<p>In this quickstart, I’ll build an Ansible playbook to manage a personal Ubuntu desktop.</p>
+
+<p>First step is to install Ansible. For Ubuntu, a repository is available:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>sudo add-apt-repository ppa:rquillo/ansible
+<span class="gp">$ </span>sudo apt-get update
+<span class="gp">$ </span>sudo apt-get install ansible</code></pre></figure>
+
+<p>Additional installation methods can be found in <a href="http://ansibleworks.com/docs/intro_installation.html">this page</a>.</p>
+
+<p>Now, we create a directory that will hold our playbook:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>mkdir my_playbook</code></pre></figure>
+
+<p>A playbook is the source of instructions that ansible will run when provisioning.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>touch playbook.yml</code></pre></figure>
+
+<p>Ansible expects instructions in the <code class="highlighter-rouge">yml</code> format. Lets populate our playbook with an initial content:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="nn">---</span>
+<span class="c1"># the host in which the playbook will be run</span>
+<span class="pi">-</span> <span class="s">hosts</span><span class="pi">:</span> <span class="s">localhost</span>
+  <span class="c1"># in this example, we using a localhost, so this is needed</span>
+  <span class="s">connection</span><span class="pi">:</span> <span class="s">local</span>
+
+  <span class="c1"># the target user Ansible will impersonate when provisioning</span>
+  <span class="s">user</span><span class="pi">:</span> <span class="s">johndoe</span>
+
+  <span class="c1"># this makes all tasks run with sudo by default</span>
+  <span class="s">sudo</span><span class="pi">:</span> <span class="s">true</span>
+
+  <span class="c1"># additional variables</span>
+  <span class="s">vars</span><span class="pi">:</span>
+    <span class="s">user</span><span class="pi">:</span> <span class="s">johndoe</span>
+
+  <span class="c1"># roles are a way to group tasks; they will run in the sequence determined here</span>
+  <span class="s">roles</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">system</span></code></pre></figure>
+
+<p>The next step is to create an inventory file. This will hold a list of servers Ansible can run with:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>touch inventory</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">localhost   <span class="nv">ansible_connection</span><span class="o">=</span><span class="nb">local</span></code></pre></figure>
+
+<p>Now, lets create our roles. For this example, the idea is to have a <code class="highlighter-rouge">system</code> role that is responsible for setting up system libraries.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>mkdir roles
+<span class="gp">$ </span>mkdir roles/system</code></pre></figure>
+
+<p>And our system main task:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>touch roles/system/main.yml</code></pre></figure>
+
+<p>And this is the content of our sytems task:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="nn">---</span>
+
+<span class="c1"># This is a task. Basically, it needs a module command. In this example, it</span>
+<span class="c1"># also have a `name`, which will be displayed while running the task to give a</span>
+<span class="c1"># better description of the running task.</span>
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">install</span>
+  <span class="c1"># apt is our module. It installs debian packages. Here we are passing an</span>
+  <span class="c1"># `` variable, which is the item from `with_items`</span>
+  <span class="s">apt</span><span class="pi">:</span> <span class="s">pkg=</span>
+  <span class="c1"># `with_items` will loop through a list and run the module passing each item</span>
+  <span class="c1"># as ``</span>
+  <span class="s">with_items</span><span class="pi">:</span>
+    <span class="c1"># better shell</span>
+    <span class="pi">-</span> <span class="s">zsh</span>
+    <span class="c1"># terminal multiplexer</span>
+    <span class="pi">-</span> <span class="s">tmux</span>
+    <span class="c1"># terminal editor</span>
+    <span class="pi">-</span> <span class="s">vim-gtk</span>
+    <span class="c1"># shh</span>
+    <span class="pi">-</span> <span class="s">ssh</span>
+    <span class="c1"># ruby</span>
+    <span class="pi">-</span> <span class="s">ruby</span>
+    <span class="c1"># ruby dev headers</span>
+    <span class="pi">-</span> <span class="s">ruby-dev</span>
+    <span class="c1"># ruby package manager</span>
+    <span class="pi">-</span> <span class="s">rubygems</span>
+
+<span class="c1"># This is an example of how to gather information from the machine. We</span>
+<span class="c1"># run a command with the "shell" module and register the result into the</span>
+<span class="c1"># "default_shell" variable</span>
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">zsh facts</span>
+  <span class="s">shell</span><span class="pi">:</span> <span class="s1">'</span><span class="s">echo</span><span class="nv"> </span><span class="s">$SHELL'</span>
+  <span class="s">register</span><span class="pi">:</span> <span class="s">default_shell</span>
+  <span class="c1"># changed when determines when will this task be considered changed when running</span>
+  <span class="c1"># ansible. In this case, we want it to always be false, as we are just</span>
+  <span class="c1"># retrieving information.</span>
+  <span class="s">changed_when</span><span class="pi">:</span> <span class="s">False</span>
+  <span class="s">sudo</span><span class="pi">:</span> <span class="s">no</span>
+
+<span class="c1"># Now, we want to set zsh as the default shell, unless it is already the default</span>
+<span class="c1"># one.</span>
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">make zsh default</span>
+  <span class="s">shell</span><span class="pi">:</span>  <span class="s">chsh -s /bin/zsh</span> 
+  <span class="c1"># This task will run only when the following is true. In here, we check the</span>
+  <span class="c1"># value registered previously within the "default_shell" variable.</span>
+  <span class="s">when</span><span class="pi">:</span> <span class="s">default_shell.stdout.find('/bin/zsh') == -1</span></code></pre></figure>
+
+<p>Now, to run our playbook:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ansible-playbook -K -i inventory playbook.yml</code></pre></figure>
+
+<p><code class="highlighter-rouge">-K</code> will ask for the machine sudo password. <code class="highlighter-rouge">-i</code> will pass the inventory file to use.</p>
+
+<p>For additional modules, look into the <a href="http://www.ansibleworks.com/docs/modules.html">Ansible modules documentation</a>.</p>
+
     </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2014/03/05/my-ubuntu-ansible-setup">My Ubuntu Ansible setup</a></h3>
-                    <span class="meta">05 Mar 2014</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/ansible">Ansible</a>
-                                , 
-                            
-                                <a href="/category/development">Development</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p>In my <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible/">previous post</a> I talked about on how to manage an Ubuntu development machine with <a href="http://www.ansibleworks.com">Ansible</a>. For reference, this is the full playbook I’m currently using for myself: <a href="https://github.com/fabiokr/ansible-ubuntu">https://github.com/fabiokr/ansible-ubuntu</a>. I’m releasing it under the MIT license, so please feel free to modify it to your own needs.</p>
-
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2014/03/05/my-ubuntu-ansible-setup" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2013/12/03/manage-a-development-machine-with-ansible">Manage a development machine with Ansible</a></h3>
-                    <span class="meta">03 Dec 2013</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/ansible">Ansible</a>
-                                , 
-                            
-                                <a href="/category/development">Development</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p><a href="http://www.ansibleworks.com">Ansible</a> is an IT orchestration tool I’ve been playing with lately. Similar tools include <a href="http://www.opscode.com/chef/">Chef</a> and <a href="http://puppetlabs.com">Puppet</a>. Some cools things about Ansible is that it is open source, and you don’t need anything in your target machine (it just uses an ssh connection).</p>
-
-
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2013/12/03/manage-a-development-machine-with-ansible" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2013/12/01/vagrant-sshfs">Vagrant SSHFS plugin</a></h3>
-                    <span class="meta">01 Dec 2013</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/vagrant">Vagrant</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p><a href="http://vagrantup.com/">Vagrant</a> supports NFS by default to mount host directories in the client machine. In some situations that won’t work well, so I developed an <a href="https://github.com/fabiokr/vagrant-sshfs">SSH file system</a> plugin for it.</p>
-
-
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2013/12/01/vagrant-sshfs" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <article class=" blog-teaser">
-                <header>
-                    <h3><a href="/blog/2013/12/01/sublime-related-files">Sublime Related Files plugin</a></h3>
-                    <span class="meta">01 Dec 2013</span>
-
-                    <p>
-                        [
-                            
-                                <a href="/category/rails">Rails</a>
-                                , 
-                            
-                                <a href="/category/sublime">Sublime</a>
-                                
-                            
-                        ]
-                    </p>
-                    <hr>
-                </header>
-                <div class="body">
-                    <p><a href="https://github.com/fabiokr/sublime-related-files">Sublime Related Files</a> is a <a href="http://www.sublimetext.com/">SublimeText</a> plugin that displays a list of related files for your currently opened file.</p>
-
-
-                </div>
-                <div class="clearfix">
-                    <a href="/blog/2013/12/01/sublime-related-files" class="btn btn-tales-one">Read more</a>
-                </div>
-            </article>
-        </div>
-    </div>
-
-
-<div class="paging">
-    <a href="" class="newer"><i class="fa fa-long-arrow-left"></i> Newer</a>
-     <span>&bull;</span>
-    <a href="/blog/page2" class="older">Older <i class="fa fa-long-arrow-right"></i></a>
-</div>
+</article>
 
   </div>
   <aside class="col-md-4 blog-aside">
