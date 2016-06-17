@@ -1,19 +1,23 @@
 require "rubygems"
 require "bundler/setup"
 
+def system_cmd(cmd)
+  system(cmd) || exit(1)
+end
+
 desc "builds the website"
 task :build do
-  Bundler.with_clean_env { system "jekyll build" }
+  system_cmd "bundle exec jekyll build"
 end
 
 desc "deploys the website"
 task deploy: :build do
-  system "git checkout master"
-  system "cp -R _site/* ."
-  system "rm -rf _site"
-  system "git add ."
-  system %(git commit -m "Site updated at #{Time.now.to_s}")
-  system "git push origin master"
-  system "git checkout jekyll"
-  system "git push origin jekyll"
+  system_cmd "git checkout master"
+  system_cmd "cp -R _site/* ."
+  system_cmd "rm -rf _site"
+  system_cmd "git add ."
+  system_cmd %(git commit -m "Site updated at #{Time.now.to_s}")
+  system_cmd "git push origin master"
+  system_cmd "git checkout jekyll"
+  system_cmd "git push origin jekyll"
 end
