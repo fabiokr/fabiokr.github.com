@@ -3,7 +3,7 @@ require "bundler/setup"
 
 desc "builds the website"
 task :build do
-  system "bundle exec jekyll build"
+  Bundler.with_clean_env { system "jekyll build" }
 end
 
 desc "deploys the website"
