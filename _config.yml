@@ -1,6 +1,6 @@
 exclude: ["Rakefile", "Gemfile", "Gemfile.lock"]
 timezone: America/Sao_Paulo
-gems: ['less', 'jekyll-sitemap', 'jekyll-archives', 'jekyll-paginate']
+plugins: ['less', 'jekyll-sitemap', 'jekyll-archives', 'jekyll-paginate']
 layout: default
 permalink: /blog/:year/:month/:day/:title
 paginate: 5
