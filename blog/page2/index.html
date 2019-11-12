@@ -152,7 +152,7 @@
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">ogv_to_gif<span class="o">()</span> <span class="o">{</span>
   <span class="c"># Export into images
 </span>
-  mplayer -ao null <span class="nv">$1</span> -vo jpeg:outdir<span class="o">=</span>/tmp/ogv_to_gif
+  mplayer <span class="nt">-ao</span> null <span class="nv">$1</span> <span class="nt">-vo</span> jpeg:outdir<span class="o">=</span>/tmp/ogv_to_gif
 
   <span class="c"># Convert images to animated gif
 </span>
@@ -167,11 +167,11 @@
   <span class="c"># Optimize gif
 </span>
   <span class="nb">echo</span> <span class="s2">"Optimizing generated gif..."</span>
-  convert /tmp/ogv_to_gif.gif -fuzz 10% -layers Optimize <span class="s2">"</span><span class="nv">$filename</span><span class="s2">"</span>
+  convert /tmp/ogv_to_gif.gif <span class="nt">-fuzz</span> 10% <span class="nt">-layers</span> Optimize <span class="s2">"</span><span class="nv">$filename</span><span class="s2">"</span>
 
   <span class="c"># Cleans up tmp folders
 </span>
-  rm -rf /tmp/ogv_to_gif.gif /tmp/ogv_to_gif
+  rm <span class="nt">-rf</span> /tmp/ogv_to_gif.gif /tmp/ogv_to_gif
 <span class="o">}</span></code></pre></figure>
 
 
@@ -415,6 +415,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+    <script src="//script.crazyegg.com/pages/scripts/0078/1224.js" async="async"></script>
 
 </body>
 </html>

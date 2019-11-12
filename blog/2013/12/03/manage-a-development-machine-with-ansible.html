@@ -121,56 +121,56 @@
 
 <p>First step is to install Ansible. For Ubuntu, a repository is available:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>sudo add-apt-repository ppa:rquillo/ansible
-<span class="gp">$ </span>sudo apt-get update
-<span class="gp">$ </span>sudo apt-get install ansible</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">sudo </span>add-apt-repository ppa:rquillo/ansible
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get update
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get install ansible</code></pre></figure>
 
 <p>Additional installation methods can be found in <a href="http://ansibleworks.com/docs/intro_installation.html">this page</a>.</p>
 
 <p>Now, we create a directory that will hold our playbook:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>mkdir my_playbook</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>mkdir my_playbook</code></pre></figure>
 
 <p>A playbook is the source of instructions that ansible will run when provisioning.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>touch playbook.yml</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>touch playbook.yml</code></pre></figure>
 
 <p>Ansible expects instructions in the <code class="highlighter-rouge">yml</code> format. Lets populate our playbook with an initial content:</p>
 
 <figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="nn">---</span>
 <span class="c1"># the host in which the playbook will be run</span>
-<span class="pi">-</span> <span class="s">hosts</span><span class="pi">:</span> <span class="s">localhost</span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">localhost</span>
   <span class="c1"># in this example, we using a localhost, so this is needed</span>
-  <span class="s">connection</span><span class="pi">:</span> <span class="s">local</span>
+  <span class="na">connection</span><span class="pi">:</span> <span class="s">local</span>
 
   <span class="c1"># the target user Ansible will impersonate when provisioning</span>
-  <span class="s">user</span><span class="pi">:</span> <span class="s">johndoe</span>
+  <span class="na">user</span><span class="pi">:</span> <span class="s">johndoe</span>
 
   <span class="c1"># this makes all tasks run with sudo by default</span>
-  <span class="s">sudo</span><span class="pi">:</span> <span class="s">true</span>
+  <span class="na">sudo</span><span class="pi">:</span> <span class="no">true</span>
 
   <span class="c1"># additional variables</span>
-  <span class="s">vars</span><span class="pi">:</span>
-    <span class="s">user</span><span class="pi">:</span> <span class="s">johndoe</span>
+  <span class="na">vars</span><span class="pi">:</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s">johndoe</span>
 
   <span class="c1"># roles are a way to group tasks; they will run in the sequence determined here</span>
-  <span class="s">roles</span><span class="pi">:</span>
+  <span class="na">roles</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="s">system</span></code></pre></figure>
 
 <p>The next step is to create an inventory file. This will hold a list of servers Ansible can run with:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>touch inventory</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>touch inventory</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">localhost   <span class="nv">ansible_connection</span><span class="o">=</span><span class="nb">local</span></code></pre></figure>
 
 <p>Now, lets create our roles. For this example, the idea is to have a <code class="highlighter-rouge">system</code> role that is responsible for setting up system libraries.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>mkdir roles
-<span class="gp">$ </span>mkdir roles/system</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>mkdir roles
+<span class="nv">$ </span>mkdir roles/system</code></pre></figure>
 
 <p>And our system main task:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>touch roles/system/main.yml</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>touch roles/system/main.yml</code></pre></figure>
 
 <p>And this is the content of our sytems task:</p>
 
@@ -179,13 +179,13 @@
 <span class="c1"># This is a task. Basically, it needs a module command. In this example, it</span>
 <span class="c1"># also have a `name`, which will be displayed while running the task to give a</span>
 <span class="c1"># better description of the running task.</span>
-<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">install</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">install</span>
   <span class="c1"># apt is our module. It installs debian packages. Here we are passing an</span>
   <span class="c1"># `` variable, which is the item from `with_items`</span>
-  <span class="s">apt</span><span class="pi">:</span> <span class="s">pkg=</span>
+  <span class="na">apt</span><span class="pi">:</span> <span class="s">pkg=</span>
   <span class="c1"># `with_items` will loop through a list and run the module passing each item</span>
   <span class="c1"># as ``</span>
-  <span class="s">with_items</span><span class="pi">:</span>
+  <span class="na">with_items</span><span class="pi">:</span>
     <span class="c1"># better shell</span>
     <span class="pi">-</span> <span class="s">zsh</span>
     <span class="c1"># terminal multiplexer</span>
@@ -204,26 +204,26 @@
 <span class="c1"># This is an example of how to gather information from the machine. We</span>
 <span class="c1"># run a command with the "shell" module and register the result into the</span>
 <span class="c1"># "default_shell" variable</span>
-<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">zsh facts</span>
-  <span class="s">shell</span><span class="pi">:</span> <span class="s1">'</span><span class="s">echo</span><span class="nv"> </span><span class="s">$SHELL'</span>
-  <span class="s">register</span><span class="pi">:</span> <span class="s">default_shell</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">zsh facts</span>
+  <span class="na">shell</span><span class="pi">:</span> <span class="s1">'</span><span class="s">echo</span><span class="nv"> </span><span class="s">$SHELL'</span>
+  <span class="na">register</span><span class="pi">:</span> <span class="s">default_shell</span>
   <span class="c1"># changed when determines when will this task be considered changed when running</span>
   <span class="c1"># ansible. In this case, we want it to always be false, as we are just</span>
   <span class="c1"># retrieving information.</span>
-  <span class="s">changed_when</span><span class="pi">:</span> <span class="s">False</span>
-  <span class="s">sudo</span><span class="pi">:</span> <span class="s">no</span>
+  <span class="na">changed_when</span><span class="pi">:</span> <span class="s">False</span>
+  <span class="na">sudo</span><span class="pi">:</span> <span class="s">no</span>
 
 <span class="c1"># Now, we want to set zsh as the default shell, unless it is already the default</span>
 <span class="c1"># one.</span>
-<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">make zsh default</span>
-  <span class="s">shell</span><span class="pi">:</span>  <span class="s">chsh -s /bin/zsh</span> 
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">make zsh default</span>
+  <span class="na">shell</span><span class="pi">:</span>  <span class="s">chsh -s /bin/zsh</span> 
   <span class="c1"># This task will run only when the following is true. In here, we check the</span>
   <span class="c1"># value registered previously within the "default_shell" variable.</span>
-  <span class="s">when</span><span class="pi">:</span> <span class="s">default_shell.stdout.find('/bin/zsh') == -1</span></code></pre></figure>
+  <span class="na">when</span><span class="pi">:</span> <span class="s">default_shell.stdout.find('/bin/zsh') == -1</span></code></pre></figure>
 
 <p>Now, to run our playbook:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ansible-playbook -K -i inventory playbook.yml</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ansible-playbook <span class="nt">-K</span> <span class="nt">-i</span> inventory playbook.yml</code></pre></figure>
 
 <p><code class="highlighter-rouge">-K</code> will ask for the machine sudo password. <code class="highlighter-rouge">-i</code> will pass the inventory file to use.</p>
 
@@ -367,6 +367,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+    <script src="//script.crazyegg.com/pages/scripts/0078/1224.js" async="async"></script>
 
 </body>
 </html>

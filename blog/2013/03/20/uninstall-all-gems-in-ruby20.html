@@ -114,7 +114,7 @@
     <div class="body">
         <p>Here is a command to uninstall all non default gems in Ruby 2.0:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gem list | cut -d<span class="s2">" "</span> -f1 | grep -v <span class="s2">"test-unit</span><span class="se">\|</span><span class="s2">psych</span><span class="se">\|</span><span class="s2">minitest</span><span class="se">\|</span><span class="s2">io-console</span><span class="se">\|</span><span class="s2">rdoc</span><span class="se">\|</span><span class="s2">bigdecimal</span><span class="se">\|</span><span class="s2">rake</span><span class="se">\|</span><span class="s2">json"</span>  | xargs gem uninstall -aIx</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gem list | cut <span class="nt">-d</span><span class="s2">" "</span> <span class="nt">-f1</span> | <span class="nb">grep</span> <span class="nt">-v</span> <span class="s2">"test-unit</span><span class="se">\|</span><span class="s2">psych</span><span class="se">\|</span><span class="s2">minitest</span><span class="se">\|</span><span class="s2">io-console</span><span class="se">\|</span><span class="s2">rdoc</span><span class="se">\|</span><span class="s2">bigdecimal</span><span class="se">\|</span><span class="s2">rake</span><span class="se">\|</span><span class="s2">json"</span>  | xargs gem uninstall <span class="nt">-aIx</span></code></pre></figure>
 
 
     </div>
@@ -255,6 +255,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+    <script src="//script.crazyegg.com/pages/scripts/0078/1224.js" async="async"></script>
 
 </body>
 </html>
