@@ -291,14 +291,12 @@
 
     <script type="text/javascript">
         window.CE2 = {};
-        console.log("START")
         if(document.head){
-            console.log("HERE")
         CE2.bh=document.createElement("style");
         CE2.bh.innerHTML="body{visibility:hidden !important}";
         document.head.appendChild(CE2.bh);
         setTimeout(function() {
-        if (CE2.bh) { CE2.bh.parentElement.removeChild(CE2.bh); CE2.bh = null; console.log("CLEARED") }
+        if (CE2.bh) { CE2.bh.parentElement.removeChild(CE2.bh); CE2.bh = null; }
         }, 500);
         }
         </script>
