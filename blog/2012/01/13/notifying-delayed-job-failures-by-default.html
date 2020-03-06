@@ -288,6 +288,19 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+
+    <script type=“text/javascript”>
+        window.CE2 = {};
+        if(document.head){
+        CE2.bh=document.createElement(“style”);
+        CE2.bh.innerHTML=“body{visibility:hidden !important}“;
+        document.head.appendChild(CE2.bh);
+        setTimeout(function() {
+        if (CE2.bh) { CE2.bh.parentElement.removeChild(CE2.bh); CE2.bh = null; }
+        }, 500);
+        }
+        </script>
+
     <script src="//script.crazyegg.com/pages/scripts/0078/1224.js" async="async"></script>
 
 </body>
