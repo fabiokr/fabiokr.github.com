@@ -2810,7 +2810,7 @@ var unss = function unss(string) {
                   CE2.startSnapshotTracking(snapshot, recordingSessionId);
                 });
                 var ended =     +new Date()
-            console.log(ended - initial)
+                console.log(ended - initial)
               }
             } catch (e) {
               CE2.debug(e);
