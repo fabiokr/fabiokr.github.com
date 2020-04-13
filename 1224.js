@@ -123,6 +123,8 @@ CE2.capture = function (el) {
 };
 
 CE2.findMatchingSnapshot = function (snapshots, url, name, variantId, googleOptimize, ip) {
+  var initial = +new Date()
+
   var i;
   var snapshot;
   var result;
@@ -151,6 +153,8 @@ CE2.findMatchingSnapshot = function (snapshots, url, name, variantId, googleOpti
       }
     }
   }
+
+console.log("FINDSNAPSHOTINTERNAL" + (+new Date() - initial))
 
   return result;
 };
