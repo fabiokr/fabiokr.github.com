@@ -200,7 +200,7 @@ CE2.loadTrackingScript = function (callback) {
     return;
   }
 
-let initial = +new Date() 
+let initial = +new Date()
 
   CE2.debug('Loading tracking script...');
   var script = CE2.d.createElement('script');
@@ -212,7 +212,7 @@ let initial = +new Date()
   CE2.TRACKING_SCRIPT_INCLUDED = true;
 
   let ended = +new Date()
-  
+
   console.log("ENDED: " + (ended - initial))
   return false;
 };
