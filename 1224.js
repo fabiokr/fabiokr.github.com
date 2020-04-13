@@ -200,6 +200,8 @@ CE2.loadTrackingScript = function (callback) {
     return;
   }
 
+let initial = +new Date() 
+
   CE2.debug('Loading tracking script...');
   var script = CE2.d.createElement('script');
   var scriptSrc = CE2.w.location.protocol == 'https:' ? CE2.TRACKING_SCRIPT_SECURE : CE2.TRACKING_SCRIPT;
@@ -208,6 +210,10 @@ CE2.loadTrackingScript = function (callback) {
   script.async = true;
   CE2.d.body.appendChild(script);
   CE2.TRACKING_SCRIPT_INCLUDED = true;
+
+  let ended = +new Date()
+  
+  console.log("ENDED: " + (ended - initial))
   return false;
 };
 
