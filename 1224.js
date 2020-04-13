@@ -200,8 +200,6 @@ CE2.loadTrackingScript = function (callback) {
     return;
   }
 
-let initial = +new Date() 
-
   CE2.debug('Loading tracking script...');
   var script = CE2.d.createElement('script');
   var scriptSrc = CE2.w.location.protocol == 'https:' ? CE2.TRACKING_SCRIPT_SECURE : CE2.TRACKING_SCRIPT;
@@ -210,10 +208,6 @@ let initial = +new Date()
   script.async = true;
   CE2.d.body.appendChild(script);
   CE2.TRACKING_SCRIPT_INCLUDED = true;
-
-  let ended = +new Date()
-  
-  console.log("ENDED: " + (ended - initial))
   return false;
 };
 
@@ -2774,7 +2768,6 @@ var unss = function unss(string) {
       var callback = function callback() {
         if (!new CE2.IPBlockList(ipBlockList).blocked(CE2._sampling.getIP())) {
           CE2.monitor = function () {
-var initial =     +new Date()
 
             try {
               var pageUrl = CE2.w.location.href;
@@ -2812,16 +2805,18 @@ var initial =     +new Date()
               }
 
               if (!CE2.tracker) {
+                var initial =     +new Date()
                 CE2.loadTrackingScript(function () {
                   CE2.startSnapshotTracking(snapshot, recordingSessionId);
                 });
+                var ended =     +new Date()
+            console.log(ended - initial)
               }
             } catch (e) {
               CE2.debug(e);
             }
 
-            var ended =     +new Date()
-            console.log(ended - initial)
+
           };
 
           if (CE2.recording && CE2.recording.main) {
