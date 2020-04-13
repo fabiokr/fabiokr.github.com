@@ -2787,9 +2787,12 @@ var unss = function unss(string) {
                 snapshot = CE2.findMatchingSnapshot(snapshots, pageUrl, typeof CE_SNAPSHOT_NAME === 'string' && CE_SNAPSHOT_NAME.trim(), null, null, CE2._sampling.getIP());
               }
 
+              console.log("FINDSNAPSHOT:" + (+new Date() - initial))
+
               if (CE2.ALLOW_RECORDINGS_2 && CE2.recording && CE2.recording.hasSession()) {
                 recordingSessionId = CE2.recording.getSessionState().id;
               } // cleanup
+              console.log("GETSESSIONSTATE:" + (+new Date() - initial))
 
 
               if (!snapshot && !recordingSessionId || CE2.tracker && CE2.tracker.snapshotId != (snapshot && snapshot.id) || CE2.tracker && CE2.tracker.recordingSessionId != recordingSessionId) {
@@ -2803,20 +2806,19 @@ var unss = function unss(string) {
 
                 return;
               }
+              console.log("CLEANUP:" + (+new Date() - initial))
 
               if (!CE2.tracker) {
-                var initial =     +new Date()
                 CE2.loadTrackingScript(function () {
                   CE2.startSnapshotTracking(snapshot, recordingSessionId);
                 });
-                var ended =     +new Date()
-                console.log(ended - initial)
               }
+              console.log("LOADTRACKER:" + (+new Date() - initial))
             } catch (e) {
               CE2.debug(e);
             }
 
-
+            console.log("END:" + (+new Date() - initial))
           };
 
           if (CE2.recording && CE2.recording.main) {
