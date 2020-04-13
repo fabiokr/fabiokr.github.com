@@ -2768,7 +2768,7 @@ var unss = function unss(string) {
       var callback = function callback() {
         if (!new CE2.IPBlockList(ipBlockList).blocked(CE2._sampling.getIP())) {
           CE2.monitor = function () {
-
+            var initial = +new Date()
             try {
               var pageUrl = CE2.w.location.href;
               var variantId = flowDetails && flowDetails.flow && flowDetails.flow.trackByVariant && flowDetails.variant.variantId;
