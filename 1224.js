@@ -2041,8 +2041,8 @@ CE2.getAllFingerprints2 = function (options) {
   }
 })();
 
-CE2.TRACKING_SCRIPT = "http://script.crazyegg.com/pages/tracking-scripts-source/1.js";
-CE2.TRACKING_SCRIPT_SECURE = "https://script.crazyegg.com/pages/tracking-scripts-source/1.js";
+CE2.TRACKING_SCRIPT = "http://script.crazyegg.com/pages/tracking-scripts/1.js";
+CE2.TRACKING_SCRIPT_SECURE = "https://script.crazyegg.com/pages/tracking-scripts/1.js";
 
 ;
 "use strict";
