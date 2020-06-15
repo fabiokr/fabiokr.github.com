@@ -304,9 +304,20 @@
         }
 
         CE_USER_DATA_URL = "https://script.crazyegg.com/pages/data-scripts/0078/1224.json";
+
+        var scriptSrc = "script.crazyegg.com/pages/scripts/0078/1224.js";
+
+        if(window.location.search.indexOf('selfhosted') > -1) {
+            scriptSrc = "https://script.crazyegg.com/pages/versioned/bundled-scripts/11.1.37.js";
+        }
+
+        var script = d.createElement('script');
+        script.src = scriptSrc;
+        script.type = 'text/javascript';
+        script.async = true;
+
+        var entry = d.getElementsByTagName('script')[0];
+        entry.parentNode.insertBefore(script, entry);
     </script>
-
-    <script src="//user-script-api.crazyegg.com/pages/versioned/bundled-scripts/11.1.34.js" async="async"></script>
-
 </body>
 </html>
