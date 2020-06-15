@@ -284,12 +284,12 @@
             scriptSrc = "https://script.crazyegg.com/pages/versioned/bundled-scripts/11.1.37.js";
         }
 
-        var script = d.createElement('script');
+        var script = document.createElement('script');
         script.src = scriptSrc;
         script.type = 'text/javascript';
         script.async = true;
 
-        var entry = d.getElementsByTagName('script')[0];
+        var entry = document.getElementsByTagName('script')[0];
         entry.parentNode.insertBefore(script, entry);
     </script>
 </body>
