@@ -282,7 +282,9 @@
             host = 'user-script-api.crazyeggstaging.com';
         }
 
-        CE_USER_DATA_URL = `https://${host}/pages/data-scripts/0078/1224.json`;
+        var CE_USER_DATA_URL = `https://${host}/pages/data-scripts/0078/1224.json`;
+
+        var scriptSrc = `https://${host}/pages/scripts/0078/1224.js`;
 
         if(window.location.search.indexOf('selfhosted') > -1) {
             scriptSrc = `https://${host}/pages/versioned/bundled-scripts/11.1.37.js`;
