@@ -277,12 +277,19 @@
             host = 'user-script-api.crazyeggstaging.com';
         }
 
+        var SELF_HOST_VERSION = '11.1.200-beta.1';
+
+        if(window.location.search.indexOf('version') > -1) {
+            SELF_HOST_VERSION = new URLSearchParams(window.location.search).get('version');
+        }
+
         var CE_USER_DATA_URL = `https://${host}/pages/data-scripts/0078/1224.json`;
+        var CE_USER_COMMON_SCRIPT_URL = `https://${host}/pages/versioned/common-scripts/${SELF_HOST_VERSION}.js`;
 
         var scriptSrc = `https://${host}/pages/scripts/0078/1224.js`;
 
         if(window.location.search.indexOf('selfhosted') > -1) {
-            scriptSrc = `https://${host}/pages/versioned/bundled-scripts/11.1.37.js`;
+            scriptSrc = `https://${host}/pages/versioned/bundled-scripts/${SELF_HOST_VERSION}.js`;
         }
 
         var script = document.createElement('script');
