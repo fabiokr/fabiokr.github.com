@@ -416,46 +416,6 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
     <script src="https://www.googleoptimize.com/optimize.js?id=OPT-TJLNMG5"></script>
-
-    <script type="text/javascript">
-        window.CE2 = {};
-        if(document.head){
-        CE2.bh=document.createElement("style");
-        CE2.bh.innerHTML="body{visibility:hidden !important}";
-        document.head.appendChild(CE2.bh);
-        setTimeout(function() {
-        if (CE2.bh) { CE2.bh.parentElement.removeChild(CE2.bh); CE2.bh = null; }
-        }, 500);
-        }
-
-        var host = 'script.crazyegg.com';
-
-        if(window.location.search.indexOf('staging') > -1) {
-            host = 'user-script-api.crazyeggstaging.com';
-        }
-
-        var SELF_HOST_VERSION = '11.1.197';
-
-        if(window.location.search.indexOf('version') > -1) {
-            SELF_HOST_VERSION = new URLSearchParams(window.location.search).get('version');
-        }
-
-        var CE_USER_DATA_URL = `https://${host}/pages/data-scripts/0078/1224.json`;
-        var CE_USER_COMMON_SCRIPT_URL = `https://${host}/pages/versioned/common-scripts/${SELF_HOST_VERSION}.js`;
-
-        var scriptSrc = `https://${host}/pages/scripts/0078/1224.js`;
-
-        if(window.location.search.indexOf('selfhosted') > -1) {
-            scriptSrc = `https://${host}/pages/versioned/bundled-scripts/${SELF_HOST_VERSION}.js`;
-        }
-
-        var script = document.createElement('script');
-        script.src = scriptSrc;
-        script.type = 'text/javascript';
-        script.async = true;
-
-        var entry = document.getElementsByTagName('script')[0];
-        entry.parentNode.insertBefore(script, entry);
-    </script>
+    <script src="https://script.crazyegg.com/pages/scripts/0078/1224.js" async="true"></script>
 </body>
 </html>
